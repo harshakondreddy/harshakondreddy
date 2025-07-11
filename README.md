@@ -63,15 +63,5 @@ src="https://img.shields.io/twitch/status/harsha_kondreddy?logo=twitchsx&style=f
 <img src=https://img.shields.io/badge/stackoverflow-%23F28032.svg?&style=for-the-badge&logo=stackoverflow&logoColor=white alt=stackoverflow style="margin-bottom: 5px;" />
 </div>
 
-<br/>
-
-<a href="https://www.twitter.com/kondreddyharsha" target="_blank" rel="noreferrer"><img
-src="https://img.shields.io/twitter/follow/kondreddyharsha?logo=twitter&style=for-the-badge&color=3382ed&labelColor=ffffff" />
-</a>
-<a href="https://www.twitch.tv/harsha_kondreddy" target="_blank" rel="noreferrer"><img
-src="https://img.shields.io/twitch/status/harsha_kondreddy?logo=twitchsx&style=for-the-badge&color=3382ed&labelColor=ffffff&label=TWITCH+STATUS" />
-</a>
-
-<br/>
 
 
