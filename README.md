@@ -53,18 +53,24 @@ I've been working as DevOps Engineer, in Design, Build/Release Management with C
 <a href="https://www.linkedin.com/in/harsha0611/" target="_blank">
 <img src=https://img.shields.io/badge/linkedin-%231E77B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white alt=linkedin style="margin-bottom: 5px;" />
 </a>
+<a href="https://www.twitter.com/kondreddyharsha" target="_blank" rel="noreferrer"><img
+src="https://img.shields.io/twitter/follow/kondreddyharsha?logo=twitter&style=for-the-badge&color=3382ed&labelColor=ffffff" />
+</a>
+<a href="https://www.twitch.tv/harsha_kondreddy" target="_blank" rel="noreferrer"><img
+src="https://img.shields.io/twitch/status/harsha_kondreddy?logo=twitchsx&style=for-the-badge&color=3382ed&labelColor=ffffff&label=TWITCH+STATUS" />
+</a>  
 <a href="https://stackoverflow.com/users/19482210/harsha" target="_blank">
 <img src=https://img.shields.io/badge/stackoverflow-%23F28032.svg?&style=for-the-badge&logo=stackoverflow&logoColor=white alt=stackoverflow style="margin-bottom: 5px;" />
-</a>  
-<a href="https://www.twitch.tv/harsha_kondreddy" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitch.svg" width="32" height="32" /></a>
 </div>
 
 <br/>
 
 <a href="https://www.twitter.com/kondreddyharsha" target="_blank" rel="noreferrer"><img
-src="https://img.shields.io/twitter/follow/kondreddyharsha?logo=twitter&style=for-the-badge&color=3382ed&labelColor=ffffff"
-/></a><a href="https://www.twitch.tv/harsha_kondreddy" target="_blank" rel="noreferrer"><img
-src="https://img.shields.io/twitch/status/harsha_kondreddy?logo=twitchsx&style=for-the-badge&color=3382ed&labelColor=ffffff&label=TWITCH+STATUS" /></a>
+src="https://img.shields.io/twitter/follow/kondreddyharsha?logo=twitter&style=for-the-badge&color=3382ed&labelColor=ffffff" />
+</a>
+<a href="https://www.twitch.tv/harsha_kondreddy" target="_blank" rel="noreferrer"><img
+src="https://img.shields.io/twitch/status/harsha_kondreddy?logo=twitchsx&style=for-the-badge&color=3382ed&labelColor=ffffff&label=TWITCH+STATUS" />
+</a>
 
 <br/>
 
