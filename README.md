@@ -43,20 +43,6 @@ I've been working as DevOps Engineer, in Design, Build/Release Management with C
 <br/>  
 
 
-## DevOps Skills
-
-<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
-  https://raw.githubusercontent.com/samloh84/svg-devops-logos/master/logos_aws.svg
-  https://profilinator.rishav.dev/skills-assets/kubernetes-icon.svg
-  <img src="https://profilinator.rishav.dev/skills-assets/linux-original.svg" alt="Linuxrofilinator.rishav.dev/skills-assets/git-scm-icon.svg" alt="Git" height="40"v/skills-assets/gnu_bash-icon.svg
-  <img src="https://profilinator.rishav.dev/skills-assets/rabbitmq-icon.svg" alt="RabbitMQ" height="40"lls-assets/jenkins-icon.svg
-  <img src="https://profilinator.rishav.dev/skills-assets/grafana.png" alt="Grafanafilinator.rishav.dev/skills-assets/gitlab.svg" alt="GitLab" heightor.rishav.dev/skills-assets/ansibleg src="https://profilinator.rishav.dev/skills-assets/apache_kafka-icon.svg" alt="Kafka" heighttor.rishav.dev/skillsasticsearch.png
-  <img src="https://profilinator.rishav.dev/skills-assets/kibana.png" alt="Kibana" heightor.rishav.dev/skills-assets/microsoft_azure-icon.svg" alt="Azure" height="40"ishav.dev/skills-assets/docker-originalsvg
-  <img src="https://profilinator.rishav.dev/skills-assets/postgresql-original-wordmark.svg" alt="PostgreSQL" heightishav.dev/skills-assets/python-originalps://profilinator.rishav.dev/skills-assets/nginx-original.svg
-  <img src="https://profilinator.rishlls-assets/java-original-wordmark.svg
-</div>
-
-
 ## Connect with me  
 <div align="left">
 <a href="https://github.com/harshakondreddy" target="_blank">
