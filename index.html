@@ -22,8 +22,21 @@
   <!-- Devicons (tech logos) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
 
-  <!-- AOS (scroll animations) -->
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <!-- Scroll reveal — no CDN, native only -->
+  <style>
+  .reveal { opacity:0; transform:translateY(28px); transition:opacity .65s ease, transform .65s ease; }
+  .reveal.shown { opacity:1; transform:none; }
+  .reveal-left  { opacity:0; transform:translateX(-28px); transition:opacity .65s ease, transform .65s ease; }
+  .reveal-left.shown  { opacity:1; transform:none; }
+  .reveal-right { opacity:0; transform:translateX(28px);  transition:opacity .65s ease, transform .65s ease; }
+  .reveal-right.shown { opacity:1; transform:none; }
+  .reveal-zoom  { opacity:0; transform:scale(.93);        transition:opacity .5s ease, transform .5s ease; }
+  .reveal-zoom.shown  { opacity:1; transform:none; }
+  /* Staggered delays for child cards */
+  .reveal-zoom:nth-child(2){ transition-delay:.1s }
+  .reveal-zoom:nth-child(3){ transition-delay:.2s }
+  .reveal-zoom:nth-child(4){ transition-delay:.3s }
+  </style>
 
   <style>
   /* =====================================================
@@ -664,7 +677,7 @@
 ════════════════════════════════════════ -->
 <section id="about">
   <div class="si">
-    <div data-aos="fade-up">
+    <div class="reveal">
       <div class="stag"><i class="fa-solid fa-user-astronaut"></i>&nbsp; About Me</div>
       <h2 class="stitle">Platform Engineering<br><span>Meets SRE</span></h2>
       <div class="sep"></div>
@@ -672,7 +685,7 @@
     </div>
 
     <div class="abg">
-      <div class="abt" data-aos="fade-right">
+      <div class="abt" class="reveal-left">
         <p>
           I'm <strong>Sri Harsha Kondreddy</strong> — a Certified DevOps professional with
           <strong>8+ years of experience</strong> across the full infrastructure stack. Based in
@@ -692,22 +705,22 @@
         </p>
 
         <div class="stats">
-          <div class="sttile" data-aos="zoom-in" data-aos-delay="80">
+          <div class="sttile" class="reveal-zoom">
             <div class="ico">🚀</div><div class="val">8+</div><div class="lbl">Years Experience</div>
           </div>
-          <div class="sttile" data-aos="zoom-in" data-aos-delay="160">
+          <div class="sttile" class="reveal-zoom">
             <div class="ico">🐳</div><div class="val">560+</div><div class="lbl">Containers Managed</div>
           </div>
-          <div class="sttile" data-aos="zoom-in" data-aos-delay="240">
+          <div class="sttile" class="reveal-zoom">
             <div class="ico">👥</div><div class="val">5</div><div class="lbl">Engineers Led</div>
           </div>
-          <div class="sttile" data-aos="zoom-in" data-aos-delay="320">
+          <div class="sttile" class="reveal-zoom">
             <div class="ico">☁️</div><div class="val">4</div><div class="lbl">Companies</div>
           </div>
         </div>
       </div>
 
-      <div class="ghc" data-aos="fade-left">
+      <div class="ghc" class="reveal-right">
         <img src="https://github-readme-stats.vercel.app/api?username=harshakondreddy&show_icons=true&theme=github_dark&hide_border=true&bg_color=1a2235&title_color=a78bfa&icon_color=a78bfa&text_color=e5e7eb&ring_color=f472b6" alt="GitHub Stats" loading="lazy">
         <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=harshakondreddy&layout=compact&theme=github_dark&hide_border=true&bg_color=1a2235&title_color=a78bfa&text_color=e5e7eb" alt="Top Languages" loading="lazy">
       </div>
@@ -720,7 +733,7 @@
 ════════════════════════════════════════ -->
 <section id="skills">
   <div class="si">
-    <div data-aos="fade-up">
+    <div class="reveal">
       <div class="stag"><i class="fa-solid fa-layer-group"></i>&nbsp; Skills</div>
       <h2 class="stitle">My Tech <span>Arsenal</span></h2>
       <div class="sep"></div>
@@ -730,7 +743,7 @@
     <div class="skats">
 
       <!-- Cloud & Infrastructure -->
-      <div class="scat" data-aos="fade-up">
+      <div class="scat" class="reveal">
         <h3>☁️&nbsp; Cloud &amp; Infrastructure</h3>
         <div class="skgrid">
           <div class="sk"><span class="sk-ico"><i class="devicon-amazonwebservices-plain-wordmark colored"></i></span><div class="sk-name">AWS</div><div class="sk-bar"><div class="sk-fill" data-w="92"></div></div></div>
@@ -743,7 +756,7 @@
       </div>
 
       <!-- Containers & Orchestration -->
-      <div class="scat" data-aos="fade-up">
+      <div class="scat" class="reveal">
         <h3>🐳&nbsp; Containers &amp; Orchestration</h3>
         <div class="skgrid">
           <div class="sk"><span class="sk-ico"><i class="devicon-kubernetes-plain colored"></i></span><div class="sk-name">Kubernetes</div><div class="sk-bar"><div class="sk-fill" data-w="93"></div></div></div>
@@ -755,7 +768,7 @@
       </div>
 
       <!-- CI/CD & Automation -->
-      <div class="scat" data-aos="fade-up">
+      <div class="scat" class="reveal">
         <h3>⚙️&nbsp; CI/CD &amp; Automation</h3>
         <div class="skgrid">
           <div class="sk"><span class="sk-ico"><i class="devicon-github-original colored"></i></span><div class="sk-name">GitHub Actions</div><div class="sk-bar"><div class="sk-fill" data-w="92"></div></div></div>
@@ -770,7 +783,7 @@
       </div>
 
       <!-- Monitoring & Observability -->
-      <div class="scat" data-aos="fade-up">
+      <div class="scat" class="reveal">
         <h3>📊&nbsp; Monitoring &amp; Observability</h3>
         <div class="skgrid">
           <div class="sk"><span class="sk-ico">🔥</span><div class="sk-name">Prometheus</div><div class="sk-bar"><div class="sk-fill" data-w="85"></div></div></div>
@@ -781,7 +794,7 @@
       </div>
 
       <!-- Messaging & Databases -->
-      <div class="scat" data-aos="fade-up">
+      <div class="scat" class="reveal">
         <h3>📨&nbsp; Messaging &amp; Databases</h3>
         <div class="skgrid">
           <div class="sk"><span class="sk-ico"><i class="devicon-apachekafka-original" style="color:#e5e7eb;font-size:2.25rem"></i></span><div class="sk-name">Kafka</div><div class="sk-bar"><div class="sk-fill" data-w="77"></div></div></div>
@@ -791,7 +804,7 @@
       </div>
 
       <!-- Programming -->
-      <div class="scat" data-aos="fade-up">
+      <div class="scat" class="reveal">
         <h3>💻&nbsp; Programming</h3>
         <div class="skgrid">
           <div class="sk"><span class="sk-ico"><i class="devicon-python-plain colored"></i></span><div class="sk-name">Python&nbsp;▲</div><div class="sk-bar"><div class="sk-fill" data-w="70"></div></div></div>
@@ -808,7 +821,7 @@
 ════════════════════════════════════════ -->
 <section id="experience">
   <div class="si">
-    <div data-aos="fade-up">
+    <div class="reveal">
       <div class="stag"><i class="fa-solid fa-briefcase"></i>&nbsp; Experience</div>
       <h2 class="stitle">Professional <span>Journey</span></h2>
       <div class="sep"></div>
@@ -818,7 +831,7 @@
     <div class="tl">
 
       <!-- Honeywell -->
-      <div class="tli" data-aos="fade-up">
+      <div class="tli" class="reveal">
         <div class="tlid"></div>
         <div class="tlic">
           <div class="tlih">
@@ -852,7 +865,7 @@
       </div>
 
       <!-- Tensor Technologies -->
-      <div class="tli" data-aos="fade-up">
+      <div class="tli" class="reveal">
         <div class="tlid"></div>
         <div class="tlic">
           <div class="tlih">
@@ -885,7 +898,7 @@
       </div>
 
       <!-- ICICI Prudential -->
-      <div class="tli" data-aos="fade-up">
+      <div class="tli" class="reveal">
         <div class="tlid"></div>
         <div class="tlic">
           <div class="tlih">
@@ -918,7 +931,7 @@
       </div>
 
       <!-- HCL -->
-      <div class="tli" data-aos="fade-up">
+      <div class="tli" class="reveal">
         <div class="tlid"></div>
         <div class="tlic">
           <div class="tlih">
@@ -956,13 +969,13 @@
 ════════════════════════════════════════ -->
 <section id="education">
   <div class="si">
-    <div data-aos="fade-up">
+    <div class="reveal">
       <div class="stag"><i class="fa-solid fa-graduation-cap"></i>&nbsp; Education</div>
       <h2 class="stitle">Academic <span>Background</span></h2>
       <div class="sep"></div>
     </div>
 
-    <div class="edu-card" data-aos="fade-up">
+    <div class="edu-card" class="reveal">
       <div class="edu-icon">🎓</div>
       <div>
         <div class="edu-deg">Master of Science — Information Technology</div>
@@ -979,21 +992,21 @@
 ════════════════════════════════════════ -->
 <section id="certifications">
   <div class="si">
-    <div data-aos="fade-up">
+    <div class="reveal">
       <div class="stag"><i class="fa-solid fa-certificate"></i>&nbsp; Certifications</div>
       <h2 class="stitle">Licenses &amp; <span>Certifications</span></h2>
       <div class="sep"></div>
     </div>
 
     <div class="cert-grid">
-      <div class="cert-card" data-aos="zoom-in">
+      <div class="cert-card" class="reveal-zoom">
         <div class="cert-badge" style="background:rgba(56,189,248,.12)">🔗</div>
         <div>
           <div class="cert-name">CCNA — Routing &amp; Switching</div>
           <div class="cert-org">Cisco</div>
         </div>
       </div>
-      <div class="cert-card" data-aos="zoom-in" data-aos-delay="100">
+      <div class="cert-card" class="reveal-zoom">
         <div class="cert-badge" style="background:rgba(167,139,250,.12)">📋</div>
         <div>
           <div class="cert-name">ITIL Foundations</div>
@@ -1009,7 +1022,7 @@
 ════════════════════════════════════════ -->
 <section id="projects">
   <div class="si">
-    <div data-aos="fade-up">
+    <div class="reveal">
       <div class="stag"><i class="fa-solid fa-diagram-project"></i>&nbsp; Projects</div>
       <h2 class="stitle">Featured <span>Projects</span></h2>
       <div class="sep"></div>
@@ -1017,7 +1030,7 @@
     </div>
 
     <div class="proj-grid">
-      <div class="proj-card" data-aos="fade-right">
+      <div class="proj-card" class="reveal-left">
         <div class="proj-icon">🔄</div>
         <div class="proj-name">Kubernetes Container Runtime Migration: Docker → containerd on EKS</div>
         <p class="proj-desc">
@@ -1032,7 +1045,7 @@
         </div>
       </div>
 
-      <div class="proj-card" data-aos="fade-left">
+      <div class="proj-card" class="reveal-right">
         <div class="proj-icon">⬆️</div>
         <div class="proj-name">Kubernetes Version Upgrade &amp; Multi-Cluster Storage Management</div>
         <p class="proj-desc">
@@ -1055,7 +1068,7 @@
 ════════════════════════════════════════ -->
 <section id="github">
   <div class="si">
-    <div data-aos="fade-up">
+    <div class="reveal">
       <div class="stag"><i class="fa-brands fa-github"></i>&nbsp; Open Source</div>
       <h2 class="stitle">GitHub <span>Activity</span></h2>
       <div class="sep"></div>
@@ -1063,18 +1076,18 @@
     </div>
 
     <div class="ghg">
-      <div data-aos="fade-right">
+      <div class="reveal-left">
         <img src="https://github-readme-streak-stats.herokuapp.com/?user=harshakondreddy&theme=github-dark-blue&hide_border=true&background=1a2235&ring=a78bfa&fire=f472b6&currStreakLabel=a78bfa&sideLabels=e5e7eb&dates=9ca3af" alt="GitHub Streak">
       </div>
-      <div data-aos="fade-left">
+      <div class="reveal-right">
         <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=harshakondreddy&layout=compact&theme=github_dark&hide_border=true&bg_color=1a2235&title_color=a78bfa&text_color=e5e7eb&langs_count=8" alt="Top Languages">
       </div>
-      <div class="fw" data-aos="fade-up">
+      <div class="fw" class="reveal">
         <img src="https://github-readme-activity-graph.vercel.app/graph?username=harshakondreddy&theme=github-compact&bg_color=0b1120&color=a78bfa&line=7c3aed&point=f472b6&hide_border=true&area=true&area_color=7c3aed" alt="Contribution Graph">
       </div>
     </div>
 
-    <div class="ach-row" data-aos="fade-up">
+    <div class="ach-row" class="reveal">
       <div class="ach"><div class="ai">🦈</div><div><div class="an">Pull Shark</div><div class="as">GitHub Achievement</div></div></div>
       <div class="ach"><div class="ai">☸️</div><div><div class="an">Kubernetes Expert</div><div class="as">K8s 1.21 → 1.26 Upgrades</div></div></div>
       <div class="ach"><div class="ai">🤝</div><div><div class="an">Open to Collaborate</div><div class="as">Kubernetes · Docker · DevOps</div></div></div>
@@ -1087,7 +1100,7 @@
 ════════════════════════════════════════ -->
 <section id="contact">
   <div class="si">
-    <div data-aos="fade-up">
+    <div class="reveal">
       <div class="stag"><i class="fa-solid fa-satellite-dish"></i>&nbsp; Contact</div>
       <h2 class="stitle">Let's <span>Build Together</span></h2>
       <div class="sep"></div>
@@ -1095,7 +1108,7 @@
     </div>
 
     <div class="cg">
-      <div class="ci" data-aos="fade-right">
+      <div class="ci" class="reveal-left">
         <h3>Get In Touch</h3>
         <p>I'm actively open to new DevOps engineering opportunities and collaborating on Kubernetes,
            Docker, and cloud infrastructure projects. Don't hesitate to reach out — I respond promptly!</p>
@@ -1126,7 +1139,7 @@
         </div>
       </div>
 
-      <div data-aos="fade-left">
+      <div class="reveal-right">
         <div class="cform">
           <h3>Send a Message</h3>
           <form id="cf" onsubmit="sendMsg(event)">
@@ -1181,8 +1194,18 @@
      SCRIPTS
 ════════════════════════════════════════ -->
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/dist/typed.min.js"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
+/* ── Native scroll reveal (replaces AOS — zero CDN dependency) ── */
+(function(){
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('shown'); obs.unobserve(e.target); }
+    });
+  },{ threshold:0.08, rootMargin:'0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-zoom')
+    .forEach(function(el){ obs.observe(el); });
+})();
+
 /* ── Particle canvas ── */
 (function(){
   const c=document.getElementById('cvs'), x=c.getContext('2d');
@@ -1225,7 +1248,7 @@ new Typed('#typed',{
 });
 
 /* ── AOS ── */
-AOS.init({ duration:680, easing:'ease-out-cubic', once:true, offset:50 });
+/* AOS removed — using native IntersectionObserver above */
 
 /* ── Scroll handler ── */
 const bar=document.getElementById('progress');
