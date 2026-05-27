@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
+  <!-- Anti-FOUC: apply theme before first paint -->
+  <script>(function(){var t=localStorage.getItem('hk-theme')||(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',t);})()</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sri Harsha Kondreddy | Advance DevOps Engineer</title>
@@ -81,7 +83,7 @@
 
   /* ── NAV ── */
   nav{position:fixed;top:0;width:100%;padding:1.125rem 2rem;z-index:1000;transition:var(--trans)}
-  nav.on{background:var(--nav-bg);backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--border);padding:.7rem 2rem}
+  nav.on{background:var(--nav-bg);backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--border);padding:.7rem 2rem;box-shadow:0 1px 20px rgba(0,0,0,.08)}
   .nw{max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem}
   .logo{font-size:1.5rem;font-weight:900;letter-spacing:-1px;background:var(--gradT);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
   .nlinks{display:flex;list-style:none;gap:.15rem}
@@ -125,6 +127,7 @@
   .htyped{font-family:'JetBrains Mono',monospace;font-size:clamp(.95rem,2vw,1.3rem);color:var(--t3);margin-bottom:1.5rem;animation:upIn .6s .2s ease both}
   .htyped .tc{color:var(--cy);font-weight:600}
   .htyped .tp{color:var(--t4)}
+  [data-theme="light"] .htyped .tc{color:#0369a1}
 
   .hbio{font-size:1.0625rem;color:var(--t3);max-width:540px;line-height:1.82;margin-bottom:2.5rem;animation:upIn .6s .3s ease both}
   .hbio strong{color:var(--t1)}
@@ -159,7 +162,10 @@
   .avring{position:absolute;inset:-4px;border-radius:50%;background:conic-gradient(#7c3aed 0%,#a78bfa 25%,#f472b6 50%,#38bdf8 75%,#7c3aed 100%);animation:spin 7s linear infinite}
   .avring::after{content:'';position:absolute;inset:4px;border-radius:50%;background:var(--bg)}
   .avimg{position:absolute;inset:6px;border-radius:50%;overflow:hidden;z-index:1}
-  .avimg img{width:100%;height:100%;object-fit:cover}
+  .avimg img{width:100%;height:100%;object-fit:cover;object-position:top center}
+  /* Photo slideshow */
+  .av-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;opacity:0;transition:opacity 1.4s cubic-bezier(.4,0,.2,1)}
+  .av-slide.active{opacity:1}
   .avbadge{position:absolute;bottom:12px;right:4px;z-index:2;background:var(--bg2);border:2px solid var(--gr);border-radius:50px;padding:.35rem .9rem;font-size:.78rem;font-weight:700;color:var(--gr);display:flex;align-items:center;gap:.35rem}
   .orb{position:absolute;border-radius:50%;background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.18);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
   .o1{width:50px;height:50px;top:-16px;left:-8px;animation:fl1 5s ease-in-out infinite}
@@ -187,8 +193,8 @@
   .abt strong{color:var(--t1);font-weight:700}
 
   .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:2rem}
-  .sttile{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:1.25rem 1.1rem;transition:var(--trans)}
-  .sttile:hover{border-color:var(--p);background:var(--card-h);transform:translateY(-3px);box-shadow:var(--shadow)}
+  .sttile{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:1.25rem 1.1rem;transition:var(--trans);will-change:transform}
+  .sttile:hover{border-color:var(--p);background:var(--card-h);transform:translateY(-3px) scale(1.02);box-shadow:var(--shadow)}
   .sttile .ico{font-size:1.5rem;margin-bottom:.4rem}
   .sttile .val{font-size:1.8rem;font-weight:900;line-height:1;background:var(--gradT);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.2rem}
   .sttile .lbl{font-size:.82rem;color:var(--t4);font-weight:500}
@@ -208,11 +214,11 @@
     background:var(--card);border:1px solid var(--border);
     border-radius:var(--r2);padding:1.2rem .875rem 1rem;
     text-align:center;transition:var(--trans);position:relative;overflow:hidden;
-    display:block;cursor:pointer;text-decoration:none;
+    display:block;cursor:pointer;text-decoration:none;will-change:transform;
   }
   .sk::before{content:'';position:absolute;inset:0;background:var(--grad);opacity:0;transition:opacity .3s}
-  .sk:hover{border-color:var(--p);transform:translateY(-6px);box-shadow:0 14px 40px rgba(124,58,237,.25)}
-  .sk:hover::before{opacity:.07}
+  .sk:hover{border-color:var(--p);transform:translateY(-7px) scale(1.04);box-shadow:0 16px 44px rgba(124,58,237,.28)}
+  .sk:hover::before{opacity:.08}
 
   .sk-ico{font-size:1.875rem;margin-bottom:.55rem;display:block;position:relative;z-index:1;line-height:1}
   .sk-ico i{font-size:1.875rem}
@@ -229,8 +235,8 @@
   .tl::before{content:'';position:absolute;left:0;top:8px;bottom:0;width:2px;background:linear-gradient(to bottom,var(--p2),var(--acc),transparent)}
   .tli{position:relative;padding:0 0 2.75rem 2.25rem}
   .tlid{position:absolute;left:-2.3rem;top:.4rem;width:18px;height:18px;border-radius:50%;background:var(--grad);border:3px solid var(--bg2);box-shadow:0 0 0 4px rgba(124,58,237,.25)}
-  .tlic{background:var(--card);border:1px solid var(--border);border-radius:var(--r3);padding:2rem 2.25rem;transition:var(--trans)}
-  .tlic:hover{border-color:rgba(167,139,250,.4);background:var(--card-h);transform:translateX(6px);box-shadow:var(--shadow)}
+  .tlic{background:var(--card);border:1px solid var(--border);border-radius:var(--r3);padding:2rem 2.25rem;transition:var(--trans);will-change:transform}
+  .tlic:hover{border-color:rgba(167,139,250,.4);background:var(--card-h);transform:translateX(8px);box-shadow:var(--shadow)}
   .tlih{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
   .tlico{display:flex;align-items:center;gap:.875rem;margin-bottom:.4rem}
   .co-logo{width:46px;height:46px;border-radius:var(--r1);background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
@@ -289,8 +295,8 @@
   /* ── PROJECTS ── */
   #projects{background:var(--bg)}
   .proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.5rem;margin-top:3rem}
-  .proj-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r3);padding:2rem;transition:var(--trans);display:flex;flex-direction:column;gap:1rem}
-  .proj-card:hover{border-color:rgba(167,139,250,.4);transform:translateY(-5px);box-shadow:0 16px 48px rgba(124,58,237,.2)}
+  .proj-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r3);padding:2rem;transition:var(--trans);display:flex;flex-direction:column;gap:1rem;will-change:transform}
+  .proj-card:hover{border-color:rgba(167,139,250,.4);transform:translateY(-6px) scale(1.01);box-shadow:0 20px 56px rgba(124,58,237,.22)}
   .proj-icon{font-size:2.5rem}
   .proj-name{font-size:1.1rem;font-weight:800;color:var(--t1);line-height:1.3}
   .proj-desc{font-size:.9375rem;color:var(--t3);line-height:1.75;flex:1}
@@ -454,7 +460,9 @@
       <div class="avw" style="animation:float 5s ease-in-out infinite">
         <div class="avring"></div>
         <div class="avimg">
-          <img src="https://avatars.githubusercontent.com/u/40243638?v=4" alt="Sri Harsha Kondreddy" loading="eager">
+          <img class="av-slide active" src="assets/photo-blazer.jpg" alt="Sri Harsha Kondreddy" loading="eager">
+          <img class="av-slide" src="assets/photo-suit.jpg" alt="Sri Harsha Kondreddy" loading="lazy">
+          <img class="av-slide" src="assets/photo-casual.jpg" alt="Sri Harsha Kondreddy" loading="lazy">
         </div>
         <div class="avbadge"><i class="fa-solid fa-circle" style="font-size:7px"></i>&nbsp;Open to Work</div>
         <div class="orb o1">🐳</div>
@@ -1024,6 +1032,18 @@ setTimeout(onScroll,350);
 var bur=document.getElementById('bur'),nl=document.getElementById('nlinks');
 bur.addEventListener('click',function(){nl.classList.toggle('open');});
 nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nl.classList.remove('open');});});
+
+/* ── Photo slideshow ── */
+(function(){
+  var slides=document.querySelectorAll('.av-slide');
+  if(slides.length<2) return;
+  var cur=0;
+  setInterval(function(){
+    slides[cur].classList.remove('active');
+    cur=(cur+1)%slides.length;
+    slides[cur].classList.add('active');
+  },4500);
+})();
 
 /* ── Contact form — Formspree AJAX ── */
 async function sendMsg(e){
