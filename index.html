@@ -161,7 +161,7 @@
   .abt strong{color:var(--t1);font-weight:700}
   .ab-right{display:flex;flex-direction:column;gap:1.1rem}
   .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
-  .sttile{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:1rem .875rem;transition:var(--trans);will-change:transform}
+  .sttile{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:1rem .875rem;transition:var(--trans)}
   .sttile:hover{border-color:var(--p);background:var(--card-h);transform:translateY(-3px) scale(1.02);box-shadow:var(--shadow)}
   .sttile .ico{font-size:1.25rem;margin-bottom:.3rem}
   .sttile .val{font-size:1.6rem;font-weight:900;line-height:1;background:var(--gradT);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.12rem}
@@ -170,32 +170,15 @@
   .ghc img{width:100%;border-radius:var(--r2);border:1px solid var(--border);transition:var(--trans)}
   .ghc img:hover{border-color:var(--p);box-shadow:0 0 24px rgba(26,79,214,.2)}
 
-  /* ── SKILLS (Notion-style table) ── */
+  /* ── SKILLS (icon badge chips) ── */
   #skills{background:var(--bg)}
-  .skats{display:flex;flex-direction:column;gap:2.5rem;margin-top:2.5rem}
-  .scat-hd{display:flex;align-items:center;gap:.65rem;font-size:.78rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t4);padding:.5rem 0;margin-bottom:.5rem;border-bottom:1px solid var(--border)}
-  .sk-tbl{border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;background:var(--card)}
-  .skr{
-    display:grid;
-    grid-template-columns:1.9rem 1fr 160px 2.9rem 80px;
-    align-items:center;gap:.55rem;
-    padding:.42rem .875rem;
-    border-bottom:1px solid var(--border);
-    color:var(--t2);text-decoration:none;
-    transition:background .18s,color .18s;
-    cursor:pointer;
-  }
-  .skr:last-child{border-bottom:none}
-  .skr:hover{background:rgba(77,148,255,.07);color:var(--t1)}
-  [data-theme="light"] .skr:hover{background:rgba(29,80,216,.05)}
-  .skr-i{font-size:1.05rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-  .skr-i i{font-size:1.05rem}
-  .skr-n{font-weight:600;font-size:.84rem;white-space:nowrap}
-  .skr-b{height:2px;background:var(--bg3);border-radius:2px;overflow:hidden}
-  [data-theme="light"] .skr-b{background:var(--bg3)}
-  .skr-f{display:block;height:100%;background:var(--grad);border-radius:2px;width:0;transition:width 1.4s cubic-bezier(.23,1,.32,1)}
-  .skr-p{font-size:.68rem;font-family:'JetBrains Mono',monospace;color:var(--t4);text-align:right;white-space:nowrap}
-  .skr-tag{font-size:.63rem;background:rgba(77,148,255,.1);border:1px solid rgba(77,148,255,.18);color:var(--p);padding:.08rem .42rem;border-radius:50px;text-align:center;white-space:nowrap;font-weight:600}
+  .skats{display:flex;flex-direction:column;gap:1.75rem;margin-top:2.5rem}
+  .scat-hd{display:flex;align-items:center;gap:.55rem;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t4);padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+  .sk-chips{display:flex;flex-wrap:wrap;gap:.5rem;padding:.75rem 0 0}
+  .skc{display:inline-flex;align-items:center;gap:.4rem;background:var(--card);border:1px solid var(--border);border-radius:var(--r1);padding:.36rem .7rem;color:var(--t2);font-size:.84rem;font-weight:500;text-decoration:none;transition:background .18s,border-color .18s,color .18s;cursor:default}
+  .skc:hover{border-color:var(--border-h);color:var(--t1);background:var(--card-h)}
+  .skc i{font-size:.95rem;flex-shrink:0}
+  .skc span{white-space:nowrap}
 
   /* ── EXPERIENCE ── */
   #experience{background:var(--bg2)}
@@ -203,7 +186,7 @@
   .tl::before{content:'';position:absolute;left:0;top:8px;bottom:0;width:2px;background:linear-gradient(to bottom,var(--p2),var(--cy),transparent)}
   .tli{position:relative;padding:0 0 2.5rem 2.25rem}
   .tlid{position:absolute;left:-2.3rem;top:.4rem;width:16px;height:16px;border-radius:50%;background:var(--grad);border:3px solid var(--bg2);box-shadow:0 0 0 4px rgba(26,79,214,.22)}
-  .tlic{background:var(--card);border:1px solid var(--border);border-radius:var(--r3);padding:1.875rem 2rem;transition:var(--trans);will-change:transform}
+  .tlic{background:var(--card);border:1px solid var(--border);border-radius:var(--r3);padding:1.875rem 2rem;transition:var(--trans)}
   .tlic:hover{border-color:rgba(77,148,255,.38);background:var(--card-h);transform:translateX(7px);box-shadow:var(--shadow)}
   .tlih{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.875rem}
   .tlico{display:flex;align-items:center;gap:.875rem}
@@ -259,7 +242,7 @@
   /* ── PROJECTS ── */
   #projects{background:var(--bg)}
   .proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.25rem;margin-top:2.5rem}
-  .proj-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r3);padding:1.875rem;transition:var(--trans);display:flex;flex-direction:column;gap:.875rem;will-change:transform}
+  .proj-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r3);padding:1.875rem;transition:var(--trans);display:flex;flex-direction:column;gap:.875rem}
   .proj-card:hover{border-color:rgba(77,148,255,.38);transform:translateY(-5px) scale(1.01);box-shadow:0 18px 52px rgba(26,79,214,.22)}
   .proj-icon{font-size:2.25rem}
   .proj-name{font-size:1.05rem;font-weight:800;color:var(--t1);line-height:1.3}
@@ -465,76 +448,73 @@
     </div>
 
     <div class="skats">
-      <!-- Cloud & Infrastructure -->
+
       <div class="scat reveal">
-        <div class="scat-hd"><span>☁️</span><span>Cloud &amp; Infrastructure</span></div>
-        <div class="sk-tbl">
-          <a href="https://aws.amazon.com" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-amazonwebservices-plain-wordmark colored"></i></span><span class="skr-n">AWS</span><span class="skr-b"><span class="skr-f" data-w="92"></span></span><span class="skr-p">92%</span><span class="skr-tag">Cloud</span></a>
-          <a href="https://azure.microsoft.com" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-azure-plain colored"></i></span><span class="skr-n">Azure</span><span class="skr-b"><span class="skr-f" data-w="85"></span></span><span class="skr-p">85%</span><span class="skr-tag">Cloud</span></a>
-          <a href="https://aws.amazon.com/eks/" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-amazonwebservices-plain colored"></i></span><span class="skr-n">Amazon EKS</span><span class="skr-b"><span class="skr-f" data-w="90"></span></span><span class="skr-p">90%</span><span class="skr-tag">Cloud</span></a>
-          <a href="https://azure.microsoft.com/en-us/products/kubernetes-service" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-azure-plain colored"></i></span><span class="skr-n">Azure AKS</span><span class="skr-b"><span class="skr-f" data-w="86"></span></span><span class="skr-p">86%</span><span class="skr-tag">Cloud</span></a>
-          <a href="https://www.linux.org" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-linux-plain colored"></i></span><span class="skr-n">Linux</span><span class="skr-b"><span class="skr-f" data-w="95"></span></span><span class="skr-p">95%</span><span class="skr-tag">OS</span></a>
-          <a href="https://nginx.org" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-nginx-original colored"></i></span><span class="skr-n">Nginx</span><span class="skr-b"><span class="skr-f" data-w="80"></span></span><span class="skr-p">80%</span><span class="skr-tag">Infra</span></a>
+        <div class="scat-hd"><i class="fa-solid fa-cloud" style="font-size:.9rem"></i><span>Cloud &amp; Infrastructure</span></div>
+        <div class="sk-chips">
+          <span class="skc"><i class="devicon-amazonwebservices-plain-wordmark colored"></i><span>AWS</span></span>
+          <span class="skc"><i class="devicon-azure-plain colored"></i><span>Azure</span></span>
+          <span class="skc"><i class="devicon-amazonwebservices-plain colored"></i><span>Amazon EKS</span></span>
+          <span class="skc"><i class="devicon-azure-plain colored"></i><span>Azure AKS</span></span>
+          <span class="skc"><i class="devicon-linux-plain colored"></i><span>Linux</span></span>
+          <span class="skc"><i class="devicon-nginx-original colored"></i><span>Nginx</span></span>
         </div>
       </div>
 
-      <!-- Containers & Orchestration -->
       <div class="scat reveal">
-        <div class="scat-hd"><span>🐳</span><span>Containers &amp; Orchestration</span></div>
-        <div class="sk-tbl">
-          <a href="https://kubernetes.io" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-kubernetes-plain colored"></i></span><span class="skr-n">Kubernetes</span><span class="skr-b"><span class="skr-f" data-w="93"></span></span><span class="skr-p">93%</span><span class="skr-tag">Container</span></a>
-          <a href="https://www.docker.com" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-docker-plain colored"></i></span><span class="skr-n">Docker</span><span class="skr-b"><span class="skr-f" data-w="95"></span></span><span class="skr-p">95%</span><span class="skr-tag">Container</span></a>
-          <a href="https://containerd.io" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-docker-plain" style="color:var(--t4)"></i></span><span class="skr-n">containerd</span><span class="skr-b"><span class="skr-f" data-w="82"></span></span><span class="skr-p">82%</span><span class="skr-tag">Container</span></a>
-          <a href="https://helm.sh" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-helm-original colored"></i></span><span class="skr-n">Helm</span><span class="skr-b"><span class="skr-f" data-w="88"></span></span><span class="skr-p">88%</span><span class="skr-tag">K8s</span></a>
-          <a href="https://argo-cd.readthedocs.io" target="_blank" rel="noopener" class="skr"><span class="skr-i">🔄</span><span class="skr-n">ArgoCD</span><span class="skr-b"><span class="skr-f" data-w="80"></span></span><span class="skr-p">80%</span><span class="skr-tag">GitOps</span></a>
+        <div class="scat-hd"><i class="devicon-docker-plain colored" style="font-size:.9rem"></i><span>Containers &amp; Orchestration</span></div>
+        <div class="sk-chips">
+          <span class="skc"><i class="devicon-kubernetes-plain colored"></i><span>Kubernetes</span></span>
+          <span class="skc"><i class="devicon-docker-plain colored"></i><span>Docker</span></span>
+          <span class="skc"><i class="devicon-docker-plain" style="color:var(--t4)"></i><span>containerd</span></span>
+          <span class="skc"><i class="devicon-helm-original colored"></i><span>Helm</span></span>
+          <span class="skc"><i class="fa-solid fa-arrows-rotate" style="color:var(--cy);font-size:.85rem"></i><span>ArgoCD</span></span>
+          <span class="skc"><i class="fa-solid fa-dharmachakra" style="color:var(--p);font-size:.85rem"></i><span>KOPS</span></span>
         </div>
       </div>
 
-      <!-- CI/CD & Automation -->
       <div class="scat reveal">
-        <div class="scat-hd"><span>⚙️</span><span>CI/CD &amp; Automation</span></div>
-        <div class="sk-tbl">
-          <a href="https://github.com/features/actions" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-github-original colored"></i></span><span class="skr-n">GitHub Actions</span><span class="skr-b"><span class="skr-f" data-w="92"></span></span><span class="skr-p">92%</span><span class="skr-tag">CI/CD</span></a>
-          <a href="https://www.jenkins.io" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-jenkins-plain colored"></i></span><span class="skr-n">Jenkins</span><span class="skr-b"><span class="skr-f" data-w="89"></span></span><span class="skr-p">89%</span><span class="skr-tag">CI/CD</span></a>
-          <a href="https://about.gitlab.com" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-gitlab-plain colored"></i></span><span class="skr-n">GitLab CI</span><span class="skr-b"><span class="skr-f" data-w="83"></span></span><span class="skr-p">83%</span><span class="skr-tag">CI/CD</span></a>
-          <a href="https://www.terraform.io" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-terraform-plain colored"></i></span><span class="skr-n">Terraform</span><span class="skr-b"><span class="skr-f" data-w="86"></span></span><span class="skr-p">86%</span><span class="skr-tag">IaC</span></a>
-          <a href="https://www.ansible.com" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-ansible-plain colored"></i></span><span class="skr-n">Ansible</span><span class="skr-b"><span class="skr-f" data-w="83"></span></span><span class="skr-p">83%</span><span class="skr-tag">IaC</span></a>
-          <a href="https://git-scm.com" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-git-plain colored"></i></span><span class="skr-n">Git</span><span class="skr-b"><span class="skr-f" data-w="97"></span></span><span class="skr-p">97%</span><span class="skr-tag">VCS</span></a>
-          <a href="https://www.gnu.org/software/bash/" target="_blank" rel="noopener" class="skr"><span class="skr-i">🐚</span><span class="skr-n">Bash / Shell</span><span class="skr-b"><span class="skr-f" data-w="91"></span></span><span class="skr-p">91%</span><span class="skr-tag">Scripting</span></a>
-          <a href="https://kops.sigs.k8s.io" target="_blank" rel="noopener" class="skr"><span class="skr-i">⎈</span><span class="skr-n">KOPS</span><span class="skr-b"><span class="skr-f" data-w="78"></span></span><span class="skr-p">78%</span><span class="skr-tag">K8s</span></a>
+        <div class="scat-hd"><i class="fa-solid fa-gears" style="font-size:.9rem"></i><span>CI/CD &amp; Automation</span></div>
+        <div class="sk-chips">
+          <span class="skc"><i class="devicon-github-original" style="color:var(--t2)"></i><span>GitHub Actions</span></span>
+          <span class="skc"><i class="devicon-jenkins-plain colored"></i><span>Jenkins</span></span>
+          <span class="skc"><i class="devicon-gitlab-plain colored"></i><span>GitLab CI</span></span>
+          <span class="skc"><i class="devicon-terraform-plain colored"></i><span>Terraform</span></span>
+          <span class="skc"><i class="devicon-ansible-plain colored"></i><span>Ansible</span></span>
+          <span class="skc"><i class="devicon-git-plain colored"></i><span>Git</span></span>
+          <span class="skc"><i class="fa-solid fa-terminal" style="color:var(--gr);font-size:.85rem"></i><span>Bash / Shell</span></span>
         </div>
       </div>
 
-      <!-- Monitoring & Observability -->
       <div class="scat reveal">
-        <div class="scat-hd"><span>📊</span><span>Monitoring &amp; Observability</span></div>
-        <div class="sk-tbl">
-          <a href="https://prometheus.io" target="_blank" rel="noopener" class="skr"><span class="skr-i">🔥</span><span class="skr-n">Prometheus</span><span class="skr-b"><span class="skr-f" data-w="85"></span></span><span class="skr-p">85%</span><span class="skr-tag">Monitoring</span></a>
-          <a href="https://grafana.com" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-grafana-original colored"></i></span><span class="skr-n">Grafana</span><span class="skr-b"><span class="skr-f" data-w="84"></span></span><span class="skr-p">84%</span><span class="skr-tag">Monitoring</span></a>
-          <a href="https://www.elastic.co/elasticsearch" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-elasticsearch-plain colored"></i></span><span class="skr-n">Elasticsearch</span><span class="skr-b"><span class="skr-f" data-w="80"></span></span><span class="skr-p">80%</span><span class="skr-tag">Logging</span></a>
-          <a href="https://www.elastic.co/kibana" target="_blank" rel="noopener" class="skr"><span class="skr-i">📈</span><span class="skr-n">Kibana</span><span class="skr-b"><span class="skr-f" data-w="78"></span></span><span class="skr-p">78%</span><span class="skr-tag">Logging</span></a>
+        <div class="scat-hd"><i class="fa-solid fa-chart-line" style="font-size:.9rem"></i><span>Monitoring &amp; Observability</span></div>
+        <div class="sk-chips">
+          <span class="skc"><i class="fa-solid fa-fire" style="color:#e75c00;font-size:.85rem"></i><span>Prometheus</span></span>
+          <span class="skc"><i class="devicon-grafana-original colored"></i><span>Grafana</span></span>
+          <span class="skc"><i class="devicon-elasticsearch-plain colored"></i><span>Elasticsearch</span></span>
+          <span class="skc"><i class="fa-solid fa-chart-bar" style="color:var(--acc);font-size:.85rem"></i><span>Kibana</span></span>
+          <span class="skc"><i class="fa-solid fa-eye" style="color:var(--p);font-size:.85rem"></i><span>AppDynamics</span></span>
         </div>
       </div>
 
-      <!-- Messaging & Databases -->
       <div class="scat reveal">
-        <div class="scat-hd"><span>📨</span><span>Messaging &amp; Databases</span></div>
-        <div class="sk-tbl">
-          <a href="https://kafka.apache.org" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-apachekafka-original" style="color:var(--t2);font-size:1.2rem"></i></span><span class="skr-n">Kafka</span><span class="skr-b"><span class="skr-f" data-w="77"></span></span><span class="skr-p">77%</span><span class="skr-tag">Messaging</span></a>
-          <a href="https://www.rabbitmq.com" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-rabbitmq-original colored"></i></span><span class="skr-n">RabbitMQ</span><span class="skr-b"><span class="skr-f" data-w="75"></span></span><span class="skr-p">75%</span><span class="skr-tag">Messaging</span></a>
-          <a href="https://www.postgresql.org" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-postgresql-plain colored"></i></span><span class="skr-n">PostgreSQL</span><span class="skr-b"><span class="skr-f" data-w="80"></span></span><span class="skr-p">80%</span><span class="skr-tag">Database</span></a>
+        <div class="scat-hd"><i class="fa-solid fa-database" style="font-size:.9rem"></i><span>Messaging &amp; Databases</span></div>
+        <div class="sk-chips">
+          <span class="skc"><i class="devicon-apachekafka-original" style="color:var(--t2)"></i><span>Kafka</span></span>
+          <span class="skc"><i class="devicon-rabbitmq-original colored"></i><span>RabbitMQ</span></span>
+          <span class="skc"><i class="devicon-postgresql-plain colored"></i><span>PostgreSQL</span></span>
         </div>
       </div>
 
-      <!-- Programming -->
       <div class="scat reveal">
-        <div class="scat-hd"><span>💻</span><span>Programming</span></div>
-        <div class="sk-tbl">
-          <a href="https://www.python.org" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-python-plain colored"></i></span><span class="skr-n">Python</span><span class="skr-b"><span class="skr-f" data-w="70"></span></span><span class="skr-p">70%</span><span class="skr-tag">Language</span></a>
-          <a href="https://www.java.com" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-java-plain colored"></i></span><span class="skr-n">Java</span><span class="skr-b"><span class="skr-f" data-w="74"></span></span><span class="skr-p">74%</span><span class="skr-tag">Language</span></a>
-          <a href="https://groovy-lang.org" target="_blank" rel="noopener" class="skr"><span class="skr-i"><i class="devicon-groovy-plain colored"></i></span><span class="skr-n">Groovy</span><span class="skr-b"><span class="skr-f" data-w="68"></span></span><span class="skr-p">68%</span><span class="skr-tag">Scripting</span></a>
+        <div class="scat-hd"><i class="fa-solid fa-code" style="font-size:.9rem"></i><span>Programming</span></div>
+        <div class="sk-chips">
+          <span class="skc"><i class="devicon-python-plain colored"></i><span>Python</span></span>
+          <span class="skc"><i class="devicon-java-plain colored"></i><span>Java</span></span>
+          <span class="skc"><i class="devicon-groovy-plain colored"></i><span>Groovy</span></span>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -912,18 +892,17 @@
   window.addEventListener('scroll',onPx,{passive:true});
 })();
 
-/* ── Particles ── */
+/* ── Particles (lightweight — no connection lines) ── */
 (function(){
   var c=document.getElementById('cvs'),x=c.getContext('2d'),pts=[];
   function sz(){c.width=innerWidth;c.height=innerHeight;}
   function isLight(){return document.documentElement.getAttribute('data-theme')==='light';}
   function P(){this.reset();}
-  P.prototype.reset=function(){this.x=Math.random()*c.width;this.y=Math.random()*c.height;this.vx=(Math.random()-.5)*.2;this.vy=(Math.random()-.5)*.2;this.rad=Math.random()*1.2+.3;this.cl=Math.random()>.5?'26,79,214':'34,211,238';};
+  P.prototype.reset=function(){this.x=Math.random()*c.width;this.y=Math.random()*c.height;this.vx=(Math.random()-.5)*.18;this.vy=(Math.random()-.5)*.18;this.rad=Math.random()*1.1+.3;this.cl=Math.random()>.5?'26,79,214':'34,211,238';};
   P.prototype.tick=function(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>c.width)this.vx*=-1;if(this.y<0||this.y>c.height)this.vy*=-1;};
-  P.prototype.draw=function(){x.beginPath();x.arc(this.x,this.y,this.rad,0,Math.PI*2);x.fillStyle='rgba('+this.cl+','+(isLight()?.25:.14)+')';x.fill();};
-  function build(){pts=Array.from({length:Math.min(65,Math.floor(innerWidth/16))},function(){return new P();});}
-  function lines(){var la=isLight()?.08:.04;for(var i=0;i<pts.length;i++)for(var j=i+1;j<pts.length;j++){var dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.hypot(dx,dy);if(d<100){x.beginPath();x.moveTo(pts[i].x,pts[i].y);x.lineTo(pts[j].x,pts[j].y);x.strokeStyle='rgba(26,79,214,'+(la*(1-d/100))+')';x.lineWidth=.5;x.stroke();}}}
-  function loop(){x.clearRect(0,0,c.width,c.height);pts.forEach(function(p){p.tick();p.draw();});lines();requestAnimationFrame(loop);}
+  P.prototype.draw=function(){x.beginPath();x.arc(this.x,this.y,this.rad,0,Math.PI*2);x.fillStyle='rgba('+this.cl+','+(isLight()?.2:.11)+')';x.fill();};
+  function build(){pts=Array.from({length:Math.min(28,Math.floor(innerWidth/40))},function(){return new P();});}
+  function loop(){x.clearRect(0,0,c.width,c.height);pts.forEach(function(p){p.tick();p.draw();});requestAnimationFrame(loop);}
   sz();build();loop();
   window.addEventListener('resize',function(){sz();build();});
 })();
@@ -940,9 +919,6 @@ function onScroll(){
   document.querySelectorAll('section[id]').forEach(function(sec){
     var r=sec.getBoundingClientRect();
     if(r.top<=100&&r.bottom>=100)document.querySelectorAll('.nlinks a').forEach(function(a){a.classList.toggle('act',a.getAttribute('href')==='#'+sec.id);});
-  });
-  document.querySelectorAll('.skr-f:not([data-ok])').forEach(function(el){
-    if(el.getBoundingClientRect().top<innerHeight){el.dataset.ok='1';el.style.width=el.dataset.w+'%';}
   });
 }
 window.addEventListener('scroll',onScroll,{passive:true});
