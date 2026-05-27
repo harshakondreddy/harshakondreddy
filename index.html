@@ -52,7 +52,7 @@
     --mob-menu-bg:rgba(7,16,30,.98);
     --shadow:0 8px 40px rgba(0,0,0,.45);
     --r1:8px; --r2:12px; --r3:18px; --r4:26px;
-    --trans:all .28s cubic-bezier(.4,0,.2,1);
+    --trans:background .22s ease,border-color .22s ease,color .22s ease,transform .22s ease,box-shadow .22s ease,opacity .22s ease;
   }
   [data-theme="light"] {
     --bg:#f0f5ff; --bg2:#e4edff; --bg3:#d6e4ff;
@@ -85,7 +85,7 @@
 
   /* ── NAV ── */
   nav{position:fixed;top:0;width:100%;padding:1.1rem 2rem;z-index:1000;transition:var(--trans)}
-  nav.on{background:var(--nav-bg);backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--border);padding:.65rem 2rem;box-shadow:0 1px 24px rgba(0,0,0,.12)}
+  nav.on{background:var(--nav-bg);border-bottom:1px solid var(--border);padding:.65rem 2rem;box-shadow:0 1px 16px rgba(0,0,0,.10)}
   .nw{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem}
   .logo{font-size:1.375rem;font-weight:900;letter-spacing:-1px;background:var(--gradT);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
   .nlinks{display:flex;list-style:none;gap:.1rem}
@@ -322,7 +322,7 @@
   @media(max-width:768px){
     .nlinks{display:none}
     .bur{display:flex}
-    .nlinks.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;padding:.875rem;background:var(--mob-menu-bg);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);gap:.15rem}
+    .nlinks.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;padding:.875rem;background:var(--mob-menu-bg);border-bottom:1px solid var(--border);gap:.15rem}
     .stats{grid-template-columns:1fr 1fr}
     .proj-grid{grid-template-columns:1fr}
     .cert-grid{grid-template-columns:1fr}
@@ -882,15 +882,6 @@
   document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-zoom').forEach(function(el){obs.observe(el);});
 })();
 
-/* ── Hero parallax ── */
-(function(){
-  var hw=document.getElementById('hw');
-  function onPx(){
-    var s=scrollY,h=window.innerHeight;
-    if(s<h){hw.style.transform='translateY('+s*.22+'px)';hw.style.opacity=1-s/(h*.85);}
-  }
-  window.addEventListener('scroll',onPx,{passive:true});
-})();
 
 /* ── Particles (lightweight — no connection lines) ── */
 (function(){
