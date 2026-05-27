@@ -882,7 +882,6 @@
       <div class="reveal-right">
         <div class="cform">
           <h3>Send a Message</h3>
-          <!-- To enable direct send: sign up at formspree.io, create a form, replace YOUR_FORM_ID below -->
           <form id="cf" onsubmit="sendMsg(event)">
             <div class="fg">
               <label for="fn">Your Name</label>
@@ -1045,7 +1044,13 @@ nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function
   },4500);
 })();
 
-/* ── Contact form — Formspree AJAX ── */
+/* ── Contact form — Web3Forms (no signup, just verify your email once at web3forms.com) ── */
+/*    Step 1: Open https://web3forms.com in your browser
+      Step 2: Enter harshareddykondreddy@gmail.com and click Get Access Key
+      Step 3: Click the verify link in your email
+      Step 4: Copy the Access Key and paste it below replacing WEB3FORMS_KEY           */
+var WEB3FORMS_KEY = 'WEB3FORMS_KEY';
+
 async function sendMsg(e){
   e.preventDefault();
   var btn=document.querySelector('.csub');
@@ -1056,27 +1061,26 @@ async function sendMsg(e){
   txt.textContent='Sending…';
 
   var data={
-    name:document.getElementById('fn').value,
-    email:document.getElementById('fe').value,
-    subject:document.getElementById('fs').value||'Portfolio Contact',
-    message:document.getElementById('fm').value
+    access_key: WEB3FORMS_KEY,
+    name:    document.getElementById('fn').value,
+    email:   document.getElementById('fe').value,
+    subject: (document.getElementById('fs').value||'Portfolio Contact') + ' — harshakondreddy.github.io',
+    message: document.getElementById('fm').value
   };
 
-  /* Replace xyzabc with your Formspree form ID from formspree.io */
-  var FORMSPREE_ID='xyzabc';
-
   try{
-    var res=await fetch('https://formspree.io/f/'+FORMSPREE_ID,{
+    var res=await fetch('https://api.web3forms.com/submit',{
       method:'POST',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
       body:JSON.stringify(data)
     });
-    if(res.ok){
+    var json=await res.json();
+    if(json.success){
       msg.textContent='Message sent! I\'ll get back to you soon.';
       msg.className='form-msg ok';
       e.target.reset();
     } else {
-      throw new Error('server');
+      throw new Error(json.message||'server');
     }
   } catch(err){
     msg.textContent='Couldn\'t send — please email harshareddykondreddy@gmail.com directly.';
