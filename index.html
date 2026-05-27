@@ -17,24 +17,22 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
 
   <style>
-  /* ── Reveal animations (Obsidian-style: scale + blur) ── */
+  /* ── Reveal animations (fast, no blur) ── */
   .reveal,.reveal-left,.reveal-right,.reveal-zoom {
     opacity:0;
-    transition:opacity .75s cubic-bezier(.23,1,.32,1),
-               transform .75s cubic-bezier(.23,1,.32,1),
-               filter .75s ease;
-    filter:blur(3px);
+    transition:opacity .42s cubic-bezier(.23,1,.32,1),
+               transform .42s cubic-bezier(.23,1,.32,1);
   }
-  .reveal        { transform:translateY(28px) scale(.98); }
-  .reveal-left   { transform:translateX(-28px) scale(.98); }
-  .reveal-right  { transform:translateX(28px) scale(.98); }
-  .reveal-zoom   { transform:scale(.93) translateY(16px); }
+  .reveal        { transform:translateY(22px); }
+  .reveal-left   { transform:translateX(-22px); }
+  .reveal-right  { transform:translateX(22px); }
+  .reveal-zoom   { transform:scale(.95) translateY(12px); }
   .reveal.shown,.reveal-left.shown,.reveal-right.shown,.reveal-zoom.shown {
-    opacity:1; transform:none; filter:blur(0);
+    opacity:1; transform:none;
   }
-  .reveal-zoom:nth-child(2){transition-delay:.07s}
-  .reveal-zoom:nth-child(3){transition-delay:.14s}
-  .reveal-zoom:nth-child(4){transition-delay:.21s}
+  .reveal-zoom:nth-child(2){transition-delay:.06s}
+  .reveal-zoom:nth-child(3){transition-delay:.12s}
+  .reveal-zoom:nth-child(4){transition-delay:.18s}
 
   /* ── Design tokens ── */
   :root {
@@ -130,13 +128,17 @@
   .avring{position:absolute;inset:-4px;border-radius:50%;background:conic-gradient(#1a4fd6 0%,#4d94ff 30%,#22d3ee 60%,#f59e0b 80%,#1a4fd6 100%);animation:spin 8s linear infinite}
   .avring::after{content:'';position:absolute;inset:4px;border-radius:50%;background:var(--bg)}
   .avimg{position:absolute;inset:6px;border-radius:50%;overflow:hidden;z-index:1}
-  .av-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;opacity:0;transition:opacity 1.4s cubic-bezier(.4,0,.2,1)}
+  .av-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0;transition:opacity 1.2s cubic-bezier(.4,0,.2,1)}
   .av-slide.active{opacity:1}
   .avbadge{position:absolute;bottom:10px;right:2px;z-index:2;background:var(--bg2);border:2px solid var(--gr);border-radius:50px;padding:.3rem .85rem;font-size:.75rem;font-weight:700;color:var(--gr);display:flex;align-items:center;gap:.3rem}
-  .orb{position:absolute;border-radius:50%;background:rgba(77,148,255,.08);border:1px solid rgba(77,148,255,.18);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
-  .o1{width:46px;height:46px;top:-14px;left:-6px;animation:fl1 5s ease-in-out infinite}
-  .o2{width:40px;height:40px;bottom:16px;left:-26px;animation:fl2 4.5s ease-in-out infinite}
-  .o3{width:42px;height:42px;top:50px;right:-14px;animation:fl1 6.5s ease-in-out infinite reverse}
+  .orb{position:absolute;border-radius:50%;background:rgba(77,148,255,.09);border:1px solid rgba(77,148,255,.22);display:flex;align-items:center;justify-content:center;font-size:1.15rem;color:var(--t2)}
+  .orb i{font-size:1.15rem}
+  .o1{width:46px;height:46px;top:-14px;left:-10px;animation:fl1 5s ease-in-out infinite}
+  .o2{width:42px;height:42px;bottom:14px;left:-28px;animation:fl2 4.5s ease-in-out infinite}
+  .o3{width:44px;height:44px;top:44px;right:-16px;animation:fl1 6.5s ease-in-out infinite reverse}
+  .o4{width:38px;height:38px;bottom:60px;right:-22px;animation:fl2 5.8s ease-in-out infinite}
+  .o5{width:40px;height:40px;top:130px;left:-34px;animation:fl1 7s ease-in-out infinite reverse}
+  [data-theme="light"] .orb{background:rgba(29,80,216,.07);border-color:rgba(29,80,216,.18)}
   .scue{position:absolute;bottom:1.75rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;animation:upIn .8s 1.4s ease both}
   .scue span{font-size:.65rem;letter-spacing:3px;color:var(--t4)}
   .scue .sl{width:1px;height:36px;background:linear-gradient(to bottom,var(--p),transparent);animation:pulse 2s infinite}
@@ -152,17 +154,19 @@
 
   /* ── ABOUT ── */
   #about{background:var(--bg2)}
-  .abg{display:grid;grid-template-columns:1.15fr 0.85fr;gap:3.5rem;align-items:start;margin-top:2.5rem;overflow:hidden}
+  .abg{display:grid;grid-template-columns:1fr 0.72fr;gap:3rem;align-items:start;margin-top:2.5rem}
   .abt{min-width:0}
   .abt p{color:var(--t3);font-size:1rem;line-height:1.88;margin-bottom:1.1rem}
+  .abt p:last-child{margin-bottom:0}
   .abt strong{color:var(--t1);font-weight:700}
-  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:.875rem;margin-top:1.75rem}
-  .sttile{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:1.1rem 1rem;transition:var(--trans);will-change:transform}
+  .ab-right{display:flex;flex-direction:column;gap:1.1rem}
+  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
+  .sttile{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:1rem .875rem;transition:var(--trans);will-change:transform}
   .sttile:hover{border-color:var(--p);background:var(--card-h);transform:translateY(-3px) scale(1.02);box-shadow:var(--shadow)}
-  .sttile .ico{font-size:1.35rem;margin-bottom:.35rem}
-  .sttile .val{font-size:1.7rem;font-weight:900;line-height:1;background:var(--gradT);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.15rem}
-  .sttile .lbl{font-size:.78rem;color:var(--t4);font-weight:500}
-  .ghc{display:flex;flex-direction:column;gap:1rem}
+  .sttile .ico{font-size:1.25rem;margin-bottom:.3rem}
+  .sttile .val{font-size:1.6rem;font-weight:900;line-height:1;background:var(--gradT);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.12rem}
+  .sttile .lbl{font-size:.75rem;color:var(--t4);font-weight:500}
+  .ghc{display:flex;flex-direction:column;gap:.75rem}
   .ghc img{width:100%;border-radius:var(--r2);border:1px solid var(--border);transition:var(--trans)}
   .ghc img:hover{border-color:var(--p);box-shadow:0 0 24px rgba(26,79,214,.2)}
 
@@ -173,25 +177,25 @@
   .sk-tbl{border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;background:var(--card)}
   .skr{
     display:grid;
-    grid-template-columns:2.25rem 1fr 180px 3.25rem 90px;
-    align-items:center;gap:.75rem;
-    padding:.7rem 1rem;
+    grid-template-columns:1.9rem 1fr 160px 2.9rem 80px;
+    align-items:center;gap:.55rem;
+    padding:.42rem .875rem;
     border-bottom:1px solid var(--border);
     color:var(--t2);text-decoration:none;
-    transition:background .2s,color .2s;
+    transition:background .18s,color .18s;
     cursor:pointer;
   }
   .skr:last-child{border-bottom:none}
-  .skr:hover{background:rgba(77,148,255,.08);color:var(--t1)}
-  [data-theme="light"] .skr:hover{background:rgba(29,80,216,.06)}
-  .skr-i{font-size:1.2rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-  .skr-i i{font-size:1.2rem}
-  .skr-n{font-weight:600;font-size:.9rem;white-space:nowrap}
-  .skr-b{height:3px;background:var(--bg3);border-radius:2px;overflow:hidden}
+  .skr:hover{background:rgba(77,148,255,.07);color:var(--t1)}
+  [data-theme="light"] .skr:hover{background:rgba(29,80,216,.05)}
+  .skr-i{font-size:1.05rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .skr-i i{font-size:1.05rem}
+  .skr-n{font-weight:600;font-size:.84rem;white-space:nowrap}
+  .skr-b{height:2px;background:var(--bg3);border-radius:2px;overflow:hidden}
   [data-theme="light"] .skr-b{background:var(--bg3)}
-  .skr-f{display:block;height:100%;background:var(--grad);border-radius:2px;width:0;transition:width 1.6s cubic-bezier(.23,1,.32,1)}
-  .skr-p{font-size:.72rem;font-family:'JetBrains Mono',monospace;color:var(--t4);text-align:right;white-space:nowrap}
-  .skr-tag{font-size:.68rem;background:rgba(77,148,255,.1);border:1px solid rgba(77,148,255,.18);color:var(--p);padding:.12rem .5rem;border-radius:50px;text-align:center;white-space:nowrap;font-weight:600}
+  .skr-f{display:block;height:100%;background:var(--grad);border-radius:2px;width:0;transition:width 1.4s cubic-bezier(.23,1,.32,1)}
+  .skr-p{font-size:.68rem;font-family:'JetBrains Mono',monospace;color:var(--t4);text-align:right;white-space:nowrap}
+  .skr-tag{font-size:.63rem;background:rgba(77,148,255,.1);border:1px solid rgba(77,148,255,.18);color:var(--p);padding:.08rem .42rem;border-radius:50px;text-align:center;white-space:nowrap;font-weight:600}
 
   /* ── EXPERIENCE ── */
   #experience{background:var(--bg2)}
@@ -326,6 +330,8 @@
     .hbio{margin:0 auto 2.25rem}
     .avw{width:260px;height:260px}
     .abg{grid-template-columns:1fr}
+    .ab-right{flex-direction:row;flex-wrap:wrap;gap:.875rem}
+    .stats{flex:1;min-width:240px}
     .cg{grid-template-columns:1fr}
     .gh-minimal{grid-template-columns:1fr}
     .edu-body{flex-direction:column;align-items:flex-start;gap:1.1rem}
@@ -337,7 +343,7 @@
     .stats{grid-template-columns:1fr 1fr}
     .proj-grid{grid-template-columns:1fr}
     .cert-grid{grid-template-columns:1fr}
-    .o1,.o2,.o3{display:none}
+    .o1,.o2,.o3,.o4,.o5{display:none}
     .skr{grid-template-columns:2rem 1fr 100px 2.75rem}
     .skr-tag{display:none}
   }
@@ -358,7 +364,7 @@
 <!-- NAV -->
 <nav id="nav">
   <div class="nw">
-    <span class="logo">HK</span>
+    <span class="logo" style="width:28px;height:28px;border-radius:50%;background:var(--grad);flex-shrink:0"></span>
     <ul class="nlinks" id="nlinks">
       <li><a href="#home" class="act">Home</a></li>
       <li><a href="#about">About</a></li>
@@ -407,9 +413,11 @@
           <img class="av-slide" src="assets/photo-casual.jpg" alt="Sri Harsha Kondreddy" loading="lazy">
         </div>
         <div class="avbadge"><i class="fa-solid fa-circle" style="font-size:6px"></i>&nbsp;Open to Work</div>
-        <div class="orb o1">🐳</div>
-        <div class="orb o2">☸️</div>
-        <div class="orb o3">☁️</div>
+        <div class="orb o1"><i class="devicon-docker-plain colored"></i></div>
+        <div class="orb o2"><i class="devicon-kubernetes-plain colored"></i></div>
+        <div class="orb o3"><i class="devicon-linux-plain colored"></i></div>
+        <div class="orb o4"><i class="devicon-terraform-plain colored"></i></div>
+        <div class="orb o5"><i class="devicon-github-original" style="color:var(--t2)"></i></div>
       </div>
     </div>
   </div>
@@ -430,16 +438,17 @@
         <p>I'm <strong>Sri Harsha Kondreddy</strong> — a DevOps professional with <strong>8+ years of experience</strong> across the full infrastructure stack. Based in <strong>Atlanta, Georgia</strong>, I bring a global engineering perspective built across companies in the US and India.</p>
         <p>I operate at the intersection of <strong>Platform Engineering, SRE, and DevOps</strong> — designing production-grade <strong>Kubernetes clusters on AWS EKS and Azure AKS</strong>, driving CI/CD automation via <strong>GitHub Actions and Jenkins</strong>, and enforcing infrastructure-as-code practices with <strong>Terraform and Ansible</strong>.</p>
         <p>Currently at <strong>Honeywell</strong>, I manage 560+ hosted containers, lead a team of 5 engineers, and have executed complex projects including Kubernetes runtime migrations, multi-cluster version upgrades, and full observability stack implementations.</p>
+      </div>
+      <div class="ab-right reveal-right">
         <div class="stats">
           <div class="sttile reveal-zoom"><div class="ico">🚀</div><div class="val">8+</div><div class="lbl">Years Experience</div></div>
           <div class="sttile reveal-zoom"><div class="ico">🐳</div><div class="val">560+</div><div class="lbl">Containers Managed</div></div>
           <div class="sttile reveal-zoom"><div class="ico">👥</div><div class="val">5</div><div class="lbl">Engineers Led</div></div>
           <div class="sttile reveal-zoom"><div class="ico">🏢</div><div class="val">5</div><div class="lbl">Companies</div></div>
         </div>
-      </div>
-      <div class="ghc reveal-right">
-        <img src="https://github-readme-stats.vercel.app/api?username=harshakondreddy&show_icons=true&theme=github_dark&hide_border=true&bg_color=0f1e38&title_color=4d94ff&icon_color=4d94ff&text_color=bdd0ee&ring_color=22d3ee&count_private=true" alt="GitHub Stats" loading="lazy" onerror="this.parentNode.removeChild(this)">
-        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=harshakondreddy&layout=compact&theme=github_dark&hide_border=true&bg_color=0f1e38&title_color=4d94ff&text_color=bdd0ee&langs_count=6" alt="Top Languages" loading="lazy" onerror="this.parentNode.removeChild(this)">
+        <div class="ghc">
+          <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=harshakondreddy&layout=compact&theme=github_dark&hide_border=true&bg_color=0f1e38&title_color=4d94ff&text_color=bdd0ee&langs_count=6" alt="Top Languages" loading="lazy" onerror="this.parentNode.removeChild(this)">
+        </div>
       </div>
     </div>
   </div>
@@ -730,13 +739,6 @@
           <div class="cert-org">Cisco</div>
         </div>
       </div>
-      <div class="cert-card reveal-zoom">
-        <div class="cert-badge" style="background:rgba(77,148,255,.1)">📋</div>
-        <div>
-          <div class="cert-name">ITIL Foundations</div>
-          <div class="cert-org">PeopleCert</div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -765,6 +767,30 @@
         <p class="proj-desc">Managed multiple Kubernetes version upgrades across the 1.21–1.26 range, migrating node groups to newer EC2 generations using EKS managed node groups. Worked with cluster autoscaler, etcd storage management, and persistent volume configurations throughout all upgrade phases — ensuring data integrity and cluster stability across multi-region deployments.</p>
         <div class="tags" style="margin-top:auto">
           <span class="tag">Kubernetes</span><span class="tag g">AWS EKS</span><span class="tag c">Helm</span><span class="tag a">etcd</span><span class="tag y">Autoscaler</span>
+        </div>
+      </div>
+      <div class="proj-card reveal-left">
+        <div class="proj-icon">🛡️</div>
+        <div class="proj-name">Log4Shell (CVE-2021-44228) Emergency Patch &amp; Cross-Environment Remediation</div>
+        <p class="proj-desc">Led org-wide emergency response to the critical Log4Shell zero-day vulnerability at Honeywell. Identified all affected services across DEV, SIT, PREPROD, and PROD environments, coordinated rapid patching of Log4j dependencies, and validated remediation across 560+ containers — achieving full coverage within the response SLA with zero service outages.</p>
+        <div class="tags" style="margin-top:auto">
+          <span class="tag">Security</span><span class="tag g">Log4j</span><span class="tag c">Kubernetes</span><span class="tag a">CVE Remediation</span><span class="tag y">Honeywell</span>
+        </div>
+      </div>
+      <div class="proj-card reveal-right">
+        <div class="proj-icon">☸️</div>
+        <div class="proj-name">On-Premises Multi-Master Kubernetes Cluster Setup with Kubespray</div>
+        <p class="proj-desc">Designed and deployed a production-ready on-premises multi-master Kubernetes cluster using Kubespray at Honeywell and Staxa Technologies. Configured etcd HA, control-plane load balancing, and node bootstrap automation — providing a resilient self-managed alternative to cloud-managed Kubernetes for sensitive workloads.</p>
+        <div class="tags" style="margin-top:auto">
+          <span class="tag">Kubernetes</span><span class="tag g">Kubespray</span><span class="tag c">On-Premises</span><span class="tag a">Ansible</span><span class="tag y">etcd HA</span>
+        </div>
+      </div>
+      <div class="proj-card reveal-left">
+        <div class="proj-icon">🚀</div>
+        <div class="proj-name">Org-Wide SCM &amp; CI/CD Migration: Bitbucket + Bamboo → GitHub &amp; GitHub Actions</div>
+        <p class="proj-desc">Architected and executed a full enterprise migration from Bitbucket + Bamboo to GitHub and GitHub Actions at Honeywell. Migrated all repositories, re-implemented hundreds of pipelines as GitHub Actions workflows, standardized branching strategies, and delivered self-service CI/CD templates adopted across all product teams.</p>
+        <div class="tags" style="margin-top:auto">
+          <span class="tag">GitHub Actions</span><span class="tag g">CI/CD</span><span class="tag c">Bitbucket</span><span class="tag a">Bamboo</span><span class="tag y">Honeywell</span>
         </div>
       </div>
     </div>
@@ -847,7 +873,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="fi">
-    <div class="flogo">HK</div>
+    <div class="flogo">Sri Harsha Kondreddy</div>
     <p class="fsub">Sri Harsha Kondreddy · Senior DevOps Engineer · Atlanta, GA<br><a href="mailto:harshareddykondreddy@gmail.com">harshareddykondreddy@gmail.com</a></p>
     <div class="fsoc">
       <a href="https://github.com/harshakondreddy" target="_blank" rel="noopener" class="sico"><i class="fa-brands fa-github"></i></a>
