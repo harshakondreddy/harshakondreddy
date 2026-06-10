@@ -167,23 +167,16 @@
   .av-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity 1.2s cubic-bezier(.4,0,.2,1)}
   .av-slide.active{opacity:1}
   .avbadge{position:absolute;bottom:10px;right:2px;z-index:2;background:var(--nav-bg);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1.5px solid rgba(59,160,255,.5);border-radius:50px;padding:.3rem .85rem;font-size:.75rem;font-weight:700;color:var(--p);display:flex;align-items:center;gap:.35rem}
-  .avw{--r:184px}
-  .avw::after{content:'';position:absolute;inset:-36px;border:1px dashed rgba(59,160,255,.16);border-radius:50%;animation:spin 90s linear infinite reverse;pointer-events:none}
-  .orb{position:absolute;top:50%;left:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(23,26,32,.78);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(59,160,255,.28);display:flex;align-items:center;justify-content:center;color:var(--t2);cursor:default;z-index:2;box-shadow:0 4px 16px rgba(0,0,0,.35);animation:orbit var(--d,28s) linear infinite;transition:background .25s var(--ease),border-color .25s var(--ease),box-shadow .25s var(--ease)}
+  .orb{position:absolute;top:50%;left:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(23,26,32,.85);border:1px solid rgba(59,160,255,.28);display:flex;align-items:center;justify-content:center;color:var(--t2);cursor:default;opacity:0;box-shadow:0 4px 16px rgba(0,0,0,.35);transition:background .25s var(--ease),border-color .25s var(--ease),box-shadow .25s var(--ease);will-change:transform}
   .orb i{font-size:1.2rem;transition:transform .25s var(--ease)}
-  .avw:hover .orb{animation-play-state:paused}
-  .avw:hover::after{animation-play-state:paused}
-  .orb:hover{background:rgba(59,160,255,.16);border-color:var(--p);box-shadow:0 8px 28px rgba(10,108,219,.4)}
+  .orb:hover{background:rgba(59,160,255,.18);border-color:var(--p);box-shadow:0 8px 28px rgba(10,108,219,.45)}
   .orb:hover i{transform:scale(1.22)}
   .orb::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 9px);left:50%;transform:translateX(-50%) translateY(4px);background:var(--mob-menu-bg);border:1px solid var(--border);color:var(--t1);font-size:.68rem;font-weight:600;padding:.22rem .6rem;border-radius:50px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .22s var(--ease),transform .22s var(--ease);box-shadow:var(--shadow)}
   .orb:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
-  @keyframes orbit{
-    from{transform:rotate(var(--a)) translateX(var(--r)) rotate(calc(-1 * var(--a)))}
-    to{transform:rotate(calc(var(--a) + 360deg)) translateX(var(--r)) rotate(calc(-1 * var(--a) - 360deg))}
-  }
-  [data-theme="light"] .orb{background:rgba(255,255,255,.85);border-color:rgba(11,102,195,.25);box-shadow:0 4px 14px rgba(20,30,48,.14)}
-  [data-theme="light"] .avw::after{border-color:rgba(11,102,195,.2)}
+  .orb-ring{position:absolute;top:50%;left:50%;border:1px dashed rgba(59,160,255,.15);border-radius:50%;pointer-events:none;z-index:0}
+  [data-theme="light"] .orb{background:rgba(255,255,255,.92);border-color:rgba(11,102,195,.25);box-shadow:0 4px 14px rgba(20,30,48,.16)}
   [data-theme="light"] .orb:hover{background:#fff}
+  [data-theme="light"] .orb-ring{border-color:rgba(11,102,195,.18)}
   .scue{position:absolute;bottom:1.75rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;animation:upIn .8s 1.4s ease backwards}
   .scue span{font-size:.65rem;letter-spacing:3px;color:var(--t4)}
   .scue .sl{width:1px;height:36px;background:linear-gradient(to bottom,var(--p),transparent);animation:pulse 2s infinite}
@@ -212,8 +205,12 @@
   }
 
   /* ── ABOUT ── */
-  .stats-top{grid-template-columns:repeat(4,1fr);margin-top:1.9rem}
-  .abg{display:grid;grid-template-columns:1fr 0.72fr;gap:3rem;align-items:start;margin-top:1.5rem}
+  .abg{display:grid;grid-template-columns:1fr 0.72fr;gap:3rem;align-items:start;margin-top:2rem}
+  .mini-stats{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+  .ms{display:flex;align-items:baseline;gap:.45rem;padding:.55rem .85rem;background:var(--card);border:1px solid var(--border);border-radius:var(--r1);transition:var(--trans)}
+  .ms:hover{border-color:var(--border-h)}
+  .ms-v{font-size:1.05rem;font-weight:800;background:var(--gradT);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0}
+  .ms-l{font-size:.68rem;color:var(--t4);font-weight:500;line-height:1.3}
   .abt{min-width:0}
   .abt p{color:var(--t3);font-size:1rem;line-height:1.88;margin-bottom:1.1rem}
   .abt p:last-child{margin-bottom:0}
@@ -408,7 +405,7 @@
     *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
     html{scroll-behavior:auto}
     #cvs{display:none}
-    .orb,.avw::after{display:none}
+    .orb,.orb-ring{display:none}
   }
 
   /* ── RESPONSIVE / ADAPTIVE ── */
@@ -416,8 +413,7 @@
     .hw{flex-direction:column;text-align:center;gap:3rem}
     .hbtns,.srow{justify-content:center}
     .hbio{margin:0 auto 2.25rem}
-    .avw{width:260px;height:260px;--r:162px}
-    .avw::after{inset:-30px}
+    .avw{width:260px;height:260px}
     .abg{grid-template-columns:1fr}
     .cg{grid-template-columns:1fr}
     .gh-minimal{grid-template-columns:1fr}
@@ -430,7 +426,7 @@
     .stats{grid-template-columns:1fr 1fr}
     .proj-grid{grid-template-columns:1fr}
     .cert-grid{grid-template-columns:1fr}
-    .orb,.avw::after{display:none}
+    .orb,.orb-ring{display:none}
     .tlic:hover{transform:none}
   }
   @media(max-width:480px){
@@ -502,11 +498,14 @@
           <img class="av-slide" src="assets/photo-casual.jpg" alt="Sri Harsha Kondreddy" loading="lazy">
         </div>
         <div class="avbadge"><i class="fa-solid fa-location-dot"></i>&nbsp;Atlanta, GA</div>
-        <div class="orb" style="--a:270deg" data-tip="Docker"><i class="devicon-docker-plain colored"></i></div>
-        <div class="orb" style="--a:342deg" data-tip="Kubernetes"><i class="devicon-kubernetes-plain colored"></i></div>
-        <div class="orb" style="--a:54deg" data-tip="Linux"><i class="devicon-linux-plain colored"></i></div>
-        <div class="orb" style="--a:126deg" data-tip="Terraform"><i class="devicon-terraform-plain colored"></i></div>
-        <div class="orb" style="--a:198deg" data-tip="GitHub Actions"><i class="devicon-github-original" style="color:var(--t2)"></i></div>
+        <div class="orb" data-tip="Kubernetes"><i class="devicon-kubernetes-plain colored"></i></div>
+        <div class="orb" data-tip="Docker"><i class="devicon-docker-plain colored"></i></div>
+        <div class="orb" data-tip="AWS"><i class="devicon-amazonwebservices-plain-wordmark colored"></i></div>
+        <div class="orb" data-tip="Azure"><i class="devicon-azure-plain colored"></i></div>
+        <div class="orb" data-tip="Terraform"><i class="devicon-terraform-plain colored"></i></div>
+        <div class="orb" data-tip="Linux"><i class="devicon-linux-plain colored"></i></div>
+        <div class="orb" data-tip="Grafana"><i class="devicon-grafana-original colored"></i></div>
+        <div class="orb" data-tip="GitHub Actions"><i class="devicon-github-original" style="color:var(--t2)"></i></div>
       </div>
     </div>
   </div>
@@ -522,12 +521,6 @@
       <div class="sep"></div>
       <p class="ssub">Infrastructure as code. Pipelines as culture. Reliability as a standard.</p>
     </div>
-    <div class="stats stats-top">
-      <div class="sttile reveal-zoom"><div class="ico">🚀</div><div class="val">8+</div><div class="lbl">Years Experience</div></div>
-      <div class="sttile reveal-zoom"><div class="ico">🐳</div><div class="val">560+</div><div class="lbl">Containers Managed</div></div>
-      <div class="sttile reveal-zoom"><div class="ico">👥</div><div class="val">5</div><div class="lbl">Engineers Led</div></div>
-      <div class="sttile reveal-zoom"><div class="ico">🏢</div><div class="val">4</div><div class="lbl">Companies</div></div>
-    </div>
     <div class="abg">
       <div class="abt reveal-left">
         <p>I'm <strong>Sri Harsha Kondreddy</strong> — a DevOps professional with <strong>8+ years of experience</strong> across the full infrastructure stack. Based in <strong>Atlanta, Georgia</strong>, I bring a global engineering perspective built across companies in the US and India.</p>
@@ -535,6 +528,12 @@
         <p>Currently at <strong>Honeywell</strong>, I manage 560+ hosted containers, lead a team of 5 engineers, and have executed complex projects including Kubernetes runtime migrations, multi-cluster version upgrades, and full observability stack implementations.</p>
       </div>
       <div class="ab-right reveal-right">
+        <div class="mini-stats">
+          <div class="ms"><span class="ms-v">8+</span><span class="ms-l">Years Experience</span></div>
+          <div class="ms"><span class="ms-v">560+</span><span class="ms-l">Containers Managed</span></div>
+          <div class="ms"><span class="ms-v">5</span><span class="ms-l">Engineers Led</span></div>
+          <div class="ms"><span class="ms-v">4</span><span class="ms-l">Companies</span></div>
+        </div>
         <div class="ghc">
           <div class="tools-card">
             <div class="tools-hd"><i class="fa-solid fa-screwdriver-wrench" style="font-size:.8rem"></i>&nbsp; Most Used Tools</div>
@@ -1151,7 +1150,7 @@ async function sendMsg(e){
       requestAnimationFrame(step);
     });
   },{threshold:.6});
-  document.querySelectorAll('.sttile .val').forEach(function(v){cObs.observe(v);});
+  document.querySelectorAll('.sttile .val,.ms-v').forEach(function(v){cObs.observe(v);});
 
   /* Back to top */
   var btt=document.getElementById('btt');
@@ -1159,6 +1158,52 @@ async function sendMsg(e){
     if(window.__lenis)window.__lenis.scrollTo(0,{duration:1.2});
     else window.scrollTo({top:0,behavior:'smooth'});
   });
+})();
+
+/* ── 3D orbital icons around avatar ── */
+(function(){
+  var avw=document.querySelector('.avw');if(!avw)return;
+  var orbs=[].slice.call(avw.querySelectorAll('.orb'));if(!orbs.length)return;
+  if(!matchMedia('(prefers-reduced-motion: no-preference)').matches)return;
+  var fine=matchMedia('(pointer:fine)').matches;
+  var N=orbs.length,t=Math.PI/5;
+  var speed=1,tSpeed=1;            /* hover brake */
+  var tilt=.38,tTilt=.38;          /* plane flatness */
+  var rotZ=-10,tRotZ=-10;          /* plane roll, deg */
+  var ring=document.createElement('div');ring.className='orb-ring';avw.appendChild(ring);
+  avw.addEventListener('pointerenter',function(){tSpeed=.12;});
+  avw.addEventListener('pointerleave',function(){tSpeed=1;});
+  if(fine){
+    var hero=document.getElementById('home');
+    hero.addEventListener('pointermove',function(e){
+      tRotZ=-10+(e.clientX/innerWidth-.5)*30;
+      tTilt=.38+(e.clientY/innerHeight-.5)*.22;
+    });
+    hero.addEventListener('pointerleave',function(){tRotZ=-10;tTilt=.38;});
+  }
+  function frame(){
+    var R=avw.offsetWidth/2+42;
+    speed+=(tSpeed-speed)*.05;tilt+=(tTilt-tilt)*.06;rotZ+=(tRotZ-rotZ)*.06;
+    t+=.0042*speed;
+    var rad=rotZ*Math.PI/180,cz=Math.cos(rad),sz=Math.sin(rad);
+    for(var i=0;i<N;i++){
+      var a=t+i*(Math.PI*2/N);
+      var x=Math.cos(a)*R;          /* horizontal */
+      var z=Math.sin(a);            /* depth -1 back .. 1 front */
+      var y=z*R*tilt;               /* tilted plane: front passes low */
+      var X=x*cz-y*sz, Y=x*sz+y*cz; /* roll */
+      var d=(z+1)/2;
+      var o=orbs[i];
+      o.style.transform='translate('+X.toFixed(1)+'px,'+Y.toFixed(1)+'px) scale('+(.74+.42*d).toFixed(3)+')';
+      o.style.opacity=(.42+.58*d).toFixed(2);
+      o.style.zIndex=z>0?3:0;
+    }
+    ring.style.width=(R*2)+'px';
+    ring.style.height=(R*2*tilt)+'px';
+    ring.style.transform='translate(-50%,-50%) rotate('+rotZ.toFixed(1)+'deg)';
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
 })();
 
 /* ── Lenis smooth inertia scrolling ── */
