@@ -113,7 +113,8 @@
   #cvs{position:fixed;inset:0;pointer-events:none;z-index:0;contain:strict;transform:translateZ(0)}
 
   /* ── NAV (floating glass island) ── */
-  nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);width:min(1220px,calc(100% - 1.5rem));padding:.6rem 1rem;z-index:1000;border:1px solid var(--border);border-radius:20px;transition:var(--trans);box-shadow:var(--shadow)}
+  nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);width:min(1220px,calc(100% - 1.5rem));padding:.6rem 1rem;z-index:1000;border:1px solid var(--border);border-radius:20px;transition:var(--trans),transform .4s var(--ease);box-shadow:var(--shadow)}
+  nav.hide{transform:translateX(-50%) translateY(calc(-100% - 26px))}
   nav::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;background:var(--nav-bg);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);transition:var(--trans)}
   nav.on{box-shadow:0 14px 44px rgba(0,0,0,.3)}
   nav.on::before{background:var(--mob-menu-bg)}
@@ -171,7 +172,8 @@
   .av-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity 1.2s cubic-bezier(.4,0,.2,1)}
   .av-slide.active{opacity:1}
   .avbadge{position:absolute;bottom:10px;right:2px;z-index:2;background:var(--nav-bg);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1.5px solid rgba(59,160,255,.5);border-radius:50px;padding:.3rem .85rem;font-size:.75rem;font-weight:700;color:var(--p);display:flex;align-items:center;gap:.35rem}
-  .orb{position:absolute;top:50%;left:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(23,26,32,.85);border:1px solid rgba(59,160,255,.28);display:flex;align-items:center;justify-content:center;color:var(--t2);cursor:default;opacity:0;box-shadow:0 4px 16px rgba(0,0,0,.35);transition:background .25s var(--ease),border-color .25s var(--ease),box-shadow .25s var(--ease);will-change:transform}
+  .orb{position:absolute;top:50%;left:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(23,26,32,.85);border:1px solid rgba(59,160,255,.28);display:flex;align-items:center;justify-content:center;color:var(--t2);cursor:grab;touch-action:none;opacity:0;box-shadow:0 4px 16px rgba(0,0,0,.35);transition:background .25s var(--ease),border-color .25s var(--ease),box-shadow .25s var(--ease);will-change:transform}
+  .orb:active{cursor:grabbing}
   .orb i{font-size:1.2rem;transition:transform .25s var(--ease)}
   .orb:hover{background:rgba(59,160,255,.18);border-color:var(--p);box-shadow:0 8px 28px rgba(10,108,219,.45)}
   .orb:hover i{transform:scale(1.22)}
@@ -273,8 +275,8 @@
   .co-logo img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;border-radius:inherit;background:#fff;padding:7px}
 
   /* ── EDUCATION ── */
-  .edu-wrap{margin-top:2.5rem;display:flex;flex-direction:column;gap:1.25rem}
-  .edu-card{border-radius:var(--r3);overflow:hidden;transition:var(--trans);max-width:820px}
+  .edu-wrap{margin-top:2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;align-items:start}
+  .edu-card{border-radius:var(--r3);overflow:hidden;transition:var(--trans)}
   .edu-card:hover{border-color:var(--border-h);transform:translateY(-4px);box-shadow:var(--glow)}
   .edu-banner-psu{height:5px;background:linear-gradient(90deg,#8B0000,#CC1122,#FFD700)}
   .edu-banner-rmd{height:5px;background:linear-gradient(90deg,#0a6cdb,#3ba0ff,#9ecbff)}
@@ -421,6 +423,7 @@
     .abg{grid-template-columns:1fr}
     .cg{grid-template-columns:1fr}
     .gh-minimal{grid-template-columns:1fr}
+    .edu-wrap{grid-template-columns:1fr}
     .edu-body{flex-direction:column;align-items:flex-start;gap:1.1rem}
   }
   @media(max-width:768px){
@@ -524,8 +527,8 @@
   .exp-toggle{display:inline-flex;align-items:center;gap:.45rem;margin-top:.4rem;background:none;border:none;color:var(--p);font-size:.8rem;font-weight:700;cursor:pointer;padding:.2rem 0;transition:var(--trans)}
   .exp-toggle i{transition:transform .3s var(--ease)}
   .tli.exp-open .exp-toggle i{transform:rotate(180deg)}
-  .exp-body{overflow:hidden;transition:max-height .4s var(--ease),opacity .3s var(--ease),margin .3s var(--ease)}
-  .tli:not(.exp-open) .exp-body{max-height:0 !important;opacity:0;margin-bottom:0}
+  .exp-body{overflow:hidden;transition:max-height .42s var(--ease)}
+  .tli:not(.exp-open) .exp-body{max-height:5.4em;-webkit-mask-image:linear-gradient(to bottom,#000 38%,transparent 100%);mask-image:linear-gradient(to bottom,#000 38%,transparent 100%)}
 
   /* ── Projects: inline expand / collapse case study ── */
   .proj-detail{overflow:hidden;max-height:0;opacity:0;transition:max-height .42s var(--ease),opacity .3s var(--ease),margin .3s var(--ease)}
@@ -673,8 +676,7 @@
         <p>Currently at <strong>Honeywell</strong>, I manage 560+ hosted containers, lead a team of 5 engineers, and have executed complex projects including Kubernetes runtime migrations, multi-cluster version upgrades, and full observability stack implementations.</p>
       </div>
       <div class="ab-right reveal-right">
-        <div class="dash-hd"><span class="ddot"></span> Live Production Snapshot</div>
-        <div class="dash" id="dash" aria-label="Live production snapshot">
+        <div class="dash" id="dash" aria-label="Key production stats">
           <div class="dcell">
             <div class="dlbl">Hosted Containers</div>
             <div class="dval" data-count="560" data-suffix="+">0</div>
@@ -707,10 +709,6 @@
             <div class="trow"><span class="tname">Azure · AKS</span><div class="tbar"><i style="--w:76%"></i></div><span class="tpct">76%</span></div>
             <div class="trow"><span class="tname">Jenkins</span><div class="tbar"><i style="--w:72%"></i></div><span class="tpct">72%</span></div>
             <div class="trow"><span class="tname">Prometheus · Grafana</span><div class="tbar"><i style="--w:70%"></i></div><span class="tpct">70%</span></div>
-          </div>
-          <div class="about-note">
-            <i class="fa-solid fa-lock"></i>
-            <span>Most of my highest-impact work lives in private enterprise repositories at Honeywell — the metrics above reflect that production footprint.</span>
           </div>
         </div>
       </div>
@@ -1200,11 +1198,17 @@ var navLinks=document.querySelectorAll('.nlinks a');
 var tlEl=document.querySelector('.tl'),bttEl=document.getElementById('btt'),hwEl=document.getElementById('hw');
 var secs=[];
 function cacheSecs(){secs=Array.from(document.querySelectorAll('section[id]')).map(function(s){return{id:s.id,el:s};});}
-var ticking=false;
+var ticking=false,lastNavY=0;
 function processScroll(){
   var s=scrollY,h=document.body.scrollHeight-innerHeight;
   bar.style.width=(s/h*100)+'%';
   nav.classList.toggle('on',s>50);
+  /* Instagram-style auto-hide: hide on scroll down, reveal on scroll up */
+  var dy=s-lastNavY,menuOpen=(typeof nl!=='undefined'&&nl&&nl.classList.contains('open'));
+  if(s<140||menuOpen)nav.classList.remove('hide');
+  else if(dy>5)nav.classList.add('hide');
+  else if(dy<-5)nav.classList.remove('hide');
+  lastNavY=s;
   var active='';
   for(var i=secs.length-1;i>=0;i--){
     if(secs[i].el.offsetTop-120<=s){active=secs[i].id;break;}
@@ -1356,7 +1360,7 @@ async function sendMsg(e){
   });
 })();
 
-/* ── 3D orbital icons around avatar ── */
+/* ── 3D orbital icons around avatar (interactive: drag to pull + fling to spin) ── */
 (function(){
   var avw=document.querySelector('.avw');if(!avw)return;
   var orbs=[].slice.call(avw.querySelectorAll('.orb'));if(!orbs.length)return;
@@ -1366,9 +1370,14 @@ async function sendMsg(e){
   var speed=1,tSpeed=1;            /* hover brake */
   var tilt=.38,tTilt=.38;          /* plane flatness */
   var rotZ=-10,tRotZ=-10;          /* plane roll, deg */
+  var spinVel=0;                   /* fling momentum (rad/frame), decays */
   var ring=document.createElement('div');ring.className='orb-ring';avw.appendChild(ring);
-  avw.addEventListener('pointerenter',function(){tSpeed=.12;});
-  avw.addEventListener('pointerleave',function(){tSpeed=1;});
+  var cur=orbs.map(function(){return{x:0,y:0,s:1,o:1,init:false};});
+  var returning=orbs.map(function(){return false;});
+  var dragIdx=-1,dragX=0,dragY=0,lastAng=0;
+
+  avw.addEventListener('pointerenter',function(){if(dragIdx<0)tSpeed=.12;});
+  avw.addEventListener('pointerleave',function(){if(dragIdx<0)tSpeed=1;});
   if(fine){
     var hero=document.getElementById('home');
     hero.addEventListener('pointermove',function(e){
@@ -1385,23 +1394,54 @@ async function sendMsg(e){
       tTilt=.38+Math.max(-.16,Math.min(.16,((e.beta||45)-45)*.004));
     },{passive:true});
   }
+
+  /* ── drag-to-pull + fling-to-spin (pointer = touch or mouse) ── */
+  function center(){var r=avw.getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2};}
+  function angDiff(a,b){var d=a-b;while(d>Math.PI)d-=2*Math.PI;while(d<-Math.PI)d+=2*Math.PI;return d;}
+  avw.addEventListener('pointerdown',function(e){
+    var orbEl=e.target.closest('.orb');if(!orbEl)return;
+    dragIdx=orbs.indexOf(orbEl);if(dragIdx<0)return;
+    var c=center();dragX=e.clientX-c.x;dragY=e.clientY-c.y;
+    lastAng=Math.atan2(dragY,dragX);tSpeed=.12;
+    try{avw.setPointerCapture(e.pointerId);}catch(_){}
+    e.preventDefault();
+  });
+  avw.addEventListener('pointermove',function(e){
+    if(dragIdx<0)return;
+    var c=center();dragX=e.clientX-c.x;dragY=e.clientY-c.y;
+    var ang=Math.atan2(dragY,dragX),dA=angDiff(ang,lastAng);lastAng=ang;
+    spinVel=Math.max(-.18,Math.min(.18,spinVel+dA*.35));   /* circular drag spins the ring */
+    e.preventDefault();
+  });
+  function endDrag(e){
+    if(dragIdx<0)return;
+    returning[dragIdx]=true;dragIdx=-1;tSpeed=1;
+    try{avw.releasePointerCapture(e.pointerId);}catch(_){}
+  }
+  avw.addEventListener('pointerup',endDrag);
+  avw.addEventListener('pointercancel',endDrag);
+
   function frame(){
     var R=avw.offsetWidth/2+(innerWidth<768?28:42);
     speed+=(tSpeed-speed)*.05;tilt+=(tTilt-tilt)*.06;rotZ+=(tRotZ-rotZ)*.06;
     var sv=Math.min(Math.abs(window.__scrollVel||0)*.02,1.6);window.__scrollVel=(window.__scrollVel||0)*.9;
-    t+=.0042*(speed+sv);
+    t+=.0042*(speed+sv)+spinVel; spinVel*=.92; if(Math.abs(spinVel)<.0003)spinVel=0;
     var rad=rotZ*Math.PI/180,cz=Math.cos(rad),sz=Math.sin(rad);
     for(var i=0;i<N;i++){
       var a=t+i*(Math.PI*2/N);
-      var x=Math.cos(a)*R;          /* horizontal */
-      var z=Math.sin(a);            /* depth -1 back .. 1 front */
-      var y=z*R*tilt;               /* tilted plane: front passes low */
-      var X=x*cz-y*sz, Y=x*sz+y*cz; /* roll */
-      var d=(z+1)/2;
-      var o=orbs[i];
-      o.style.transform='translate('+X.toFixed(1)+'px,'+Y.toFixed(1)+'px) scale('+(.74+.42*d).toFixed(3)+')';
-      o.style.opacity=(.42+.58*d).toFixed(2);
-      o.style.zIndex=z>0?3:0;
+      var x=Math.cos(a)*R, z=Math.sin(a), y=z*R*tilt;
+      var X=x*cz-y*sz, Y=x*sz+y*cz, d=(z+1)/2;
+      var tx=X,ty=Y,ts=.74+.42*d,to=.42+.58*d,tz=(z>0?3:0);
+      if(i===dragIdx){tx=dragX;ty=dragY;ts=1.4;to=1;tz=10;}
+      var k=(i===dragIdx)?.4:(returning[i]?.16:1);
+      var o=cur[i];
+      if(!o.init){o.x=tx;o.y=ty;o.s=ts;o.o=to;o.init=true;}
+      o.x+=(tx-o.x)*k;o.y+=(ty-o.y)*k;o.s+=(ts-o.s)*k;o.o+=(to-o.o)*k;
+      if(returning[i]&&Math.abs(tx-o.x)<1.2&&Math.abs(ty-o.y)<1.2)returning[i]=false;
+      var el=orbs[i];
+      el.style.transform='translate('+o.x.toFixed(1)+'px,'+o.y.toFixed(1)+'px) scale('+o.s.toFixed(3)+')';
+      el.style.opacity=o.o.toFixed(2);
+      el.style.zIndex=(i===dragIdx)?10:tz;
     }
     ring.style.width=(R*2)+'px';
     ring.style.height=(R*2*tilt)+'px';
@@ -1599,11 +1639,9 @@ async function sendMsg(e){
         var body=document.createElement('div');body.className='exp-body';
         desc.parentNode.insertBefore(body,desc);body.appendChild(desc);
         var btn=document.createElement('button');btn.className='exp-toggle';btn.type='button';
-        var open=idx===0;
-        btn.innerHTML=(open?'Hide details':'View details')+' <i class="fa-solid fa-chevron-down"></i>';
+        btn.innerHTML='View details <i class="fa-solid fa-chevron-down"></i>';
         (tags||body).parentNode.insertBefore(btn,(tags||body).nextSibling);
-        if(open){tli.classList.add('exp-open');}
-        function setH(){ body.style.maxHeight=tli.classList.contains('exp-open')?body.scrollHeight+'px':'0px'; }
+        function setH(){ body.style.maxHeight=tli.classList.contains('exp-open')?body.scrollHeight+'px':''; }
         setH();
         btn.addEventListener('click',function(e){
           e.stopPropagation();
