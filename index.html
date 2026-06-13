@@ -3,7 +3,7 @@
 <head>
   <script>(function(){var t=localStorage.getItem('hk-theme')||(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',t);})()</script>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Sri Harsha Kondreddy | Senior DevOps Engineer</title>
   <meta name="description" content="Sri Harsha Kondreddy — Senior DevOps Engineer with 8+ years across Kubernetes, Docker, AWS, Azure, CI/CD, and cloud infrastructure. Atlanta, GA.">
   <meta property="og:title" content="Sri Harsha Kondreddy | Senior DevOps Engineer">
@@ -461,13 +461,14 @@
   @keyframes bootBar{to{width:100%}}
   @keyframes bootHide{to{opacity:0;visibility:hidden;pointer-events:none}}
 
-  /* ── Side section rail ── */
-  #srail{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:850;display:flex;flex-direction:column;gap:.85rem;align-items:center}
-  #srail a{position:relative;width:9px;height:9px;border-radius:50%;background:var(--t4);opacity:.5;transition:transform .25s var(--ease),background .25s var(--ease),opacity .25s var(--ease)}
-  #srail a:hover{opacity:1;background:var(--p);transform:scale(1.35)}
+  /* ── Side section rail (constrained box; only dots capture taps) ── */
+  #srail{position:fixed;right:calc(14px + env(safe-area-inset-right, 0px));top:50%;transform:translateY(-50%);z-index:850;width:22px;display:flex;flex-direction:column;gap:.95rem;align-items:center;pointer-events:none}
+  #srail a{position:relative;width:9px;height:9px;border-radius:50%;background:var(--t4);opacity:.5;pointer-events:auto;transition:transform .25s var(--ease),background .25s var(--ease),opacity .25s var(--ease)}
+  #srail a::before{content:'';position:absolute;inset:-16px;border-radius:50%}
+  #srail a:hover,#srail a:focus-visible{opacity:1;background:var(--p);transform:scale(1.35);outline:none}
   #srail a.act{opacity:1;background:var(--p);transform:scale(1.5);box-shadow:0 0 0 4px rgba(59,160,255,.18)}
-  #srail a::after{content:attr(data-label);position:absolute;right:calc(100% + 12px);top:50%;transform:translateY(-50%) translateX(4px);background:var(--mob-menu-bg);border:1px solid var(--border);color:var(--t1);font-size:.7rem;font-weight:600;padding:.2rem .6rem;border-radius:50px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s var(--ease),transform .2s var(--ease);box-shadow:var(--shadow)}
-  #srail a:hover::after{opacity:1;transform:translateY(-50%) translateX(0)}
+  #srail a::after{content:attr(data-label);position:absolute;right:calc(100% + 14px);top:50%;transform:translateY(-50%) translateX(4px);background:var(--mob-menu-bg);border:1px solid var(--border);color:var(--t1);font-size:.7rem;font-weight:600;padding:.2rem .6rem;border-radius:50px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s var(--ease),transform .2s var(--ease);box-shadow:var(--shadow)}
+  #srail a:hover::after,#srail a:focus-visible::after,#srail a:active::after{opacity:1;transform:translateY(-50%) translateX(0)}
   @media(max-width:1180px){#srail{display:none}}
 
   /* ── Command palette ── */
@@ -526,34 +527,45 @@
   .exp-body{overflow:hidden;transition:max-height .4s var(--ease),opacity .3s var(--ease),margin .3s var(--ease)}
   .tli:not(.exp-open) .exp-body{max-height:0 !important;opacity:0;margin-bottom:0}
 
-  /* ── Modal (projects) ── */
-  .pcard-cue{display:inline-flex;align-items:center;gap:.4rem;margin-top:.4rem;font-size:.8rem;font-weight:700;color:var(--p);transition:var(--trans)}
-  .pcard-cue i{transition:transform .25s var(--ease)}
-  .proj-card{cursor:pointer}
-  .proj-card:hover .pcard-cue i{transform:translateX(4px)}
-  #pmodal{position:fixed;inset:0;z-index:10040;display:none;align-items:center;justify-content:center;padding:1.25rem;background:rgba(5,7,10,.62);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px)}
-  #pmodal.open{display:flex;animation:fadeIn .2s ease}
-  .pm-box{width:min(680px,96vw);max-height:88vh;overflow-y:auto;background:var(--mob-menu-bg);border:1px solid var(--border);border-radius:var(--r4);box-shadow:0 30px 80px rgba(0,0,0,.55);padding:2.25rem;animation:pmIn .28s var(--ease);position:relative}
-  @keyframes pmIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
-  .pm-close{position:absolute;top:1.1rem;right:1.1rem;width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--t2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--trans)}
-  .pm-close:hover{border-color:var(--p);color:var(--p);transform:rotate(90deg)}
-  .pm-ic{font-size:2.5rem;margin-bottom:.6rem}
-  .pm-title{font-family:'Space Grotesk','Inter',sans-serif;font-size:1.35rem;font-weight:700;color:var(--t1);line-height:1.25;margin-bottom:1.25rem;max-width:90%}
-  .pm-sec{margin-bottom:1.25rem}
-  .pm-sec h4{display:flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--p);margin-bottom:.5rem}
-  .pm-sec p{color:var(--t2);font-size:.92rem;line-height:1.8}
-  .pm-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.7rem;margin-bottom:1.25rem}
-  .pm-metric{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:.8rem .9rem}
-  .pm-metric b{display:block;font-family:'Space Grotesk','Inter',sans-serif;font-size:1.3rem;font-weight:800;background:var(--gradT);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-  .pm-metric span{font-size:.72rem;color:var(--t4)}
+  /* ── Projects: inline expand / collapse case study ── */
+  .proj-detail{overflow:hidden;max-height:0;opacity:0;transition:max-height .42s var(--ease),opacity .3s var(--ease),margin .3s var(--ease)}
+  .proj-card.open .proj-detail{opacity:1;margin-top:.5rem}
+  .proj-toggle{display:inline-flex;align-items:center;gap:.45rem;margin-top:.6rem;background:none;border:none;color:var(--p);font-size:.82rem;font-weight:700;cursor:pointer;padding:.4rem 0;transition:var(--trans);align-self:flex-start}
+  .proj-toggle i{transition:transform .3s var(--ease)}
+  .proj-card.open .proj-toggle i{transform:rotate(180deg)}
+  .pm-sec{margin-bottom:1.1rem}
+  .pm-sec h4{display:flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--p);margin-bottom:.45rem}
+  .pm-sec p{color:var(--t2);font-size:.9rem;line-height:1.78}
+  .pm-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:.6rem;margin:0 0 1.1rem}
+  .pm-metric{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:.7rem .8rem}
+  .pm-metric b{display:block;font-family:'Space Grotesk','Inter',sans-serif;font-size:1.2rem;font-weight:800;background:var(--gradT);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .pm-metric span{font-size:.7rem;color:var(--t4)}
   body.modal-open{overflow:hidden}
+
+  /* ── About: live dashboard heading + private-repos note ── */
+  .dash-hd{display:flex;align-items:center;gap:.45rem;font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t4);margin-bottom:.7rem}
+  .dash-hd .ddot{width:6px;height:6px;border-radius:50%;background:var(--gr);box-shadow:0 0 8px var(--gr);animation:pulse 2s infinite}
+  .ab-right .dash{margin-top:.2rem;max-width:none}
+  .about-note{display:flex;align-items:flex-start;gap:.6rem;margin-top:1rem;padding:.8rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:var(--r2);color:var(--t3);font-size:.82rem;line-height:1.6}
+  .about-note i{color:var(--p);margin-top:.18rem;flex-shrink:0}
+
+  /* ── Touch / coarse-pointer refinements ── */
+  .skc.core{cursor:pointer}
+  .skc.core.show::after{content:'★ 'attr(data-prof)'%';margin-left:.25rem;color:var(--acc);font-size:.65rem;font-weight:700}
+  #btt{right:calc(1.5rem + env(safe-area-inset-right, 0px));bottom:calc(1.5rem + env(safe-area-inset-bottom, 0px))}
+  @media(hover:none){
+    .nlinks a{padding:.6rem .95rem}
+    .nlinks.open a{padding:.7rem 1rem}
+    .proj-card:active,.cert-card:active,.tlic:active,.edu-card:active,.citem:active{transform:scale(.99)}
+    .btnP:active,.btnO:active,.csub:active,.skf:active,.expf:active,.proj-toggle:active,.exp-toggle:active,.sico:active,.thm-btn:active,.cmdk-hint:active,.skc:active{transform:scale(.96)}
+    .orb:active::after{opacity:1}
+  }
 
   @media (prefers-reduced-motion:reduce){
     #boot .boot-bar i{animation:none;width:100%}
     .dspark i{transition:none}
   }
   @media(max-width:600px){
-    .pm-box{padding:1.5rem 1.25rem}
     .cmdk-box{max-height:74vh}
   }
   </style>
@@ -661,11 +673,28 @@
         <p>Currently at <strong>Honeywell</strong>, I manage 560+ hosted containers, lead a team of 5 engineers, and have executed complex projects including Kubernetes runtime migrations, multi-cluster version upgrades, and full observability stack implementations.</p>
       </div>
       <div class="ab-right reveal-right">
-        <div class="mini-stats">
-          <div class="ms"><span class="ms-v">8+</span><span class="ms-l">Years Experience</span></div>
-          <div class="ms"><span class="ms-v">560+</span><span class="ms-l">Containers Managed</span></div>
-          <div class="ms"><span class="ms-v">5</span><span class="ms-l">Engineers Led</span></div>
-          <div class="ms"><span class="ms-v">4</span><span class="ms-l">Companies</span></div>
+        <div class="dash-hd"><span class="ddot"></span> Live Production Snapshot</div>
+        <div class="dash" id="dash" aria-label="Live production snapshot">
+          <div class="dcell">
+            <div class="dlbl">Hosted Containers</div>
+            <div class="dval" data-count="560" data-suffix="+">0</div>
+            <div class="dspark" data-spark></div>
+          </div>
+          <div class="dcell">
+            <div class="dlbl">Platform Uptime</div>
+            <div class="dval" data-count="99.9" data-suffix="%">0</div>
+            <div class="dspark" data-spark></div>
+          </div>
+          <div class="dcell">
+            <div class="dlbl">Years in Prod</div>
+            <div class="dval" data-count="8" data-suffix="+">0</div>
+            <div class="dspark" data-spark></div>
+          </div>
+          <div class="dcell">
+            <div class="dlbl">Engineers Led</div>
+            <div class="dval" data-count="5" data-suffix="">0</div>
+            <div class="dunit" style="font-size:.72rem;color:var(--t4);margin-top:.4rem">cross-functional</div>
+          </div>
         </div>
         <div class="ghc">
           <div class="tools-card">
@@ -678,6 +707,10 @@
             <div class="trow"><span class="tname">Azure · AKS</span><div class="tbar"><i style="--w:76%"></i></div><span class="tpct">76%</span></div>
             <div class="trow"><span class="tname">Jenkins</span><div class="tbar"><i style="--w:72%"></i></div><span class="tpct">72%</span></div>
             <div class="trow"><span class="tname">Prometheus · Grafana</span><div class="tbar"><i style="--w:70%"></i></div><span class="tpct">70%</span></div>
+          </div>
+          <div class="about-note">
+            <i class="fa-solid fa-lock"></i>
+            <span>Most of my highest-impact work lives in private enterprise repositories at Honeywell — the metrics above reflect that production footprint.</span>
           </div>
         </div>
       </div>
@@ -1027,59 +1060,6 @@
   </div>
 </section>
 
-<!-- GITHUB -->
-<section id="github">
-  <div class="si">
-    <div class="reveal">
-      <div class="stag"><i class="fa-brands fa-github"></i>&nbsp; Open Source</div>
-      <h2 class="stitle">GitHub <span>Activity</span></h2>
-      <div class="sep"></div>
-      <p class="ssub">A live snapshot of the production footprint I operate day to day.</p>
-    </div>
-
-    <div class="dash reveal" id="dash" aria-label="Live operations snapshot">
-      <div class="dcell">
-        <div class="dlbl"><span class="ddot"></span> Hosted Containers</div>
-        <div class="dval" data-count="560" data-suffix="+">0</div>
-        <div class="dspark" data-spark></div>
-      </div>
-      <div class="dcell">
-        <div class="dlbl"><span class="ddot"></span> Platform Uptime</div>
-        <div class="dval" data-count="99.9" data-suffix="%">0</div>
-        <div class="dspark" data-spark></div>
-      </div>
-      <div class="dcell">
-        <div class="dlbl"><span class="ddot"></span> Release Envs</div>
-        <div class="dval" data-count="4" data-suffix="">0</div>
-        <div class="dunit" style="font-size:.72rem;color:var(--t4);margin-top:.4rem">DEV · SIT · PREPROD · PROD</div>
-      </div>
-      <div class="dcell">
-        <div class="dlbl"><span class="ddot"></span> Years in Prod</div>
-        <div class="dval" data-count="8" data-suffix="+">0</div>
-        <div class="dspark" data-spark></div>
-      </div>
-      <div class="dcell">
-        <div class="dlbl"><span class="ddot"></span> Engineers Mentored</div>
-        <div class="dval" data-count="5" data-suffix="">0</div>
-        <div class="dunit" style="font-size:.72rem;color:var(--t4);margin-top:.4rem">cross-functional team</div>
-      </div>
-    </div>
-
-    <div class="gh-minimal reveal">
-      <img src="https://github-readme-streak-stats.herokuapp.com/?user=harshakondreddy&theme=transparent&hide_border=true&ring=3ba0ff&fire=79b8ff&currStreakLabel=3ba0ff&sideLabels=c8cfd6&dates=5f6770" alt="GitHub Streak" loading="lazy" onerror="this.parentNode.removeChild(this)">
-    </div>
-    <div class="gh-note reveal">
-      <i class="fa-solid fa-circle-info"></i>
-      <span>Most of my impactful work lives in private enterprise repositories at Honeywell — what you see here reflects personal and open-source contributions only.</span>
-    </div>
-    <div class="ach-row reveal">
-      <div class="ach"><div class="ai">🦈</div><div><div class="an">Pull Shark</div><div class="as">GitHub Achievement</div></div></div>
-      <div class="ach"><div class="ai">☸️</div><div><div class="an">Kubernetes Expert</div><div class="as">K8s 1.21 → 1.26 Upgrades</div></div></div>
-      <div class="ach"><div class="ai">🤝</div><div><div class="an">Open to Collaborate</div><div class="as">Kubernetes · Docker · DevOps</div></div></div>
-    </div>
-  </div>
-</section>
-
 <!-- CONTACT -->
 <section id="contact">
   <div class="si">
@@ -1146,7 +1126,7 @@
 <button id="btt" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
 
 <!-- SIDE SECTION RAIL -->
-<nav id="srail" aria-label="Section navigation">
+<div id="srail" role="navigation" aria-label="Section navigation">
   <a href="#home" data-label="Home"></a>
   <a href="#about" data-label="About"></a>
   <a href="#skills" data-label="Skills"></a>
@@ -1154,9 +1134,8 @@
   <a href="#education" data-label="Education"></a>
   <a href="#certifications" data-label="Certifications"></a>
   <a href="#projects" data-label="Projects"></a>
-  <a href="#github" data-label="Open Source"></a>
   <a href="#contact" data-label="Contact"></a>
-</nav>
+</div>
 
 <!-- COMMAND PALETTE -->
 <div id="cmdk" role="dialog" aria-modal="true" aria-label="Command palette">
@@ -1169,17 +1148,6 @@
   </div>
 </div>
 
-<!-- PROJECT MODAL -->
-<div id="pmodal" role="dialog" aria-modal="true" aria-labelledby="pmTitle">
-  <div class="pm-box">
-    <button class="pm-close" id="pmClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-    <div class="pm-ic" id="pmIc"></div>
-    <h3 class="pm-title" id="pmTitle"></h3>
-    <div class="pm-metrics" id="pmMetrics"></div>
-    <div id="pmBody"></div>
-    <div class="tags" id="pmTags" style="margin-top:.5rem"></div>
-  </div>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/dist/typed.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
@@ -1507,7 +1475,6 @@ async function sendMsg(e){
       {label:'Education',sub:'Academic background',icon:'fa-graduation-cap',kw:'education degree school',run:function(){goTo('#education');}},
       {label:'Certifications',sub:'Licenses & certs',icon:'fa-certificate',kw:'certifications aws cisco',run:function(){goTo('#certifications');}},
       {label:'Projects',sub:'Featured work',icon:'fa-diagram-project',kw:'projects case study',run:function(){goTo('#projects');}},
-      {label:'Open Source',sub:'GitHub activity',icon:'fa-brands fa-github',kw:'github open source ops',run:function(){goTo('#github');}},
       {label:'Contact',sub:'Get in touch',icon:'fa-satellite-dish',kw:'contact email message',run:function(){goTo('#contact');}},
       {label:'Toggle theme',sub:'Dark / light mode',icon:'fa-circle-half-stroke',kw:'theme dark light mode',run:function(){var b=document.getElementById('thm');if(b)b.click();}},
       {label:'Copy email',sub:'harshareddykondreddy@gmail.com',icon:'fa-envelope',kw:'email copy contact',run:function(){if(navigator.clipboard)navigator.clipboard.writeText('harshareddykondreddy@gmail.com');}},
@@ -1592,7 +1559,15 @@ async function sendMsg(e){
     var prof={'kubernetes':95,'docker':90,'aws':86,'amazon eks':86,'github actions':84,'terraform':78,'azure':76,'azure aks':76,'jenkins':72,'prometheus':70,'grafana':70};
     section.querySelectorAll('.skc').forEach(function(chip){
       var span=chip.querySelector('span'),name=span?span.textContent.trim().toLowerCase():'';
-      if(prof[name]!=null){chip.classList.add('core');chip.title='Proficiency '+prof[name]+'% · core stack';}
+      if(prof[name]!=null){
+        chip.classList.add('core');
+        chip.setAttribute('data-prof',prof[name]);
+        chip.title='Proficiency '+prof[name]+'% · core stack';
+        chip.setAttribute('role','button');chip.setAttribute('tabindex','0');
+        chip.setAttribute('aria-label',name+' — proficiency '+prof[name]+'%, core stack');
+        chip.addEventListener('click',function(){chip.classList.toggle('show');});
+        chip.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();chip.classList.toggle('show');}});
+      }
     });
   })();
 
@@ -1658,11 +1633,9 @@ async function sendMsg(e){
     if(tl)tl.parentNode.insertBefore(bar,tl);
   })();
 
-  /* ── Project case-study modals ── */
+  /* ── Projects: inline expand / collapse case studies ── */
   (function(){
     var cards=[].slice.call(document.querySelectorAll('.proj-card')); if(!cards.length)return;
-    var modal=document.getElementById('pmodal'); if(!modal)return;
-    var box=modal.querySelector('.pm-box'),closeBtn=document.getElementById('pmClose');
     var details=[
       {metrics:[['0','prod incidents'],['100%','nodes migrated'],['EKS','platform']],
         challenge:'Honeywell’s EKS fleet still ran the deprecated Docker container runtime, which Kubernetes was phasing out — a ticking compatibility and security risk across every environment.',
@@ -1685,35 +1658,32 @@ async function sendMsg(e){
         approach:'Architected a full migration to GitHub and GitHub Actions — moving every repository, re-implementing hundreds of pipelines as workflows, and standardizing branching strategies.',
         impact:'Shipped self-service CI/CD templates adopted across all product teams, consolidating the org onto a single modern delivery platform.'}
     ];
-    var lastFocus=null;
-    function fill(i){
-      var card=cards[i],d=details[i]||{};
-      document.getElementById('pmIc').textContent=(card.querySelector('.proj-icon')||{textContent:''}).textContent;
-      document.getElementById('pmTitle').textContent=(card.querySelector('.proj-name')||{textContent:''}).textContent;
-      var mEl=document.getElementById('pmMetrics');
-      mEl.innerHTML=(d.metrics||[]).map(function(m){return '<div class="pm-metric"><b>'+m[0]+'</b><span>'+m[1]+'</span></div>';}).join('');
-      document.getElementById('pmBody').innerHTML=
-        '<div class="pm-sec"><h4><i class="fa-solid fa-triangle-exclamation"></i> The Challenge</h4><p>'+(d.challenge||'')+'</p></div>'+
-        '<div class="pm-sec"><h4><i class="fa-solid fa-screwdriver-wrench"></i> Approach</h4><p>'+(d.approach||'')+'</p></div>'+
-        '<div class="pm-sec"><h4><i class="fa-solid fa-chart-line"></i> Impact</h4><p>'+(d.impact||'')+'</p></div>';
-      var t=card.querySelector('.tags');
-      document.getElementById('pmTags').innerHTML=t?t.innerHTML:'';
-    }
-    function open(i){lastFocus=document.activeElement;fill(i);modal.classList.add('open');document.body.classList.add('modal-open');if(lenis)lenis.stop();setTimeout(function(){closeBtn.focus();},40);}
-    function close(){modal.classList.remove('open');document.body.classList.remove('modal-open');if(lenis)lenis.start();if(lastFocus&&lastFocus.focus)lastFocus.focus();}
     cards.forEach(function(card,i){
-      var cue=document.createElement('div');cue.className='pcard-cue';cue.innerHTML='View case study <i class="fa-solid fa-arrow-right"></i>';
-      card.appendChild(cue);
-      card.setAttribute('role','button');card.setAttribute('tabindex','0');card.setAttribute('aria-label','Open case study: '+(card.querySelector('.proj-name')||{textContent:''}).textContent);
-      card.addEventListener('click',function(){open(i);});
-      card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open(i);}});
-    });
-    closeBtn.addEventListener('click',close);
-    modal.addEventListener('mousedown',function(e){if(e.target===modal)close();});
-    document.addEventListener('keydown',function(e){
-      if(!modal.classList.contains('open'))return;
-      if(e.key==='Escape'){e.preventDefault();close();}
-      if(e.key==='Tab'){ /* simple focus containment */ e.preventDefault();closeBtn.focus(); }
+      var d=details[i]; if(!d)return;
+      var detail=document.createElement('div');
+      detail.className='proj-detail';
+      detail.id='projd'+i;
+      detail.innerHTML=
+        '<div class="pm-metrics">'+(d.metrics||[]).map(function(m){return '<div class="pm-metric"><b>'+m[0]+'</b><span>'+m[1]+'</span></div>';}).join('')+'</div>'+
+        '<div class="pm-sec"><h4><i class="fa-solid fa-triangle-exclamation"></i> The Challenge</h4><p>'+d.challenge+'</p></div>'+
+        '<div class="pm-sec"><h4><i class="fa-solid fa-screwdriver-wrench"></i> Approach</h4><p>'+d.approach+'</p></div>'+
+        '<div class="pm-sec" style="margin-bottom:0"><h4><i class="fa-solid fa-chart-line"></i> Impact</h4><p>'+d.impact+'</p></div>';
+      var tags=card.querySelector('.tags');
+      if(tags)card.insertBefore(detail,tags); else card.appendChild(detail);
+      var btn=document.createElement('button');
+      btn.className='proj-toggle';btn.type='button';
+      btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-controls',detail.id);
+      btn.innerHTML='View case study <i class="fa-solid fa-chevron-down"></i>';
+      card.appendChild(btn);
+      function setH(){ detail.style.maxHeight=card.classList.contains('open')?detail.scrollHeight+'px':'0px'; }
+      btn.addEventListener('click',function(){
+        var o=!card.classList.contains('open');
+        card.classList.toggle('open',o);
+        btn.setAttribute('aria-expanded',o?'true':'false');
+        btn.firstChild.textContent=(o?'Hide case study':'View case study')+' ';
+        setH();
+      });
+      addEventListener('resize',function(){if(card.classList.contains('open'))detail.style.maxHeight=detail.scrollHeight+'px';});
     });
   })();
 })();
