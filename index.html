@@ -137,8 +137,10 @@
   .bur span{width:22px;height:2px;background:var(--t1);border-radius:2px;transition:var(--trans)}
 
   /* ── HERO ── */
-  #home{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:7rem 2rem 4rem;position:relative;z-index:1}
-  .hw{max-width:1280px;width:100%;margin:0 auto;display:flex;align-items:center;gap:5rem}
+  #home{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:7rem 2rem 4rem;position:relative;z-index:1;overflow:hidden}
+  #glfx{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0;transition:opacity 1.4s ease}
+  #glfx.on{opacity:1}
+  .hw{max-width:1280px;width:100%;margin:0 auto;display:flex;align-items:center;gap:5rem;position:relative;z-index:2}
   .hl{flex:1}
   .hbadge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,122,26,.1);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,122,26,.3);color:var(--p);padding:.32rem .95rem;border-radius:50px;font-size:.78rem;font-weight:600;margin-bottom:1.4rem;animation:upIn .6s ease backwards}
   .hbadge .dot{width:7px;height:7px;background:var(--gr);border-radius:50%;animation:pulse 1.8s infinite}
@@ -182,7 +184,7 @@
   .orb-ring{position:absolute;top:50%;left:50%;border:1px dashed rgba(255,122,26,.15);border-radius:50%;pointer-events:none;z-index:0}
   [data-theme="light"] .orb{filter:drop-shadow(0 2px 7px rgba(20,30,48,.4))}
   [data-theme="light"] .orb-ring{border-color:rgba(224,90,15,.18)}
-  .scue{position:absolute;bottom:1.75rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;animation:upIn .8s 1.4s ease backwards}
+  .scue{position:absolute;bottom:1.75rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:.4rem;animation:upIn .8s 1.4s ease backwards}
   .scue span{font-size:.65rem;letter-spacing:3px;color:var(--t4)}
   .scue .sl{width:1px;height:36px;background:linear-gradient(to bottom,var(--p),transparent);animation:pulse 2s infinite}
 
@@ -615,6 +617,7 @@
 
 <!-- HERO -->
 <section id="home">
+  <canvas id="glfx" aria-hidden="true"></canvas>
   <div class="hw" id="hw">
     <div class="hl">
       <div class="hbadge"><span class="dot"></span> Senior DevOps Engineer · Honeywell</div>
@@ -1721,6 +1724,93 @@ async function sendMsg(e){
       addEventListener('resize',function(){if(card.classList.contains('open'))detail.style.maxHeight=detail.scrollHeight+'px';});
     });
   })();
+})();
+</script>
+
+<!-- ════════ WebGL hero field (raw GLSL, no framework) — heavy on desktop, skipped on mobile/reduced-motion ════════ -->
+<script>
+(function(){
+  var cv=document.getElementById('glfx'),home=document.getElementById('home');
+  if(!cv||!home)return;
+  var motion=matchMedia('(prefers-reduced-motion: no-preference)').matches;
+  var bigEnough=matchMedia('(min-width:1025px)').matches;
+  var fine=matchMedia('(pointer:fine)').matches;
+  if(!(motion&&bigEnough&&fine))return;            /* graceful: phones/tablets/reduced-motion keep the 2D particle field */
+
+  var gl;
+  try{ gl=cv.getContext('webgl',{antialias:false,alpha:false,powerPreference:'high-performance'})||cv.getContext('experimental-webgl'); }catch(e){}
+  if(!gl)return;                                    /* no WebGL -> graceful no-op */
+
+  var VS='attribute vec2 p;void main(){gl_Position=vec4(p,0.0,1.0);}';
+  var FS=[
+  'precision highp float;',
+  'uniform vec2 u_res;uniform float u_time;uniform vec2 u_mouse;uniform float u_scroll;uniform float u_dark;',
+  'float hash(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}',
+  'float noise(vec2 p){vec2 i=floor(p),f=fract(p);float a=hash(i),b=hash(i+vec2(1.,0.)),c=hash(i+vec2(0.,1.)),d=hash(i+vec2(1.,1.));vec2 u=f*f*(3.-2.*f);return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);}',
+  'float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*noise(p);p=p*2.02;a*=.5;}return v;}',
+  'void main(){',
+  '  vec2 uv=gl_FragCoord.xy/u_res.xy;',
+  '  vec2 p=(gl_FragCoord.xy-.5*u_res.xy)/u_res.y;',
+  '  float t=u_time*.045;',
+  '  vec2 m=(u_mouse-.5)*.6;',
+  '  vec2 q=vec2(fbm(p*1.8+t),fbm(p*1.8-t+5.2));',
+  '  vec2 r=vec2(fbm(p*1.8+q*1.6+t*1.2+m),fbm(p*1.8+q*1.6-t-m));',
+  '  float f=fbm(p*1.8+r*1.9);',
+  '  vec3 base=mix(vec3(0.93,0.94,0.95),vec3(0.086,0.075,0.059),u_dark);',
+  '  float gs=mix(0.45,1.0,u_dark);',                              /* gentler orange on the light theme */
+  '  vec3 col=mix(base,vec3(1.0,0.42,0.06),smoothstep(mix(.42,.28,u_dark),.95,f)*gs);',
+  '  col=mix(col,vec3(1.0,0.62,0.22),pow(max(f,0.),3.0)*.75*gs);',
+  '  vec2 g=fract(p*7.0+vec2(t*2.2-u_scroll*1.5,r.y));',          /* drifting pipeline grid */
+  '  float grid=smoothstep(.94,1.,max(g.x,g.y))*0.05*gs;',
+  '  col+=vec3(1.,.55,.2)*grid;',
+  '  float vig=smoothstep(1.15,.18,length(p));',
+  '  col=mix(base,col,vig);',                                      /* edges blend to the page bg in either theme */
+  '  col=mix(base,col,mix(.32,1.0,smoothstep(.05,.62,uv.x)));',   /* dim behind the text column on the left */
+  '  col=mix(col,base,u_scroll*.55);',                             /* fade as hero leaves */
+  '  gl_FragColor=vec4(col,1.0);',
+  '}'].join('\n');
+
+  function sh(type,src){var s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);
+    if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){console.warn('glfx shader',gl.getShaderInfoLog(s));return null;}return s;}
+  var vs=sh(gl.VERTEX_SHADER,VS),fs=sh(gl.FRAGMENT_SHADER,FS);
+  if(!vs||!fs)return;
+  var prog=gl.createProgram();gl.attachShader(prog,vs);gl.attachShader(prog,fs);gl.linkProgram(prog);
+  if(!gl.getProgramParameter(prog,gl.LINK_STATUS))return;
+  gl.useProgram(prog);
+  var buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  var loc=gl.getAttribLocation(prog,'p');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+  var uRes=gl.getUniformLocation(prog,'u_res'),uTime=gl.getUniformLocation(prog,'u_time'),
+      uMouse=gl.getUniformLocation(prog,'u_mouse'),uScroll=gl.getUniformLocation(prog,'u_scroll'),
+      uDark=gl.getUniformLocation(prog,'u_dark');
+  var dark=document.documentElement.getAttribute('data-theme')!=='light';
+  new MutationObserver(function(){dark=document.documentElement.getAttribute('data-theme')!=='light';})
+    .observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+
+  var DPR=Math.min(devicePixelRatio||1,1.3),W=0,H=0;
+  function resize(){var w=home.clientWidth,h=home.clientHeight;W=Math.round(w*DPR);H=Math.round(h*DPR);cv.width=W;cv.height=H;gl.viewport(0,0,W,H);}
+  resize();addEventListener('resize',resize,{passive:true});
+
+  var mx=0.5,my=0.5,tmx=0.5,tmy=0.5;
+  home.addEventListener('pointermove',function(e){var r=home.getBoundingClientRect();tmx=(e.clientX-r.left)/r.width;tmy=1.0-(e.clientY-r.top)/r.height;},{passive:true});
+
+  var running=true,t0=performance.now();
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){running=en.isIntersecting;if(running)loop();});},{threshold:0.01});
+  io.observe(home);
+
+  function loop(){
+    if(!running)return;
+    mx+=(tmx-mx)*.06;my+=(tmy-my)*.06;
+    var sc=Math.min(Math.max(scrollY/(innerHeight*0.9),0),1);
+    gl.uniform2f(uRes,W,H);
+    gl.uniform1f(uTime,(performance.now()-t0)*0.001);
+    gl.uniform2f(uMouse,mx,my);
+    gl.uniform1f(uScroll,sc);
+    gl.uniform1f(uDark,dark?1.0:0.0);
+    gl.drawArrays(gl.TRIANGLES,0,3);
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(function(){cv.classList.add('on');loop();});
 })();
 </script>
 </body>
