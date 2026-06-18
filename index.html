@@ -190,7 +190,8 @@
 
   /* ── SHARED SECTIONS ── */
   section{position:relative;z-index:1;padding:clamp(4rem,8vw,5.5rem) 2rem}
-  section:not(#home){content-visibility:auto;contain-intrinsic-size:0 600px}
+  section:not(#home){content-visibility:auto;contain-intrinsic-size:auto 600px}
+  body.nav-jumping section{content-visibility:visible !important}
   #about,#experience,#certifications,#github{background:rgba(255,255,255,.018);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
   [data-theme="light"] #about,[data-theme="light"] #experience,[data-theme="light"] #certifications,[data-theme="light"] #github{background:rgba(60,120,200,.05)}
   .si{max-width:1280px;margin:0 auto;transform:skewY(var(--vskew,0deg))}
@@ -572,6 +573,16 @@
   @media(max-width:600px){
     .cmdk-box{max-height:74vh}
   }
+  /* ── Section transition wipe ── */
+  #pgwipe{position:fixed;inset:0;z-index:9998;pointer-events:none;transform:translateY(100%);will-change:transform;transition:transform .45s cubic-bezier(.76,0,.24,1)}
+  #pgwipe.cover{transform:translateY(0)}
+  #pgwipe.reveal{transform:translateY(-100%)}
+  #pgwipe.notrans{transition:none}
+  #pgwipe .pw-fill{position:absolute;inset:0;background:linear-gradient(135deg,#e0560f,#ff7a1a 55%,#ffa24d)}
+  #pgwipe .pw-grain{position:absolute;inset:0;opacity:.13;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px 200px}
+  #pgwipe .pw-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#1a0d02;font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;font-size:clamp(2rem,7vw,4.5rem);letter-spacing:-2px;opacity:0;transform:translateY(16px);transition:opacity .35s ease,transform .35s ease}
+  #pgwipe.cover .pw-label{opacity:1;transform:none}
+
   </style>
 </head>
 <body>
@@ -1147,6 +1158,8 @@
 </div>
 
 
+<div id="pgwipe" aria-hidden="true"><div class="pw-fill"></div><div class="pw-grain"></div><div class="pw-label"></div></div>
+
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/dist/typed.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 <script>
@@ -1474,6 +1487,7 @@ async function sendMsg(e){
   var lenis=window.__lenis;
   function goTo(hash){
     var el=document.querySelector(hash); if(!el)return;
+    if(window.__wipeGo){window.__wipeGo(hash);return;}
     if(lenis)lenis.scrollTo(hash,{offset:-96,duration:1.1});
     else{var y=el.getBoundingClientRect().top+scrollY-96;window.scrollTo({top:y,behavior:reduce?'auto':'smooth'});}
   }
@@ -1811,6 +1825,62 @@ async function sendMsg(e){
     requestAnimationFrame(loop);
   }
   requestAnimationFrame(function(){cv.classList.add('on');loop();});
+})();
+</script>
+
+<!-- ════════ Section transition wipe (works on all devices; reduced-motion = instant) ════════ -->
+<script>
+(function(){
+  var w=document.getElementById('pgwipe'); if(!w)return;
+  var lbl=w.querySelector('.pw-label'),busy=false;
+  var names={home:'Home',about:'About',skills:'Skills',experience:'Experience',education:'Education',certifications:'Certifications',projects:'Projects',contact:'Contact'};
+  function scrollNow(el){
+    if(window.__lenis)window.__lenis.scrollTo(el,{offset:-96,immediate:true});
+    else el.scrollIntoView({block:'start',behavior:'auto'});   /* respects html{scroll-padding-top:96px}; idempotent */
+  }
+  function reset(){document.body.classList.remove('nav-jumping');w.classList.add('notrans');w.classList.remove('cover','reveal');void w.offsetWidth;w.classList.remove('notrans');busy=false;}
+  window.__wipeGo=function(hash){
+    var el=document.querySelector(hash); if(!el)return false;
+    var reduce=!matchMedia('(prefers-reduced-motion: no-preference)').matches;
+    if(reduce){document.body.classList.add('nav-jumping');void document.body.offsetHeight;scrollNow(el);requestAnimationFrame(function(){document.body.classList.remove('nav-jumping');});return true;}
+    if(busy)return true;
+    busy=true;
+    lbl.textContent=names[hash.replace('#','')]||hash.replace('#','');
+    w.classList.add('notrans');w.classList.remove('cover','reveal');
+    void w.offsetWidth;                       /* snap to base (below screen), no transition */
+    w.classList.remove('notrans');
+    var safety=setTimeout(reset,3000);        /* never get stuck if a transitionend is missed */
+    function onCover(e){
+      if(e.target!==w||e.propertyName!=='transform')return;
+      w.removeEventListener('transitionend',onCover);
+      document.body.classList.add('nav-jumping');   /* force full layout so the target is exact */
+      void document.body.offsetHeight;
+      var n=0;
+      (function converge(){                          /* re-scroll for a few frames while covered, until layout settles */
+        scrollNow(el);
+        if(++n<7){requestAnimationFrame(converge);}
+        else{w.addEventListener('transitionend',onReveal);w.classList.remove('cover');w.classList.add('reveal');}
+      })();
+    }
+    function onReveal(e){
+      if(e.target!==w||e.propertyName!=='transform')return;
+      w.removeEventListener('transitionend',onReveal);
+      clearTimeout(safety);reset();
+    }
+    w.addEventListener('transitionend',onCover);
+    requestAnimationFrame(function(){w.classList.add('cover');});
+    return true;
+  };
+  /* Intercept in-page anchor clicks in capture phase so this owns the navigation
+     (independent of Lenis) and no other handler double-scrolls. */
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href^="#"]'); if(!a)return;
+    var h=a.getAttribute('href'); if(!h||h.length<2)return;
+    if(!document.querySelector(h))return;
+    e.preventDefault();e.stopImmediatePropagation();
+    var nl=document.getElementById('nlinks'); if(nl)nl.classList.remove('open');
+    window.__wipeGo(h);
+  },true);
 })();
 </script>
 </body>
