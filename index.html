@@ -573,6 +573,8 @@
   @media(max-width:600px){
     .cmdk-box{max-height:74vh}
   }
+  .snd-btn i{font-size:.85rem}
+
   /* ── Custom cursor (fine-pointer desktop; native cursor restored if JS doesn't init) ── */
   body.has-custom-cursor,body.has-custom-cursor *{cursor:none !important}
   #cur-dot,#cur-ring{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:10060;will-change:transform;opacity:0;transition:opacity .3s ease}
@@ -627,6 +629,7 @@
     </ul>
     <div class="nav-r">
       <button class="cmdk-hint" id="cmdkHint" aria-label="Open command palette" title="Quick navigation"><i class="fa-solid fa-magnifying-glass" style="font-size:.7rem"></i><kbd>⌘K</kbd></button>
+      <button class="thm-btn snd-btn" id="snd" aria-label="Toggle sound" title="Sound on / off"><i class="fa-solid fa-volume-xmark"></i></button>
       <button class="thm-btn" id="thm" aria-label="Toggle dark / light mode" title="Dark / light mode">
         <svg class="ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.6"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.2 5.2l1.7 1.7M17.1 17.1l1.7 1.7M5.2 18.8l1.7-1.7M17.1 6.9l1.7-1.7" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
         <svg class="ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.8A8.4 8.4 0 0110.2 3.4a8.4 8.4 0 1010.4 10.4z"/></svg>
@@ -1855,6 +1858,7 @@ async function sendMsg(e){
     if(reduce){document.body.classList.add('nav-jumping');void document.body.offsetHeight;scrollNow(el);requestAnimationFrame(function(){document.body.classList.remove('nav-jumping');});return true;}
     if(busy)return true;
     busy=true;
+    if(window.__snd)window.__snd.whoosh();
     lbl.textContent=names[hash.replace('#','')]||hash.replace('#','');
     w.classList.add('notrans');w.classList.remove('cover','reveal');
     void w.offsetWidth;                       /* snap to base (below screen), no transition */
@@ -1932,6 +1936,37 @@ async function sendMsg(e){
       requestAnimationFrame(mqLoop);
     })();}
   }
+})();
+</script>
+
+<!-- ════════ Optional UI sound (synthesized Web Audio, muted by default) ════════ -->
+<script>
+(function(){
+  var btn=document.getElementById('snd'); if(!btn)return;
+  var on=localStorage.getItem('hk-sound')==='on';   /* default OFF */
+  var ac=null;
+  function icon(){btn.innerHTML='<i class="fa-solid '+(on?'fa-volume-high':'fa-volume-xmark')+'"></i>';}
+  icon();
+  function ensure(){try{if(!ac)ac=new (window.AudioContext||window.webkitAudioContext)();}catch(e){return null;}if(ac.state==='suspended')ac.resume();return ac;}
+  function blip(freq,dur,vol,type){if(!on)return;var c=ensure();if(!c)return;
+    var o=c.createOscillator(),g=c.createGain();o.type=type||'sine';o.frequency.value=freq;
+    g.gain.setValueAtTime(0,c.currentTime);g.gain.linearRampToValueAtTime(vol,c.currentTime+0.008);
+    g.gain.exponentialRampToValueAtTime(0.0001,c.currentTime+dur);
+    o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+dur+0.02);}
+  function whoosh(){if(!on)return;var c=ensure();if(!c)return;
+    var len=Math.floor(c.sampleRate*0.4),b=c.createBuffer(1,len,c.sampleRate),d=b.getChannelData(0);
+    for(var i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2);
+    var s=c.createBufferSource();s.buffer=b;
+    var f=c.createBiquadFilter();f.type='bandpass';f.frequency.setValueAtTime(320,c.currentTime);
+    f.frequency.exponentialRampToValueAtTime(2400,c.currentTime+0.34);f.Q.value=0.8;
+    var g=c.createGain();g.gain.setValueAtTime(0.0001,c.currentTime);g.gain.linearRampToValueAtTime(0.11,c.currentTime+0.05);
+    g.gain.exponentialRampToValueAtTime(0.0001,c.currentTime+0.38);
+    s.connect(f);f.connect(g);g.connect(c.destination);s.start();s.stop(c.currentTime+0.4);}
+  window.__snd={click:function(){blip(440,0.12,0.05,'triangle');},hover:function(){blip(900,0.045,0.02,'sine');},whoosh:whoosh,enabled:function(){return on;}};
+  btn.addEventListener('click',function(){on=!on;localStorage.setItem('hk-sound',on?'on':'off');icon();if(on){ensure();blip(660,0.1,0.06,'triangle');}});
+  var lastH=0;
+  document.addEventListener('pointerover',function(e){if(!on)return;var t=e.target.closest&&e.target.closest('a,button,.orb,.skc,.proj-card,.skf,.expf,[role=button]');if(t&&Date.now()-lastH>70){lastH=Date.now();window.__snd.hover();}});
+  document.addEventListener('click',function(e){if(!on)return;var t=e.target.closest&&e.target.closest('a,button,[role=button],.skc');if(t&&t.id!=='snd')window.__snd.click();},true);
 })();
 </script>
 </body>
