@@ -676,11 +676,13 @@
     .avw{width:190px;height:190px}
   }
 
-  /* ── Mobile timeline: reduce left dead-space ── */
+  /* ── Mobile timeline: equal left/right margins — hide timeline chrome,
+       cards fill the full section width (same gap on both sides) ── */
   @media(max-width:600px){
-    .tl{padding-left:.75rem}
-    .tli{padding-left:1.5rem}
-    .tlid{left:-1.6rem;width:13px;height:13px}
+    .tl{padding-left:0}
+    .tl::before{display:none}
+    .tli{padding-left:0}
+    .tlid{display:none}
     /* bio left-align on small screens for easier reading */
     .hw{text-align:left}
     .hbio{margin-right:0}
