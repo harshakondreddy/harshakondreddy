@@ -842,6 +842,7 @@
     .cmdk-box{max-height:74vh}
   }
   .snd-btn i{font-size:.85rem}
+  .snd-btn{display:none !important}
 
   /* ── Custom cursor (fine-pointer desktop; native cursor restored if JS doesn't init) ── */
   body.has-custom-cursor,body.has-custom-cursor *{cursor:none !important}
@@ -951,7 +952,7 @@
         <div class="orb" data-tip="Docker"><i class="devicon-docker-plain colored"></i></div>
         <div class="orb" data-tip="Azure"><i class="devicon-azure-plain colored"></i></div>
         <div class="orb" data-tip="Linux"><i class="devicon-linux-plain colored"></i></div>
-        <div class="orb" data-tip="Grafana"><i class="devicon-grafana-original colored"></i></div>
+        <div class="orb" data-tip="Grafana"><i class="fa-solid fa-chart-line" style="color:#F46800"></i></div>
         <div class="orb" data-tip="Terraform"><i class="devicon-terraform-plain colored"></i></div>
         <div class="orb" data-tip="Elasticsearch"><i class="devicon-elasticsearch-plain colored"></i></div>
         <div class="orb" data-tip="AI"><i class="fa-solid fa-robot" style="color:#ff7a1a"></i></div>
@@ -1070,7 +1071,7 @@
         <div class="scat-hd"><i class="fa-solid fa-chart-line" style="font-size:.9rem"></i><span>Monitoring &amp; Observability</span></div>
         <div class="sk-chips">
           <span class="skc"><i class="fa-solid fa-fire" style="color:#e75c00;font-size:.85rem"></i><span>Prometheus</span></span>
-          <span class="skc"><i class="devicon-grafana-original colored"></i><span>Grafana</span></span>
+          <span class="skc"><i class="fa-solid fa-chart-line" style="color:#F46800;font-size:.85rem"></i><span>Grafana</span></span>
           <span class="skc"><i class="devicon-elasticsearch-plain colored"></i><span>Elasticsearch</span></span>
           <span class="skc"><i class="fa-solid fa-chart-bar" style="color:var(--acc);font-size:.85rem"></i><span>Kibana</span></span>
           <span class="skc"><i class="fa-solid fa-eye" style="color:var(--p);font-size:.85rem"></i><span>AppDynamics</span></span>
@@ -1518,9 +1519,9 @@ function processScroll(){
   navLinks.forEach(function(a){a.classList.toggle('act',a.getAttribute('href')==='#'+active);});
   if(tlEl){var tr=tlEl.getBoundingClientRect();var tp=Math.min(Math.max((innerHeight*.82-tr.top)/tr.height,0),1);tlEl.style.setProperty('--tlp',tp.toFixed(3));}
   if(bttEl)bttEl.classList.toggle('show',s>600);
-  if(hwEl&&!isTouch){
-    if(s<innerHeight*1.2){hwEl.style.transform='translateY('+(s*.16).toFixed(1)+'px)';hwEl.style.opacity=Math.max(0,1-s/(innerHeight*.85)).toFixed(3);}
-    else{hwEl.style.opacity=0;}
+  if(hwEl&&!isTouch&&s<innerHeight*1.4){
+    hwEl.style.transform='translateY('+(s*.08).toFixed(1)+'px)';
+    hwEl.style.opacity='1';
   }
   ticking=false;
 }
@@ -2260,7 +2261,7 @@ async function sendMsg(e){
 <script>
 (function(){
   var btn=document.getElementById('snd'); if(!btn)return;
-  var on=localStorage.getItem('hk-sound')==='on';   /* default OFF */
+  var on=localStorage.getItem('hk-sound')!=='off';   /* default ON */
   var ac=null;
   function icon(){btn.innerHTML='<i class="fa-solid '+(on?'fa-volume-high':'fa-volume-xmark')+'"></i>';}
   icon();
