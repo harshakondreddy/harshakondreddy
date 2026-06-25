@@ -676,6 +676,16 @@
     .avw{width:190px;height:190px}
   }
 
+  /* ── Mobile timeline: reduce left dead-space ── */
+  @media(max-width:600px){
+    .tl{padding-left:.75rem}
+    .tli{padding-left:1.5rem}
+    .tlid{left:-1.6rem;width:13px;height:13px}
+    /* bio left-align on small screens for easier reading */
+    .hw{text-align:left}
+    .hbio{margin-right:0}
+  }
+
   /* ── Reduced motion ── */
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
@@ -1973,6 +1983,23 @@ async function sendMsg(e){
         addEventListener('resize',function(){if(tli.classList.contains('exp-open'))body.style.maxHeight=body.scrollHeight+'px';});
       }
     });
+    /* Double-tap to expand / collapse on touch devices */
+    if(matchMedia('(pointer:coarse)').matches){
+      var dtLast={};
+      roles.forEach(function(tli,idx){
+        var card=tli.querySelector('.tlic');if(!card)return;
+        card.addEventListener('touchend',function(e){
+          if(e.changedTouches.length>1)return;
+          var now=Date.now();
+          if(now-(dtLast[idx]||0)<350){
+            e.preventDefault();
+            var btn=tli.querySelector('.exp-toggle');if(btn)btn.click();
+          }
+          dtLast[idx]=now;
+        },{passive:false});
+      });
+    }
+
     /* tech filter */
     var techs=['Kubernetes','Docker','AWS','Azure','Terraform','Jenkins','GitHub Actions','Helm'];
     var roleTech=roles.map(function(tli){return [].slice.call(tli.querySelectorAll('.tag')).map(function(t){return t.textContent.toLowerCase();}).join(' ');});
@@ -2245,28 +2272,57 @@ async function sendMsg(e){
   if(!measure())window.addEventListener('load',measure,{once:true});
   function wrap(v){if(!trackHalf)return v;v=v%trackHalf;if(v>0)v-=trackHalf;return v;}
   (function loop(){
-    if(!dragging){vel=Math.abs(vel)>0.06?vel*0.93:(paused?0:-AUTO);offset+=vel;}
+    if(!dragging){vel=Math.abs(vel)>0.06?vel*0.94:(paused?0:-AUTO);offset+=vel;}
     if(trackHalf)offset=wrap(offset);
     track.style.transform='translateX('+offset.toFixed(1)+'px)';
     requestAnimationFrame(loop);
   })();
-  function onStart(x){if(!trackHalf&&!measure())return;dragging=true;vel=0;prevX=x;prevT=Date.now();mq.classList.add('mq-drag');}
-  function onMove(x){if(!dragging)return;var now=Date.now(),dt=Math.max(now-prevT,1),dx=x-prevX;vel=dx/dt*16;offset+=dx;prevX=x;prevT=now;}
-  function onEnd(){dragging=false;mq.classList.remove('mq-drag');}
-  mq.addEventListener('mousedown',function(e){onStart(e.clientX);e.preventDefault();});
-  document.addEventListener('mousemove',function(e){if(dragging)onMove(e.clientX);});
-  document.addEventListener('mouseup',function(){if(dragging)onEnd();});
-  mq.addEventListener('touchstart',function(e){onStart(e.touches[0].clientX);},{passive:true});
-  mq.addEventListener('touchmove',function(e){
-    if(!dragging)return;
-    var dx=e.touches[0].clientX-prevX;
-    if(Math.abs(dx)>8&&e.cancelable)e.preventDefault();
-    onMove(e.touches[0].clientX);
-  },{passive:false});
-  mq.addEventListener('touchend',onEnd);
-  mq.addEventListener('touchcancel',onEnd);
-  mq.addEventListener('mouseenter',function(){paused=true;});
-  mq.addEventListener('mouseleave',function(){paused=false;if(!dragging)vel=0;});
+
+  /* Unified pointer-event drag — same approach as the orbital icons (mouse + touch via pan-y).
+     Direction is decided from the START of the gesture; vertical panning is left to the browser. */
+  var startX=0,startY=0,intentDecided=false,isHoriz=false,activePid=-1;
+  function moveCalc(x){
+    var now=Date.now(),dt=Math.max(now-prevT,1),dx=x-prevX;
+    vel=Math.max(-50,Math.min(50,dx/dt*16));
+    offset+=dx;prevX=x;prevT=now;
+  }
+  function endDrag(){dragging=false;intentDecided=false;isHoriz=false;activePid=-1;mq.classList.remove('mq-drag');}
+
+  mq.addEventListener('pointerdown',function(e){
+    if(e.pointerType==='mouse'&&e.button!==0)return;
+    if(!trackHalf&&!measure())return;
+    startX=e.clientX;startY=e.clientY;
+    intentDecided=false;isHoriz=false;activePid=e.pointerId;
+    vel=0;prevX=startX;prevT=Date.now();
+    /* Mouse: commit immediately — no ambiguity with vertical scroll */
+    if(e.pointerType!=='touch'){
+      dragging=true;mq.classList.add('mq-drag');
+      try{mq.setPointerCapture(e.pointerId);}catch(_){}
+      e.preventDefault();
+    }
+  });
+  mq.addEventListener('pointermove',function(e){
+    if(e.pointerId!==activePid)return;
+    /* Touch: wait to distinguish horizontal drag from vertical scroll */
+    if(!intentDecided){
+      var adx=Math.abs(e.clientX-startX),ady=Math.abs(e.clientY-startY);
+      if(adx<5&&ady<5)return;
+      intentDecided=true;
+      isHoriz=adx>ady*0.8;
+      if(isHoriz){
+        dragging=true;mq.classList.add('mq-drag');
+        try{mq.setPointerCapture(e.pointerId);}catch(_){}
+      }
+    }
+    if(!isHoriz)return;
+    moveCalc(e.clientX);
+    e.preventDefault();
+  });
+  mq.addEventListener('pointerup',function(e){if(e.pointerId===activePid)endDrag();});
+  mq.addEventListener('pointercancel',function(e){if(e.pointerId===activePid)endDrag();});
+
+  mq.addEventListener('mouseenter',function(){if(!dragging)paused=true;});
+  mq.addEventListener('mouseleave',function(){paused=false;});
 })();
 </script>
 
