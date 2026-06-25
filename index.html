@@ -141,7 +141,7 @@
 
   /* ── HERO ── */
   #home{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:7rem 2rem 4rem;position:relative;z-index:1;overflow:hidden}
-  #glfx{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0;transition:opacity 1.4s ease}
+  #glfx{position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:0;transition:opacity 1.4s ease}
   #glfx.on{opacity:1}
   .hw{max-width:1280px;width:100%;margin:0 auto;display:flex;align-items:center;gap:5rem;position:relative;z-index:2}
   .hl{flex:1}
@@ -694,6 +694,17 @@
     .orb,.orb-ring{display:none}
   }
 
+  /* ── Mobile: smaller blobs to prevent GPU OOM crash on iOS Safari ── */
+  @media (pointer:coarse){
+    body::before{filter:blur(50px)}
+    #liquid-bg .lb{animation:none !important;filter:blur(55px) !important}
+    #liquid-bg .lb:nth-child(1){width:420px;height:420px}
+    #liquid-bg .lb:nth-child(2){width:380px;height:380px}
+    #liquid-bg .lb:nth-child(3){width:300px;height:300px}
+    #liquid-bg .lb:nth-child(4){display:none}
+    #liquid-bg .lb:nth-child(5){display:none}
+  }
+
   /* ── RESPONSIVE / ADAPTIVE ── */
   @media(max-width:1024px){
     .hw{flex-direction:column;text-align:center;gap:3rem}
@@ -852,6 +863,7 @@
     .cmdk-box{max-height:74vh}
   }
   .snd-btn i{font-size:.85rem}
+  .snd-btn{display:none !important}
 
   /* ── Custom cursor (fine-pointer desktop; native cursor restored if JS doesn't init) ── */
   body.has-custom-cursor,body.has-custom-cursor *{cursor:none !important}
@@ -961,7 +973,7 @@
         <div class="orb" data-tip="Docker"><i class="devicon-docker-plain colored"></i></div>
         <div class="orb" data-tip="Azure"><i class="devicon-azure-plain colored"></i></div>
         <div class="orb" data-tip="Linux"><i class="devicon-linux-plain colored"></i></div>
-        <div class="orb" data-tip="Grafana"><i class="devicon-grafana-original colored"></i></div>
+        <div class="orb" data-tip="Grafana"><i class="fa-solid fa-chart-line" style="color:#F46800"></i></div>
         <div class="orb" data-tip="Terraform"><i class="devicon-terraform-plain colored"></i></div>
         <div class="orb" data-tip="Elasticsearch"><i class="devicon-elasticsearch-plain colored"></i></div>
         <div class="orb" data-tip="AI"><i class="fa-solid fa-robot" style="color:#ff7a1a"></i></div>
@@ -1080,7 +1092,7 @@
         <div class="scat-hd"><i class="fa-solid fa-chart-line" style="font-size:.9rem"></i><span>Monitoring &amp; Observability</span></div>
         <div class="sk-chips">
           <span class="skc"><i class="fa-solid fa-fire" style="color:#e75c00;font-size:.85rem"></i><span>Prometheus</span></span>
-          <span class="skc"><i class="devicon-grafana-original colored"></i><span>Grafana</span></span>
+          <span class="skc"><i class="fa-solid fa-chart-line" style="color:#F46800;font-size:.85rem"></i><span>Grafana</span></span>
           <span class="skc"><i class="devicon-elasticsearch-plain colored"></i><span>Elasticsearch</span></span>
           <span class="skc"><i class="fa-solid fa-chart-bar" style="color:var(--acc);font-size:.85rem"></i><span>Kibana</span></span>
           <span class="skc"><i class="fa-solid fa-eye" style="color:var(--p);font-size:.85rem"></i><span>AppDynamics</span></span>
@@ -1528,9 +1540,9 @@ function processScroll(){
   navLinks.forEach(function(a){a.classList.toggle('act',a.getAttribute('href')==='#'+active);});
   if(tlEl){var tr=tlEl.getBoundingClientRect();var tp=Math.min(Math.max((innerHeight*.82-tr.top)/tr.height,0),1);tlEl.style.setProperty('--tlp',tp.toFixed(3));}
   if(bttEl)bttEl.classList.toggle('show',s>600);
-  if(hwEl&&!isTouch){
-    if(s<innerHeight*1.2){hwEl.style.transform='translateY('+(s*.16).toFixed(1)+'px)';hwEl.style.opacity=Math.max(0,1-s/(innerHeight*.85)).toFixed(3);}
-    else{hwEl.style.opacity=0;}
+  if(hwEl&&!isTouch&&s<innerHeight*1.4){
+    hwEl.style.transform='translateY('+(s*.08).toFixed(1)+'px)';
+    hwEl.style.opacity='1';
   }
   ticking=false;
 }
@@ -1639,8 +1651,10 @@ async function sendMsg(e){
     },{passive:true});
     (function mLoop(){
       if(aSeen){ax+=(amx-ax)*.1;ay+=(amy-ay)*.1;aura.style.transform='translate('+ax.toFixed(1)+'px,'+ay.toFixed(1)+'px)';}
-      vTarget*=.88;vSkew+=(vTarget-vSkew)*.12;
-      document.documentElement.style.setProperty('--vskew',(Math.abs(vSkew)<.006?0:vSkew.toFixed(3))+'deg');
+      if(!isTouch){
+        vTarget*=.88;vSkew+=(vTarget-vSkew)*.12;
+        document.documentElement.style.setProperty('--vskew',(Math.abs(vSkew)<.006?0:vSkew.toFixed(3))+'deg');
+      }
       requestAnimationFrame(mLoop);
     })();
   }
@@ -1733,8 +1747,10 @@ async function sendMsg(e){
   avw.addEventListener('pointerup',endDrag);
   avw.addEventListener('pointercancel',endDrag);
 
+  var _orbR=avw.offsetWidth/2+(innerWidth<768?28:42);
+  window.addEventListener('resize',function(){_orbR=avw.offsetWidth/2+(innerWidth<768?28:42);},{passive:true});
   function frame(){
-    var R=avw.offsetWidth/2+(innerWidth<768?28:42);
+    var R=_orbR;
     speed+=(tSpeed-speed)*.05;tilt+=(tTilt-tilt)*.06;rotZ+=(tRotZ-rotZ)*.06;
     var sv=Math.min(Math.abs(window.__scrollVel||0)*.02,1.6);window.__scrollVel=(window.__scrollVel||0)*.9;
     t+=.0042*(speed+sv)+spinVel; spinVel*=.92; if(Math.abs(spinVel)<.0003)spinVel=0;
@@ -2058,19 +2074,19 @@ async function sendMsg(e){
 })();
 </script>
 
-<!-- ════════ WebGL hero field (raw GLSL, no framework) — heavy on desktop, skipped on mobile/reduced-motion ════════ -->
+<!-- ════════ WebGL full-page fluid field (GLSL) — desktop fine-pointer only ════════ -->
 <script>
 (function(){
-  var cv=document.getElementById('glfx'),home=document.getElementById('home');
-  if(!cv||!home)return;
+  var cv=document.getElementById('glfx');
+  if(!cv)return;
   var motion=matchMedia('(prefers-reduced-motion: no-preference)').matches;
   var bigEnough=matchMedia('(min-width:1025px)').matches;
   var fine=matchMedia('(pointer:fine)').matches;
-  if(!(motion&&bigEnough&&fine))return;            /* graceful: phones/tablets/reduced-motion keep the 2D particle field */
+  if(!(motion&&bigEnough&&fine))return;
 
   var gl;
-  try{ gl=cv.getContext('webgl',{antialias:false,alpha:false,powerPreference:'high-performance'})||cv.getContext('experimental-webgl'); }catch(e){}
-  if(!gl)return;                                    /* no WebGL -> graceful no-op */
+  try{gl=cv.getContext('webgl',{antialias:false,alpha:false,powerPreference:'high-performance'})||cv.getContext('experimental-webgl');}catch(e){}
+  if(!gl)return;
 
   var VS='attribute vec2 p;void main(){gl_Position=vec4(p,0.0,1.0);}';
   var FS=[
@@ -2088,21 +2104,19 @@ async function sendMsg(e){
   '  vec2 r=vec2(fbm(p*1.8+q*1.6+t*1.2+m),fbm(p*1.8+q*1.6-t-m));',
   '  float f=fbm(p*1.8+r*1.9);',
   '  vec3 base=mix(vec3(0.91,0.92,0.94),vec3(0.036,0.036,0.056),u_dark);',
-  '  float gs=mix(0.42,1.0,u_dark);',
+  '  float gs=mix(0.50,1.0,u_dark);',
   '  vec3 col=mix(base,vec3(1.0,0.42,0.06),smoothstep(mix(.42,.28,u_dark),.95,f)*gs);',
   '  col=mix(col,vec3(1.0,0.62,0.22),pow(max(f,0.),3.0)*.72*gs);',
-  '  vec2 g=fract(p*7.0+vec2(t*2.2-u_scroll*1.5,r.y));',
+  '  vec2 g=fract(p*7.0+vec2(t*2.2+u_scroll*4.0,r.y+u_scroll*2.0));',
   '  float grid=smoothstep(.94,1.,max(g.x,g.y))*0.045*gs;',
   '  col+=vec3(1.,.55,.2)*grid;',
-  '  float vig=smoothstep(1.15,.18,length(p));',
-  '  col=mix(base,col,vig);',                                      /* edges blend to the page bg in either theme */
-  '  col=mix(base,col,mix(.32,1.0,smoothstep(.05,.62,uv.x)));',   /* dim behind the text column on the left */
-  '  col=mix(col,base,u_scroll*.55);',                             /* fade as hero leaves */
+  '  float vig=smoothstep(1.4,.1,length(p));',
+  '  col=mix(base,col,vig);',
   '  gl_FragColor=vec4(col,1.0);',
   '}'].join('\n');
 
   function sh(type,src){var s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);
-    if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){console.warn('glfx shader',gl.getShaderInfoLog(s));return null;}return s;}
+    if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){console.warn('glfx',gl.getShaderInfoLog(s));return null;}return s;}
   var vs=sh(gl.VERTEX_SHADER,VS),fs=sh(gl.FRAGMENT_SHADER,FS);
   if(!vs||!fs)return;
   var prog=gl.createProgram();gl.attachShader(prog,vs);gl.attachShader(prog,fs);gl.linkProgram(prog);
@@ -2118,21 +2132,21 @@ async function sendMsg(e){
   new MutationObserver(function(){dark=document.documentElement.getAttribute('data-theme')!=='light';})
     .observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 
-  var DPR=Math.min(devicePixelRatio||1,1.3),W=0,H=0;
-  function resize(){var w=home.clientWidth,h=home.clientHeight;W=Math.round(w*DPR);H=Math.round(h*DPR);cv.width=W;cv.height=H;gl.viewport(0,0,W,H);}
+  var DPR=Math.min(devicePixelRatio||1,1.5),W=0,H=0;
+  function resize(){W=Math.round(innerWidth*DPR);H=Math.round(innerHeight*DPR);cv.width=W;cv.height=H;gl.viewport(0,0,W,H);}
   resize();addEventListener('resize',resize,{passive:true});
 
   var mx=0.5,my=0.5,tmx=0.5,tmy=0.5;
-  home.addEventListener('pointermove',function(e){var r=home.getBoundingClientRect();tmx=(e.clientX-r.left)/r.width;tmy=1.0-(e.clientY-r.top)/r.height;},{passive:true});
+  document.addEventListener('pointermove',function(e){tmx=e.clientX/innerWidth;tmy=1.0-e.clientY/innerHeight;},{passive:true});
 
   var running=true,t0=performance.now();
-  var io=new IntersectionObserver(function(es){es.forEach(function(en){running=en.isIntersecting;if(running)loop();});},{threshold:0.01});
-  io.observe(home);
+  document.addEventListener('visibilitychange',function(){running=!document.hidden;if(running)loop();});
 
   function loop(){
     if(!running)return;
     mx+=(tmx-mx)*.06;my+=(tmy-my)*.06;
-    var sc=Math.min(Math.max(scrollY/(innerHeight*0.9),0),1);
+    var pageH=document.body.scrollHeight-innerHeight;
+    var sc=pageH>0?Math.min(Math.max(scrollY/pageH,0),1):0;
     gl.uniform2f(uRes,W,H);
     gl.uniform1f(uTime,(performance.now()-t0)*0.001);
     gl.uniform2f(uMouse,mx,my);
@@ -2316,7 +2330,7 @@ async function sendMsg(e){
 <script>
 (function(){
   var btn=document.getElementById('snd'); if(!btn)return;
-  var on=localStorage.getItem('hk-sound')==='on';   /* default OFF */
+  var on=localStorage.getItem('hk-sound')!=='off';   /* default ON */
   var ac=null;
   function icon(){btn.innerHTML='<i class="fa-solid '+(on?'fa-volume-high':'fa-volume-xmark')+'"></i>';}
   icon();
