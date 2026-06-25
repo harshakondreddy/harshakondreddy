@@ -684,6 +684,17 @@
     .orb,.orb-ring{display:none}
   }
 
+  /* ── Mobile: smaller blobs to prevent GPU OOM crash on iOS Safari ── */
+  @media (pointer:coarse){
+    body::before{filter:blur(50px)}
+    #liquid-bg .lb{animation:none !important;filter:blur(55px) !important}
+    #liquid-bg .lb:nth-child(1){width:420px;height:420px}
+    #liquid-bg .lb:nth-child(2){width:380px;height:380px}
+    #liquid-bg .lb:nth-child(3){width:300px;height:300px}
+    #liquid-bg .lb:nth-child(4){display:none}
+    #liquid-bg .lb:nth-child(5){display:none}
+  }
+
   /* ── RESPONSIVE / ADAPTIVE ── */
   @media(max-width:1024px){
     .hw{flex-direction:column;text-align:center;gap:3rem}
@@ -1630,8 +1641,10 @@ async function sendMsg(e){
     },{passive:true});
     (function mLoop(){
       if(aSeen){ax+=(amx-ax)*.1;ay+=(amy-ay)*.1;aura.style.transform='translate('+ax.toFixed(1)+'px,'+ay.toFixed(1)+'px)';}
-      vTarget*=.88;vSkew+=(vTarget-vSkew)*.12;
-      document.documentElement.style.setProperty('--vskew',(Math.abs(vSkew)<.006?0:vSkew.toFixed(3))+'deg');
+      if(!isTouch){
+        vTarget*=.88;vSkew+=(vTarget-vSkew)*.12;
+        document.documentElement.style.setProperty('--vskew',(Math.abs(vSkew)<.006?0:vSkew.toFixed(3))+'deg');
+      }
       requestAnimationFrame(mLoop);
     })();
   }
@@ -1724,8 +1737,10 @@ async function sendMsg(e){
   avw.addEventListener('pointerup',endDrag);
   avw.addEventListener('pointercancel',endDrag);
 
+  var _orbR=avw.offsetWidth/2+(innerWidth<768?28:42);
+  window.addEventListener('resize',function(){_orbR=avw.offsetWidth/2+(innerWidth<768?28:42);},{passive:true});
   function frame(){
-    var R=avw.offsetWidth/2+(innerWidth<768?28:42);
+    var R=_orbR;
     speed+=(tSpeed-speed)*.05;tilt+=(tTilt-tilt)*.06;rotZ+=(tRotZ-rotZ)*.06;
     var sv=Math.min(Math.abs(window.__scrollVel||0)*.02,1.6);window.__scrollVel=(window.__scrollVel||0)*.9;
     t+=.0042*(speed+sv)+spinVel; spinVel*=.92; if(Math.abs(spinVel)<.0003)spinVel=0;
@@ -2247,7 +2262,7 @@ async function sendMsg(e){
   mq.addEventListener('touchmove',function(e){
     if(!dragging)return;
     var dx=e.touches[0].clientX-prevX;
-    if(Math.abs(dx)>8)e.preventDefault();
+    if(Math.abs(dx)>8&&e.cancelable)e.preventDefault();
     onMove(e.touches[0].clientX);
   },{passive:false});
   mq.addEventListener('touchend',onEnd);
