@@ -15,7 +15,7 @@
   <meta name="theme-color" content="#16130f">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css">
 
   <style>
 
@@ -41,23 +41,23 @@
     --bg:    #09090e;
     --bg2:   #0e0e16;
     --bg3:   #14141f;
-    --card:  rgba(255,255,255,.065);
-    --card-h:rgba(255,255,255,.115);
-    --border:rgba(255,255,255,.15);
-    --border-h:rgba(255,255,255,.34);
+    --card:  rgba(255,255,255,.08);
+    --card-h:rgba(255,255,255,.14);
+    --border:rgba(255,255,255,.18);
+    --border-h:rgba(255,255,255,.42);
     --t1:#f0f2f8; --t2:#c2c8d8; --t3:#7a8298; --t4:#4e5668;
     --p:#ff7a1a; --p2:#e0560f;
     --acc:#d4a043; --cy:#ff9a4d; --gr:#2fbf83; --am:#d4a043; --pk:#93a0ad;
     --grad:linear-gradient(135deg,#e0560f 0%,#ff7a1a 100%);
     --gradT:linear-gradient(135deg,#ffc187,#ff7a1a);
-    --nav-bg:rgba(9,9,14,.42);
+    --nav-bg:rgba(9,9,14,.38);
     --mob-menu-bg:rgb(10,10,18);
     --shadow:0 24px 72px rgba(0,0,0,.75),0 6px 20px rgba(0,0,0,.45);
     --glow:0 0 36px rgba(224,90,15,.3),0 8px 32px rgba(0,0,0,.4);
     --neu:-4px -4px 10px rgba(255,255,255,.022),4px 4px 12px rgba(0,0,0,.7);
     --neu-in:inset 3px 3px 8px rgba(0,0,0,.6),inset -3px -3px 8px rgba(255,255,255,.02);
-    --blur:blur(44px) saturate(160%) brightness(1.06);
-    --spec:inset 0 1.5px 0 rgba(255,255,255,.4),inset 0 -0.5px 0 rgba(255,255,255,.08),inset 1px 0 0 rgba(255,255,255,.04);
+    --blur:blur(50px) saturate(200%) brightness(1.08);
+    --spec:inset 0 1.5px 0 rgba(255,255,255,.55),inset 0 -0.5px 0 rgba(255,255,255,.1),inset 1px 0 0 rgba(255,255,255,.06);
     --r1:10px; --r2:14px; --r3:20px; --r4:28px;
     --ease:cubic-bezier(.2,0,0,1);
     --trans:background .25s var(--ease),border-color .25s var(--ease),color .25s var(--ease),transform .25s var(--ease),box-shadow .25s var(--ease),opacity .25s var(--ease);
@@ -91,17 +91,19 @@
   ::selection{background:rgba(224,90,15,.4)}
   :focus-visible{outline:2px solid var(--p);outline-offset:3px;border-radius:4px}
 
-  /* ── Liquid glass ambient background — subtle, monochromatic ── */
+  /* ── Liquid glass ambient background — vivid color field for glass to refract ── */
   body::before{
     content:'';position:fixed;inset:-22%;z-index:-1;pointer-events:none;
     background:
-      radial-gradient(55% 50% at 72% 22%,rgba(255,122,26,.11),transparent 70%),
-      radial-gradient(48% 44% at 18% 72%,rgba(255,90,10,.07),transparent 70%),
-      radial-gradient(38% 36% at 50% 50%,rgba(200,200,255,.05),transparent 70%);
+      radial-gradient(55% 50% at 72% 22%,rgba(255,110,20,.26),transparent 68%),
+      radial-gradient(48% 44% at 18% 72%,rgba(120,50,220,.22),transparent 68%),
+      radial-gradient(38% 36% at 50% 10%,rgba(255,180,60,.14),transparent 65%),
+      radial-gradient(35% 40% at 82% 78%,rgba(80,40,180,.16),transparent 65%),
+      radial-gradient(28% 30% at 30% 50%,rgba(255,80,120,.10),transparent 65%);
     filter:blur(70px);
     animation:aur 26s ease-in-out infinite alternate;
   }
-  [data-theme="light"] body::before{opacity:.5}
+  [data-theme="light"] body::before{opacity:.45}
 
   /* ── Cursor aura (liquid glass light field) ── */
   #aura{position:fixed;left:0;top:0;width:600px;height:600px;margin:-300px 0 0 -300px;border-radius:50%;pointer-events:none;z-index:0;background:radial-gradient(circle,rgba(120,160,255,.07) 0%,rgba(255,122,26,.05) 40%,transparent 70%);opacity:0;transition:opacity .6s ease;will-change:transform}
@@ -205,7 +207,7 @@
   /* ── Liquid glass card base (shared) — white-specular frosted glass ── */
   .sttile,.tlic,.edu-card,.cert-card,.proj-card,.ach,.citem,.cform,.gh-note{
     background:var(--card);
-    -webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
+    -webkit-backdrop-filter:blur(50px) saturate(200%) brightness(1.06);backdrop-filter:blur(50px) saturate(200%) brightness(1.06);
     border:1px solid var(--border);
     box-shadow:var(--spec),0 10px 40px rgba(0,0,0,.35);
   }
@@ -414,15 +416,21 @@
      One accent color (orange). Everything else: white-specular glass.
   ════════════════════════════════════════════ */
 
-  /* ── Neutral ambient blobs ── */
+  /* ── Vivid ambient blobs — glass needs rich color behind it to look like glass ── */
   #liquid-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
-  #liquid-bg .lb{position:absolute;border-radius:50%;filter:blur(110px)}
-  #liquid-bg .lb:nth-child(1){width:820px;height:820px;left:-15%;top:-15%;background:radial-gradient(circle,rgba(255,100,20,.10),transparent 70%)}
-  #liquid-bg .lb:nth-child(2){width:700px;height:700px;right:-14%;bottom:5%;background:radial-gradient(circle,rgba(255,80,10,.07),transparent 70%)}
-  #liquid-bg .lb:nth-child(3){width:600px;height:600px;left:32%;top:40%;background:radial-gradient(circle,rgba(200,190,255,.04),transparent 70%)}
-  #liquid-bg .lb:nth-child(4){display:none}
-  #liquid-bg .lb:nth-child(5){display:none}
+  #liquid-bg .lb{position:absolute;border-radius:50%;filter:blur(90px);animation:lbFloat 18s ease-in-out infinite alternate}
+  #liquid-bg .lb:nth-child(1){width:900px;height:900px;left:-18%;top:-18%;background:radial-gradient(circle,rgba(255,110,20,.28),transparent 68%);animation-duration:22s}
+  #liquid-bg .lb:nth-child(2){width:820px;height:820px;right:-16%;bottom:-8%;background:radial-gradient(circle,rgba(100,40,220,.24),transparent 68%);animation-duration:19s;animation-delay:-6s}
+  #liquid-bg .lb:nth-child(3){width:650px;height:650px;left:28%;top:32%;background:radial-gradient(circle,rgba(255,80,140,.14),transparent 70%);animation-duration:25s;animation-delay:-11s}
+  #liquid-bg .lb:nth-child(4){width:550px;height:550px;left:-10%;bottom:8%;background:radial-gradient(circle,rgba(60,180,255,.12),transparent 70%);animation-duration:28s;animation-delay:-4s}
+  #liquid-bg .lb:nth-child(5){width:480px;height:480px;right:10%;top:10%;background:radial-gradient(circle,rgba(255,160,30,.16),transparent 70%);animation-duration:16s;animation-delay:-8s}
   [data-theme="light"] #liquid-bg{display:none}
+  @keyframes lbFloat{
+    0%  {transform:translate(0,0) scale(1)}
+    33% {transform:translate(3%,2%) scale(1.04)}
+    66% {transform:translate(-2%,3%) scale(.97)}
+    100%{transform:translate(2%,-3%) scale(1.06)}
+  }
 
   /* ── Glass shimmer sweep ── */
   @keyframes glassShimmer{
@@ -439,62 +447,175 @@
     animation:glassShimmer .7s ease forwards
   }
 
-  /* ── Hover: brighter glass edge, no iridescent color ── */
+  /* ── Glass surface mixin: the true iOS liquid glass recipe ── */
+  /* Strong specular top rim + rich blur + slight fill */
+
+  /* ── Hover: brighter glass edge, amplified specular ── */
   .sttile:hover,.tlic:hover,.edu-card:hover,.cert-card:hover,.proj-card:hover,.ach:hover,.citem:hover{
     border-color:var(--border-h) !important;
     background:var(--card-h) !important;
-    box-shadow:inset 0 1.5px 0 rgba(255,255,255,.55),inset 0 -0.5px 0 rgba(255,255,255,.1),0 14px 48px rgba(0,0,0,.35) !important
+    box-shadow:inset 0 1.5px 0 rgba(255,255,255,.65),inset 0 -0.5px 0 rgba(255,255,255,.12),0 14px 48px rgba(0,0,0,.35) !important
   }
 
-  /* ── Nav: deep frosted glass ── */
-  nav{border-color:rgba(255,255,255,.12) !important}
+  /* ── Nav: deep frosted glass with vivid color pickup ── */
+  nav{border-color:rgba(255,255,255,.16) !important}
   nav::before{
-    -webkit-backdrop-filter:blur(72px) saturate(160%) !important;
-    backdrop-filter:blur(72px) saturate(160%) !important;
+    -webkit-backdrop-filter:blur(72px) saturate(200%) brightness(1.06) !important;
+    backdrop-filter:blur(72px) saturate(200%) brightness(1.06) !important;
     background:var(--nav-bg) !important;
-    box-shadow:inset 0 -1px 0 rgba(255,255,255,.06) !important
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -1px 0 rgba(255,255,255,.06) !important
   }
   nav.on::before{background:var(--mob-menu-bg) !important}
 
-  /* ── Hero badge ── */
+  /* ── Hero badge — glass capsule ── */
   .hbadge{
-    background:rgba(255,255,255,.07) !important;
-    -webkit-backdrop-filter:blur(28px) !important;
-    backdrop-filter:blur(28px) !important;
-    border-color:rgba(255,255,255,.18) !important;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.3) !important
+    background:rgba(255,255,255,.09) !important;
+    -webkit-backdrop-filter:blur(28px) saturate(200%) !important;
+    backdrop-filter:blur(28px) saturate(200%) !important;
+    border-color:rgba(255,255,255,.22) !important;
+    box-shadow:inset 0 1.5px 0 rgba(255,255,255,.45),inset 0 -1px 0 rgba(0,0,0,.1) !important
   }
 
-  /* ── Outline button ── */
+  /* ── TRUE GLASS outline button (iOS 26 / visionOS style) ── */
   .btnO{
-    background:rgba(255,255,255,.07) !important;
-    border-color:rgba(255,255,255,.18) !important;
-    -webkit-backdrop-filter:blur(32px) !important;
-    backdrop-filter:blur(32px) !important;
-    box-shadow:inset 0 1.5px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(0,0,0,.08) !important
+    background:rgba(255,255,255,.09) !important;
+    border-color:rgba(255,255,255,.22) !important;
+    -webkit-backdrop-filter:blur(40px) saturate(220%) brightness(1.1) !important;
+    backdrop-filter:blur(40px) saturate(220%) brightness(1.1) !important;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255,255,255,.52),
+      inset 0 -1px 0 rgba(0,0,0,.14),
+      inset 1px 0 0 rgba(255,255,255,.1),
+      inset -1px 0 0 rgba(255,255,255,.06),
+      0 4px 20px rgba(0,0,0,.32) !important
   }
   .btnO:hover{
-    background:rgba(255,255,255,.12) !important;
+    background:rgba(255,255,255,.16) !important;
+    border-color:rgba(255,255,255,.42) !important;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255,255,255,.7),
+      inset 0 -1px 0 rgba(0,0,0,.1),
+      0 6px 28px rgba(0,0,0,.28) !important
+  }
+
+  /* ── TRUE GLASS social icons ── */
+  .sico{
+    background:rgba(255,255,255,.08) !important;
+    border-color:rgba(255,255,255,.2) !important;
+    -webkit-backdrop-filter:blur(32px) saturate(200%) !important;
+    backdrop-filter:blur(32px) saturate(200%) !important;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255,255,255,.5),
+      inset 0 -1px 0 rgba(0,0,0,.12),
+      0 4px 16px rgba(0,0,0,.28) !important
+  }
+  .sico:hover{
+    background:rgba(255,255,255,.16) !important;
+    border-color:rgba(255,255,255,.38) !important
+  }
+
+  /* ── TRUE GLASS theme / header buttons ── */
+  .thm-btn{
+    background:rgba(255,255,255,.08) !important;
+    border-color:rgba(255,255,255,.18) !important;
+    -webkit-backdrop-filter:blur(28px) saturate(200%) !important;
+    backdrop-filter:blur(28px) saturate(200%) !important;
+    box-shadow:
+      inset 0 1.5px 0 rgba(255,255,255,.45),
+      inset 0 -0.5px 0 rgba(0,0,0,.12),
+      0 3px 12px rgba(0,0,0,.28) !important
+  }
+  .thm-btn:hover{
+    background:rgba(255,255,255,.15) !important;
     border-color:rgba(255,255,255,.35) !important
   }
 
-  /* ── Skill chips ── */
+  /* ── TRUE GLASS nav contact CTA ── */
+  .ncta{
+    -webkit-backdrop-filter:blur(20px) !important;
+    backdrop-filter:blur(20px) !important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 4px 14px rgba(224,90,15,.25) !important
+  }
+
+  /* ── TRUE GLASS skill filter pills ── */
+  .skf{
+    background:rgba(255,255,255,.07) !important;
+    border-color:rgba(255,255,255,.16) !important;
+    -webkit-backdrop-filter:blur(28px) saturate(200%) !important;
+    backdrop-filter:blur(28px) saturate(200%) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.35),
+      inset 0 -0.5px 0 rgba(0,0,0,.1),
+      0 3px 10px rgba(0,0,0,.22) !important
+  }
+  .skf:hover{
+    background:rgba(255,255,255,.13) !important;
+    border-color:rgba(255,255,255,.32) !important
+  }
+  .skf.act{
+    background:var(--grad) !important;
+    border-color:transparent !important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 4px 14px rgba(224,90,15,.35) !important
+  }
+
+  /* ── TRUE GLASS experience filter pills ── */
+  .expf{
+    background:rgba(255,255,255,.07) !important;
+    border-color:rgba(255,255,255,.16) !important;
+    -webkit-backdrop-filter:blur(28px) saturate(200%) !important;
+    backdrop-filter:blur(28px) saturate(200%) !important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 3px 10px rgba(0,0,0,.22) !important
+  }
+  .expf.act{
+    background:var(--grad) !important;
+    border-color:transparent !important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 4px 14px rgba(224,90,15,.35) !important
+  }
+
+  /* ── TRUE GLASS skill chips ── */
   .skc{
-    background:rgba(255,255,255,.055) !important;
-    border-color:rgba(255,255,255,.12) !important;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.12) !important
+    background:rgba(255,255,255,.07) !important;
+    border-color:rgba(255,255,255,.15) !important;
+    -webkit-backdrop-filter:blur(20px) saturate(180%) !important;
+    backdrop-filter:blur(20px) saturate(180%) !important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.28) !important
   }
   .skc:hover{
-    background:rgba(255,255,255,.11) !important;
-    border-color:rgba(255,255,255,.3) !important;
+    background:rgba(255,255,255,.14) !important;
+    border-color:rgba(255,255,255,.36) !important;
     color:var(--t1) !important;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.35) !important
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.5) !important
+  }
+
+  /* ── TRUE GLASS avbadge ── */
+  .avbadge{
+    background:rgba(10,10,18,.48) !important;
+    -webkit-backdrop-filter:blur(32px) saturate(200%) !important;
+    backdrop-filter:blur(32px) saturate(200%) !important;
+    box-shadow:inset 0 1.5px 0 rgba(255,255,255,.35),0 4px 16px rgba(0,0,0,.4) !important
+  }
+
+  /* ── TRUE GLASS cmdk hint button ── */
+  .cmdk-hint{
+    background:rgba(255,255,255,.07) !important;
+    border-color:rgba(255,255,255,.16) !important;
+    -webkit-backdrop-filter:blur(20px) saturate(180%) !important;
+    backdrop-filter:blur(20px) saturate(180%) !important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.3) !important
+  }
+
+  /* ── Glass period badge on timeline ── */
+  .tli-period{
+    background:rgba(255,122,26,.08) !important;
+    -webkit-backdrop-filter:blur(16px) saturate(160%) !important;
+    backdrop-filter:blur(16px) saturate(160%) !important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.25) !important
   }
 
   /* ── Stats/dash cells ── */
   .dcell,.tools-card{
-    -webkit-backdrop-filter:blur(44px) saturate(160%) !important;
-    backdrop-filter:blur(44px) saturate(160%) !important;
+    -webkit-backdrop-filter:blur(50px) saturate(200%) !important;
+    backdrop-filter:blur(50px) saturate(200%) !important;
     box-shadow:var(--spec),0 6px 24px rgba(0,0,0,.28) !important
   }
   [data-theme="light"] .dcell,[data-theme="light"] .tools-card{
@@ -503,10 +624,10 @@
 
   /* ── Form fields ── */
   .fg input,.fg textarea{
-    background:rgba(255,255,255,.055) !important;
-    border-color:rgba(255,255,255,.12) !important;
-    -webkit-backdrop-filter:blur(24px) !important;
-    backdrop-filter:blur(24px) !important
+    background:rgba(255,255,255,.07) !important;
+    border-color:rgba(255,255,255,.16) !important;
+    -webkit-backdrop-filter:blur(24px) saturate(180%) !important;
+    backdrop-filter:blur(24px) saturate(180%) !important
   }
   [data-theme="light"] .fg input,[data-theme="light"] .fg textarea{
     background:rgba(255,255,255,.72) !important;
@@ -515,17 +636,17 @@
 
   /* ── Footer ── */
   footer{
-    -webkit-backdrop-filter:blur(36px) !important;
-    backdrop-filter:blur(36px) !important
+    -webkit-backdrop-filter:blur(50px) saturate(200%) !important;
+    backdrop-filter:blur(50px) saturate(200%) !important
   }
 
   /* ── Command palette ── */
   .cmdk-box{
-    background:rgba(9,9,14,.78) !important;
-    -webkit-backdrop-filter:blur(60px) saturate(160%) !important;
-    backdrop-filter:blur(60px) saturate(160%) !important;
-    border-color:rgba(255,255,255,.14) !important;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 32px 80px rgba(0,0,0,.65) !important
+    background:rgba(9,9,14,.72) !important;
+    -webkit-backdrop-filter:blur(72px) saturate(200%) !important;
+    backdrop-filter:blur(72px) saturate(200%) !important;
+    border-color:rgba(255,255,255,.18) !important;
+    box-shadow:inset 0 1.5px 0 rgba(255,255,255,.28),0 32px 80px rgba(0,0,0,.65) !important
   }
   [data-theme="light"] .cmdk-box{
     background:rgba(236,238,248,.88) !important;
@@ -534,11 +655,11 @@
 
   /* ── Back-to-top ── */
   #btt{
-    background:rgba(255,255,255,.07) !important;
-    border-color:rgba(255,255,255,.16) !important;
-    -webkit-backdrop-filter:blur(36px) !important;
-    backdrop-filter:blur(36px) !important;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 8px 28px rgba(0,0,0,.35) !important
+    background:rgba(255,255,255,.09) !important;
+    border-color:rgba(255,255,255,.2) !important;
+    -webkit-backdrop-filter:blur(40px) saturate(200%) !important;
+    backdrop-filter:blur(40px) saturate(200%) !important;
+    box-shadow:inset 0 1.5px 0 rgba(255,255,255,.45),0 8px 28px rgba(0,0,0,.35) !important
   }
 
   /* ── Marquee: grab cursor ── */
@@ -2100,78 +2221,38 @@ async function sendMsg(e){
 (function(){
   var mq=document.querySelector('.mq'),track=document.querySelector('.mq-track');
   if(!mq||!track)return;
-
-  var offset=0,vel=0,dragging=false;
-  var lastX=0,lastT=0,startX=0,startY=0;
-  var trackHalf=0;
-  var autoV=-0.55;   /* px per frame when idle — matches original 36s CSS speed */
-  var hovering=false;
-
-  /* Stop CSS animation, measure after layout */
   track.style.animation='none';
-  function init(){
-    trackHalf=track.scrollWidth/2;
-    if(!trackHalf){requestAnimationFrame(init);return;}
+  track.style.willChange='transform';
+  var offset=0,vel=0,dragging=false;
+  var prevX=0,prevT=0;
+  var trackHalf=0,paused=false;
+  var AUTO=0.5;
+  function measure(){trackHalf=Math.round(track.scrollWidth/2);return trackHalf>0;}
+  if(!measure())window.addEventListener('load',measure,{once:true});
+  function wrap(v){if(!trackHalf)return v;v=v%trackHalf;if(v>0)v-=trackHalf;return v;}
+  (function loop(){
+    if(!dragging){vel=Math.abs(vel)>0.06?vel*0.93:(paused?0:-AUTO);offset+=vel;}
+    if(trackHalf)offset=wrap(offset);
+    track.style.transform='translateX('+offset.toFixed(1)+'px)';
     requestAnimationFrame(loop);
-  }
-  requestAnimationFrame(init);
-
-  function wrap(o){
-    /* seamless wrap: keep in [-trackHalf, 0) */
-    o=o%trackHalf;
-    if(o>0)o-=trackHalf;
-    if(o<=-trackHalf)o+=trackHalf;
-    return o;
-  }
-
-  function loop(){
-    if(!dragging){
-      if(Math.abs(vel)>0.12){vel*=0.92;}
-      else{vel=(hovering?0:autoV);}
-      offset+=vel;
-    }
-    offset=wrap(offset);
-    track.style.transform='translateX('+offset.toFixed(2)+'px)';
-    requestAnimationFrame(loop);
-  }
-
-  /* ── Pointer drag ── */
-  mq.addEventListener('pointerdown',function(e){
-    dragging=true;vel=0;
-    startX=lastX=e.clientX;startY=e.clientY;lastT=Date.now();
-    mq.classList.add('mq-drag');
-    /* only capture after movement direction is confirmed in pointermove */
-  });
-
-  mq.addEventListener('pointermove',function(e){
+  })();
+  function onStart(x){if(!trackHalf&&!measure())return;dragging=true;vel=0;prevX=x;prevT=Date.now();mq.classList.add('mq-drag');}
+  function onMove(x){if(!dragging)return;var now=Date.now(),dt=Math.max(now-prevT,1),dx=x-prevX;vel=dx/dt*16;offset+=dx;prevX=x;prevT=now;}
+  function onEnd(){dragging=false;mq.classList.remove('mq-drag');}
+  mq.addEventListener('mousedown',function(e){onStart(e.clientX);e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(dragging)onMove(e.clientX);});
+  document.addEventListener('mouseup',function(){if(dragging)onEnd();});
+  mq.addEventListener('touchstart',function(e){onStart(e.touches[0].clientX);},{passive:true});
+  mq.addEventListener('touchmove',function(e){
     if(!dragging)return;
-    var dx=e.clientX-startX,dy=e.clientY-startY;
-    /* if clearly horizontal, take over (prevent page scroll) */
-    if(!mq.hasPointerCapture(e.pointerId)&&Math.abs(dx)>Math.abs(dy)+6){
-      mq.setPointerCapture(e.pointerId);
-    }
-    if(!mq.hasPointerCapture(e.pointerId))return;
-    var ddx=e.clientX-lastX,dt=Math.max(Date.now()-lastT,1);
-    vel=ddx/dt*16;
-    offset+=ddx;
-    lastX=e.clientX;lastT=Date.now();
-  });
-
-  function endDrag(){
-    if(!dragging)return;
-    dragging=false;
-    mq.classList.remove('mq-drag');
-  }
-  mq.addEventListener('pointerup',endDrag);
-  mq.addEventListener('pointercancel',endDrag);
-  mq.addEventListener('pointerleave',function(e){
-    /* only end if pointer capture was never set (quick tap-leave) */
-    if(!mq.hasPointerCapture(e.pointerId))dragging=false;
-  });
-
-  /* pause auto-scroll on hover (desktop) */
-  mq.addEventListener('mouseenter',function(){hovering=true;});
-  mq.addEventListener('mouseleave',function(){hovering=false;});
+    var dx=e.touches[0].clientX-prevX;
+    if(Math.abs(dx)>8)e.preventDefault();
+    onMove(e.touches[0].clientX);
+  },{passive:false});
+  mq.addEventListener('touchend',onEnd);
+  mq.addEventListener('touchcancel',onEnd);
+  mq.addEventListener('mouseenter',function(){paused=true;});
+  mq.addEventListener('mouseleave',function(){paused=false;if(!dragging)vel=0;});
 })();
 </script>
 
