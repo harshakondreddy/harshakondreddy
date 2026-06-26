@@ -116,8 +116,8 @@
   #cvs{position:fixed;inset:0;pointer-events:none;z-index:0;contain:strict;transform:translateZ(0)}
 
   /* ── NAV (floating glass island) ── */
-  nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);width:min(1220px,calc(100% - 1.5rem));padding:.6rem 1rem;z-index:1000;border:1px solid var(--border);border-radius:20px;transition:background .25s var(--ease),border-color .25s var(--ease),color .25s var(--ease),box-shadow .25s var(--ease),opacity .25s var(--ease),transform .36s var(--ease);box-shadow:var(--shadow)}
-  nav.hide{transform:translateX(-50%) translateY(calc(-100% - 26px))}
+  nav{position:fixed;top:14px;left:50%;transform:translateX(-50%) translateY(0);width:min(1220px,calc(100% - 1.5rem));padding:.6rem 1rem;z-index:1000;border:1px solid var(--border);border-radius:20px;will-change:transform,opacity;transition:background .25s var(--ease),border-color .25s var(--ease),color .25s var(--ease),box-shadow .25s var(--ease),opacity .25s var(--ease),transform .36s var(--ease);box-shadow:var(--shadow)}
+  nav.hide{transform:translateX(-50%) translateY(calc(-100% - 26px));opacity:0;pointer-events:none}
   nav::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;background:var(--nav-bg);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);transition:var(--trans)}
   nav.on{box-shadow:0 14px 44px rgba(0,0,0,.3)}
   nav.on::before{background:var(--mob-menu-bg)}
@@ -1550,21 +1550,21 @@ function processScroll(){
   var h=Math.max(document.body.scrollHeight-innerHeight,1);
   bar.style.width=(Math.min(Math.max(s,0),h)/h*100)+'%';
   nav.classList.toggle('on',s>50);
-  /* Auto-hide: hide on any downward scroll past hero; reveal after 50px of continuous upward travel.
-     scrollAccum resets on any downward movement so iOS rubber-band snap-back never triggers reveal. */
+  /* Auto-hide: hide on any downward movement; reveal after 80px of uninterrupted upward travel.
+     Any positive dy resets scrollAccum, so rubber-band and address-bar events can't accidentally reveal. */
   var dy=s-lastNavY,menuOpen=(typeof nl!=='undefined'&&nl&&nl.classList.contains('open'));
   var navJumping=document.body.classList.contains('nav-jumping');
   if(s<120||menuOpen){
     if(navHidden){nav.classList.remove('hide');navHidden=false;}
     scrollAccum=0;
   }else if(navJumping){
-    scrollAccum=0; /* page-wipe converge loops create oscillating dy — freeze accum to prevent false reveal */
-  }else if(dy>3){
-    if(!navHidden){nav.classList.add('hide');navHidden=true;}
     scrollAccum=0;
+  }else if(dy>0){
+    if(!navHidden){nav.classList.add('hide');navHidden=true;}
+    scrollAccum=0; /* any downward movement (incl. address-bar hide) resets accumulator */
   }else if(dy<-2){
     scrollAccum+=-dy;
-    if(navHidden&&scrollAccum>=50){nav.classList.remove('hide');navHidden=false;scrollAccum=0;}
+    if(navHidden&&scrollAccum>=80){nav.classList.remove('hide');navHidden=false;scrollAccum=0;}
   }
   lastNavY=s;
   var active='';
