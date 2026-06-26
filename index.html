@@ -116,7 +116,7 @@
   #cvs{position:fixed;inset:0;pointer-events:none;z-index:0;contain:strict;transform:translateZ(0)}
 
   /* ── NAV (floating glass island) ── */
-  nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);width:min(1220px,calc(100% - 1.5rem));padding:.6rem 1rem;z-index:1000;border:1px solid var(--border);border-radius:20px;transition:var(--trans),transform .4s var(--ease);box-shadow:var(--shadow)}
+  nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);width:min(1220px,calc(100% - 1.5rem));padding:.6rem 1rem;z-index:1000;border:1px solid var(--border);border-radius:20px;transition:background .25s var(--ease),border-color .25s var(--ease),color .25s var(--ease),box-shadow .25s var(--ease),opacity .25s var(--ease),transform .36s var(--ease);box-shadow:var(--shadow)}
   nav.hide{transform:translateX(-50%) translateY(calc(-100% - 26px))}
   nav::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;background:var(--nav-bg);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);transition:var(--trans)}
   nav.on{box-shadow:0 14px 44px rgba(0,0,0,.3)}
@@ -1526,16 +1526,22 @@ var tlEl=document.querySelector('.tl'),bttEl=document.getElementById('btt'),hwEl
 var isTouch=matchMedia('(pointer:coarse)').matches;
 var secs=[];
 function cacheSecs(){secs=Array.from(document.querySelectorAll('section[id]')).map(function(s){return{id:s.id,el:s};});}
-var ticking=false,lastNavY=0;
+var ticking=false,lastNavY=0,navHidden=false,peakNavY=0;
 function processScroll(){
   var s=scrollY,h=document.body.scrollHeight-innerHeight;
   bar.style.width=(s/h*100)+'%';
   nav.classList.toggle('on',s>50);
-  /* Instagram-style auto-hide: hide on scroll down, reveal on scroll up */
+  /* Auto-hide nav: hide on scroll down, reveal only after 64px upward travel (prevents iOS bounce flicker) */
   var dy=s-lastNavY,menuOpen=(typeof nl!=='undefined'&&nl&&nl.classList.contains('open'));
-  if(s<140||menuOpen)nav.classList.remove('hide');
-  else if(dy>5)nav.classList.add('hide');
-  else if(dy<-5)nav.classList.remove('hide');
+  if(s<140||menuOpen){
+    if(navHidden){nav.classList.remove('hide');navHidden=false;}
+    peakNavY=s;
+  }else if(dy>0){
+    if(s>peakNavY)peakNavY=s;
+    if(!navHidden&&dy>6){nav.classList.add('hide');navHidden=true;}
+  }else{
+    if(navHidden&&(peakNavY-s)>64){nav.classList.remove('hide');navHidden=false;}
+  }
   lastNavY=s;
   var active='';
   for(var i=secs.length-1;i>=0;i--){
