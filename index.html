@@ -130,13 +130,13 @@
   .ncta{background:var(--grad) !important;color:#fff !important;font-weight:600 !important}
   .ncta:hover{opacity:.88 !important;transform:translateY(-1px)}
   .nav-r{display:flex;align-items:center;gap:.5rem}
-  .thm-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--trans);flex-shrink:0;box-shadow:var(--neu)}
+  .thm-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--trans);flex-shrink:0;box-shadow:var(--neu)}
   .thm-btn:hover{border-color:var(--p);color:var(--p)}
   .thm-btn:active{box-shadow:var(--neu-in)}
   .thm-btn svg{width:17px;height:17px;fill:currentColor}
   [data-theme="dark"] .ic-moon{display:none}
   [data-theme="light"] .ic-sun{display:none}
-  .bur{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+  .bur{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:10px;background:none;border:none}
   .bur span{width:22px;height:2px;background:var(--t1);border-radius:2px;transition:var(--trans)}
 
   /* ── HERO ── */
@@ -192,7 +192,7 @@
   .scue .sl{width:1px;height:36px;background:linear-gradient(to bottom,var(--p),transparent);animation:pulse 2s infinite}
 
   /* ── SHARED SECTIONS ── */
-  section{position:relative;z-index:1;padding:clamp(4rem,8vw,5.5rem) 2rem}
+  section{position:relative;z-index:1;padding:clamp(4rem,8vw,5.5rem) 2rem;overflow-x:clip}
   section:not(#home){content-visibility:auto;contain-intrinsic-size:auto 600px}
   body.nav-jumping section{content-visibility:visible !important}
   #about,#experience,#certifications,#github{background:transparent}
@@ -731,14 +731,18 @@
     .orb{width:44px;height:44px;margin:-22px 0 0 -22px}
     .orb i{font-size:1.45rem}
     .tlic:hover{transform:none}
+    .skf{min-height:38px;padding:.55rem 1rem}
+    .sico{width:44px;height:44px}
   }
   @media(max-width:480px){
     section{padding:4rem 1.25rem}
+    #home{padding:5.5rem 1.25rem 2rem}
+    .hw{gap:1.5rem !important}
+    .avw{width:190px;height:190px}
     .cform{padding:1.5rem 1.1rem}
     .tlic{padding:1.375rem 1.125rem}
     .stats{grid-template-columns:1fr}
     .edu-body{padding:1.375rem}
-    .avw{width:220px;height:220px}
   }
   /* ════════ NEW INTERACTION LAYER ════════ */
 
@@ -878,6 +882,7 @@
   #cur-ring.hover{width:56px;height:56px;margin:-28px 0 0 -28px;background-color:rgba(255,122,26,.13)}
   #cur-ring.down{width:24px;height:24px;margin:-12px 0 0 -12px}
   @media (hover:none),(pointer:coarse){#cur-dot,#cur-ring{display:none}}
+  @media (pointer:coarse){.cmdk-hint{display:none !important}}
 
   /* ── Section transition wipe ── */
   #pgwipe{position:fixed;inset:0;z-index:9998;pointer-events:none;transform:translateY(100%);will-change:transform;transition:transform .45s cubic-bezier(.76,0,.24,1)}
@@ -1491,10 +1496,23 @@
 
 /* ── Scroll reveal (Obsidian zoom feel) ── */
 (function(){
+  var revEls=Array.from(document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-zoom'));
+  function showVisible(){
+    revEls=revEls.filter(function(el){
+      if(el.classList.contains('shown'))return false;
+      var r=el.getBoundingClientRect();
+      if(r.top<innerHeight*0.97&&r.bottom>0){el.classList.add('shown');return false;}
+      return true;
+    });
+  }
   var obs=new IntersectionObserver(function(entries){
     entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('shown');obs.unobserve(e.target);}});
-  },{threshold:0.07,rootMargin:'0px 0px -36px 0px'});
-  document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-zoom').forEach(function(el){obs.observe(el);});
+  },{threshold:0.05,rootMargin:'0px 0px -20px 0px'});
+  revEls.forEach(function(el){obs.observe(el);});
+  /* Fallback: also check on scroll end and after programmatic jumps */
+  var rv_t;
+  window.addEventListener('scroll',function(){clearTimeout(rv_t);rv_t=setTimeout(showVisible,120);},{passive:true});
+  setTimeout(showVisible,500);
 })();
 
 
