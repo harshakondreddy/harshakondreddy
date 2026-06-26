@@ -1544,22 +1544,24 @@ var tlEl=document.querySelector('.tl'),bttEl=document.getElementById('btt'),hwEl
 var isTouch=matchMedia('(pointer:coarse)').matches;
 var secs=[];
 function cacheSecs(){secs=Array.from(document.querySelectorAll('section[id]')).map(function(s){return{id:s.id,el:s};});}
-var ticking=false,lastNavY=0,navHidden=false,peakNavY=0;
+var ticking=false,lastNavY=0,navHidden=false,scrollAccum=0;
 function processScroll(){
-  var maxS=document.body.scrollHeight-innerHeight,h=maxS;
-  var s=Math.min(Math.max(scrollY,0),maxS); /* clamp: iOS rubber-band can push scrollY<0 or >maxS */
-  bar.style.width=(s/h*100)+'%';
+  var s=window.scrollY;
+  var h=Math.max(document.body.scrollHeight-innerHeight,1);
+  bar.style.width=(Math.min(Math.max(s,0),h)/h*100)+'%';
   nav.classList.toggle('on',s>50);
-  /* Auto-hide nav: hide on scroll-down, reveal after 32px upward travel */
+  /* Auto-hide: hide on any downward scroll past hero; reveal after 50px of continuous upward travel.
+     scrollAccum resets on any downward movement so iOS rubber-band snap-back never triggers reveal. */
   var dy=s-lastNavY,menuOpen=(typeof nl!=='undefined'&&nl&&nl.classList.contains('open'));
-  if(s<140||menuOpen){
+  if(s<120||menuOpen){
     if(navHidden){nav.classList.remove('hide');navHidden=false;}
-    peakNavY=s;
-  }else if(dy>0){
-    if(s>peakNavY)peakNavY=s;
-    if(!navHidden&&dy>6){nav.classList.add('hide');navHidden=true;}
-  }else{
-    if(navHidden&&(peakNavY-s)>32){nav.classList.remove('hide');navHidden=false;peakNavY=s;}
+    scrollAccum=0;
+  }else if(dy>3){
+    if(!navHidden){nav.classList.add('hide');navHidden=true;}
+    scrollAccum=0;
+  }else if(dy<-2){
+    scrollAccum+=-dy;
+    if(navHidden&&scrollAccum>=50){nav.classList.remove('hide');navHidden=false;scrollAccum=0;}
   }
   lastNavY=s;
   var active='';
