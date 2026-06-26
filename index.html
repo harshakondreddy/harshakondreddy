@@ -1528,10 +1528,11 @@ var secs=[];
 function cacheSecs(){secs=Array.from(document.querySelectorAll('section[id]')).map(function(s){return{id:s.id,el:s};});}
 var ticking=false,lastNavY=0,navHidden=false,peakNavY=0;
 function processScroll(){
-  var s=scrollY,h=document.body.scrollHeight-innerHeight;
+  var maxS=document.body.scrollHeight-innerHeight,h=maxS;
+  var s=Math.min(Math.max(scrollY,0),maxS); /* clamp: iOS rubber-band can push scrollY<0 or >maxS */
   bar.style.width=(s/h*100)+'%';
   nav.classList.toggle('on',s>50);
-  /* Auto-hide nav: hide on scroll down, reveal only after 64px upward travel (prevents iOS bounce flicker) */
+  /* Auto-hide nav: hide on scroll-down, reveal after 32px upward travel */
   var dy=s-lastNavY,menuOpen=(typeof nl!=='undefined'&&nl&&nl.classList.contains('open'));
   if(s<140||menuOpen){
     if(navHidden){nav.classList.remove('hide');navHidden=false;}
@@ -1540,7 +1541,7 @@ function processScroll(){
     if(s>peakNavY)peakNavY=s;
     if(!navHidden&&dy>6){nav.classList.add('hide');navHidden=true;}
   }else{
-    if(navHidden&&(peakNavY-s)>64){nav.classList.remove('hide');navHidden=false;}
+    if(navHidden&&(peakNavY-s)>32){nav.classList.remove('hide');navHidden=false;peakNavY=s;}
   }
   lastNavY=s;
   var active='';
