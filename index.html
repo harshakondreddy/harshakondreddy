@@ -41,9 +41,9 @@
     --bg:    #09090e;
     --bg2:   #0e0e16;
     --bg3:   #14141f;
-    --card:  rgba(255,255,255,.11);
+    --card:  rgba(255,255,255,.13);
     --card-h:rgba(255,255,255,.20);
-    --border:rgba(255,255,255,.24);
+    --border:rgba(255,255,255,.28);
     --border-h:rgba(255,255,255,.52);
     --t1:#f0f2f8; --t2:#c2c8d8; --t3:#7a8298; --t4:#4e5668;
     --p:#ff7a1a; --p2:#e0560f;
@@ -57,7 +57,7 @@
     --neu:-4px -4px 10px rgba(255,255,255,.022),4px 4px 12px rgba(0,0,0,.7);
     --neu-in:inset 3px 3px 8px rgba(0,0,0,.6),inset -3px -3px 8px rgba(255,255,255,.02);
     --blur:blur(50px) saturate(220%) brightness(1.12);
-    --spec:inset 0 1.5px 0 rgba(255,255,255,.70),inset 0 -0.5px 0 rgba(255,255,255,.14),inset 1px 0 0 rgba(255,255,255,.09);
+    --spec:inset 0 2px 0 rgba(255,255,255,.78),inset 0 -0.5px 0 rgba(255,255,255,.16),inset 1px 0 0 rgba(255,255,255,.10);
     --r1:10px; --r2:14px; --r3:20px; --r4:28px;
     --ease:cubic-bezier(.2,0,0,1);
     --trans:background .25s var(--ease),border-color .25s var(--ease),color .25s var(--ease),transform .25s var(--ease),box-shadow .25s var(--ease),opacity .25s var(--ease);
@@ -205,10 +205,13 @@
 
   /* ── Liquid glass card base (shared) — white-specular frosted glass ── */
   .sttile,.tlic,.edu-card,.cert-card,.proj-card,.ach,.citem,.cform,.gh-note{
-    background:var(--card);
-    -webkit-backdrop-filter:blur(50px) saturate(220%) brightness(1.12);backdrop-filter:blur(50px) saturate(220%) brightness(1.12);
+    background:linear-gradient(145deg,rgba(255,255,255,.18) 0%,rgba(255,255,255,.08) 100%);
+    -webkit-backdrop-filter:blur(64px) saturate(240%) brightness(1.16);backdrop-filter:blur(64px) saturate(240%) brightness(1.16);
     border:1px solid var(--border);
     box-shadow:var(--spec),0 10px 40px rgba(0,0,0,.35);
+  }
+  [data-theme="light"] .sttile,[data-theme="light"] .tlic,[data-theme="light"] .edu-card,[data-theme="light"] .cert-card,[data-theme="light"] .proj-card,[data-theme="light"] .ach,[data-theme="light"] .citem,[data-theme="light"] .cform,[data-theme="light"] .gh-note{
+    background:linear-gradient(145deg,rgba(255,255,255,.82) 0%,rgba(255,255,255,.62) 100%);
   }
   [data-theme="light"] .sttile,[data-theme="light"] .tlic,[data-theme="light"] .edu-card,[data-theme="light"] .cert-card,[data-theme="light"] .proj-card,[data-theme="light"] .ach,[data-theme="light"] .citem,[data-theme="light"] .cform,[data-theme="light"] .gh-note{
     box-shadow:var(--spec),0 8px 32px rgba(20,30,70,.08);
@@ -234,7 +237,7 @@
   .sttile .lbl{font-size:.75rem;color:var(--t4);font-weight:500}
   .ghc{display:flex;flex-direction:column;gap:.75rem}
   .tools-card{background:var(--card);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid var(--border);border-radius:var(--r2);padding:1.25rem 1.375rem;display:flex;flex-direction:column;gap:.6rem;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 4px 24px rgba(0,0,0,.18)}
-  .tools-hd{display:flex;align-items:center;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t4);margin-bottom:.3rem}
+  .tools-hd{display:flex;align-items:center;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:.3rem}
   .trow{display:grid;grid-template-columns:118px 1fr 36px;align-items:center;gap:.6rem;font-size:.78rem;color:var(--t2);font-weight:500}
   .tname{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .tbar{height:6px;background:var(--bg3);border-radius:4px;overflow:hidden}
@@ -246,7 +249,7 @@
 
   /* ── SKILLS (neumo-glass chips) ── */
   .skats{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.4rem 2rem;margin-top:2.25rem;align-items:start}
-  .scat-hd{display:flex;align-items:center;gap:.55rem;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t4);padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+  .scat-hd{display:flex;align-items:center;gap:.55rem;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);padding-bottom:.5rem;border-bottom:1px solid var(--border)}
   .sk-chips{display:flex;flex-wrap:wrap;gap:.4rem;padding:.6rem 0 0}
   .skc{display:inline-flex;align-items:center;gap:.35rem;background:var(--card);border:1px solid var(--border);border-radius:var(--r1);padding:.26rem .55rem;color:var(--t2);font-size:.78rem;font-weight:500;text-decoration:none;transition:background .18s,border-color .18s,color .18s,box-shadow .18s,transform .18s;cursor:default;box-shadow:var(--neu)}
   .skc:hover{border-color:var(--border-h);color:var(--t1);background:var(--card-h);transform:translateY(-2px)}
@@ -265,9 +268,9 @@
   .co-logo{width:44px;height:44px;border-radius:var(--r1);background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;box-shadow:var(--neu)}
   .tli-role{font-size:1.1rem;font-weight:800;color:var(--t1);margin-bottom:.2rem}
   .tli-co{font-size:.9rem;color:var(--p);font-weight:700}
-  .tli-loc{font-size:.8rem;color:var(--t4);margin-top:.15rem}
-  .tli-period{font-size:.75rem;font-family:'JetBrains Mono',monospace;color:var(--t4);background:rgba(255,122,26,.1);border:1px solid rgba(255,122,26,.22);padding:.24rem .8rem;border-radius:50px;white-space:nowrap;align-self:flex-start}
-  .tli-desc{font-size:.9175rem;color:var(--t3);line-height:1.82;margin-bottom:1.1rem}
+  .tli-loc{font-size:.8rem;color:var(--t3);margin-top:.15rem}
+  .tli-period{font-size:.75rem;font-family:'JetBrains Mono',monospace;color:var(--t3);background:rgba(255,122,26,.1);border:1px solid rgba(255,122,26,.22);padding:.24rem .8rem;border-radius:50px;white-space:nowrap;align-self:flex-start}
+  .tli-desc{font-size:.9175rem;color:var(--t2);line-height:1.82;margin-bottom:1.1rem}
   .tli-desc ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:.55rem}
   .tli-desc ul li{padding-left:1.2rem;position:relative}
   .tli-desc ul li::before{content:'▸';position:absolute;left:0;color:var(--p);font-size:.85rem}
