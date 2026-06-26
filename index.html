@@ -1553,9 +1553,12 @@ function processScroll(){
   /* Auto-hide: hide on any downward scroll past hero; reveal after 50px of continuous upward travel.
      scrollAccum resets on any downward movement so iOS rubber-band snap-back never triggers reveal. */
   var dy=s-lastNavY,menuOpen=(typeof nl!=='undefined'&&nl&&nl.classList.contains('open'));
+  var navJumping=document.body.classList.contains('nav-jumping');
   if(s<120||menuOpen){
     if(navHidden){nav.classList.remove('hide');navHidden=false;}
     scrollAccum=0;
+  }else if(navJumping){
+    scrollAccum=0; /* page-wipe converge loops create oscillating dy — freeze accum to prevent false reveal */
   }else if(dy>3){
     if(!navHidden){nav.classList.add('hide');navHidden=true;}
     scrollAccum=0;
