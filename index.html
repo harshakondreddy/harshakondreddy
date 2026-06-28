@@ -2,6 +2,30 @@
 <html lang="en" data-theme="dark">
 <head>
   <script>(function(){var t=localStorage.getItem('hk-theme')||(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',t);})()</script>
+  <script>
+  /* GPU acceleration detection — runs synchronously so CSS class is present before first paint */
+  (function(){
+    function detectSoftwareRenderer(){
+      try{
+        var c=document.createElement('canvas');
+        var gl=c.getContext('webgl')||c.getContext('experimental-webgl');
+        if(!gl)return true; /* no WebGL at all → definitely software */
+        var dbg=gl.getExtension('WEBGL_debug_renderer_info');
+        if(dbg){
+          var r=(gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL)||'').toLowerCase();
+          /* SwiftShader = Chrome's CPU renderer; llvmpipe = Mesa CPU renderer */
+          if(/swiftshader|llvmpipe|softpipe|microsoft basic render/i.test(r))return true;
+        }
+        return false;
+      }catch(e){return false;}
+    }
+    if(detectSoftwareRenderer()){
+      document.documentElement.classList.add('no-gpu');
+      /* expose flag for JS feature gates below */
+      window.__noGPU=true;
+    }
+  })();
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Sri Harsha Kondreddy | Senior DevOps Engineer</title>
@@ -412,6 +436,33 @@
   @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
     .sttile,.tlic,.edu-card,.cert-card,.proj-card,.ach,.citem,.cform,.gh-note,nav,.nlinks.open,.btnO,.hbadge,.avbadge{background:var(--bg3)}
   }
+
+  /* ── no-gpu mode: software renderer detected, strip expensive GPU effects ── */
+  .no-gpu .sttile,.no-gpu .tlic,.no-gpu .edu-card,.no-gpu .cert-card,
+  .no-gpu .proj-card,.no-gpu .ach,.no-gpu .citem,.no-gpu .cform,.no-gpu .gh-note{
+    -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+    background:var(--bg3)!important;
+  }
+  .no-gpu nav::before,.no-gpu .nlinks.open{
+    -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+    background:var(--bg3)!important;
+  }
+  .no-gpu .btnO,.no-gpu .hbadge,.no-gpu .avbadge,.no-gpu .tools-card{
+    -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+    background:var(--bg3)!important;
+  }
+  /* disable the animated ambient blobs and body::before gradient — expensive filter:blur */
+  .no-gpu body::before{animation:none!important;filter:none!important;opacity:0}
+  .no-gpu #liquid-bg .lb{animation:none!important;filter:none!important}
+  /* hide WebGL canvas entirely */
+  .no-gpu #glfx{display:none!important}
+  /* disable 3D perspective card tilt — still triggers GPU path on SW renderer */
+  .no-gpu .proj-card,.no-gpu .tlic,.no-gpu .cert-card,.no-gpu .edu-card,
+  .no-gpu .tools-card,.no-gpu .ach,.no-gpu .citem{transform:none!important}
+  /* disable scroll-velocity skew on sections */
+  .no-gpu section{transform:none!important;will-change:auto!important}
+  /* disable cursor aura blob */
+  .no-gpu #aura{display:none!important}
 
   /* ════════════════════════════════════════════
      LIQUID GLASS DESIGN LAYER — clean / monochromatic
@@ -1526,7 +1577,7 @@
   P.prototype.reset=function(){this.x=Math.random()*c.width;this.y=Math.random()*c.height;this.vx=(Math.random()-.5)*.18;this.vy=(Math.random()-.5)*.18;this.rad=Math.random()*1.1+.3;this.cl=['224,90,15','255,122,26','150,132,112'][Math.floor(Math.random()*3)];};
   P.prototype.tick=function(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>c.width)this.vx*=-1;if(this.y<0||this.y>c.height)this.vy*=-1;};
   P.prototype.draw=function(){x.beginPath();x.arc(this.x,this.y,this.rad,0,Math.PI*2);x.fillStyle='rgba('+this.cl+','+(isLight()?.18:.14)+')';x.fill();};
-  function build(){pts=Array.from({length:Math.min(22,Math.floor(innerWidth/44))},function(){return new P();});}
+  function build(){var cap=window.__noGPU?6:Math.min(22,Math.floor(innerWidth/44));pts=Array.from({length:cap},function(){return new P();});}
   function loop(){if(paused){raf=null;return;}x.clearRect(0,0,c.width,c.height);pts.forEach(function(p){p.tick();p.draw();});raf=requestAnimationFrame(loop);}
   function resume(){paused=false;if(!raf)raf=requestAnimationFrame(loop);}
   sz();build();raf=requestAnimationFrame(loop);
@@ -1685,7 +1736,7 @@ async function sendMsg(e){
     },{passive:true});
     (function mLoop(){
       if(aSeen){ax+=(amx-ax)*.1;ay+=(amy-ay)*.1;aura.style.transform='translate('+ax.toFixed(1)+'px,'+ay.toFixed(1)+'px)';}
-      if(!isTouch){
+      if(!isTouch&&!window.__noGPU){
         vTarget*=.88;vSkew+=(vTarget-vSkew)*.12;
         document.documentElement.style.setProperty('--vskew',(Math.abs(vSkew)<.006?0:vSkew.toFixed(3))+'deg');
       }
@@ -1725,6 +1776,7 @@ async function sendMsg(e){
   var avw=document.querySelector('.avw');if(!avw)return;
   var orbs=[].slice.call(avw.querySelectorAll('.orb'));if(!orbs.length)return;
   if(!matchMedia('(prefers-reduced-motion: no-preference)').matches)return;
+  if(window.__noGPU)return; /* skip 3D orbital animation on software renderer */
   var fine=matchMedia('(pointer:fine)').matches;
   var N=orbs.length,t=Math.PI/5;
   var speed=1,tSpeed=1;            /* hover brake */
