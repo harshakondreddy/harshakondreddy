@@ -463,6 +463,9 @@
   .no-gpu section{transform:none!important;will-change:auto!important}
   /* disable cursor aura blob */
   .no-gpu #aura{display:none!important}
+  /* disable card spotlight radial gradient and cursor ring */
+  .no-gpu .spot::after{display:none!important}
+  .no-gpu #cur-ring{display:none!important}
 
   /* ════════════════════════════════════════════
      LIQUID GLASS DESIGN LAYER — clean / monochromatic
@@ -1672,7 +1675,7 @@ async function sendMsg(e){
   /* Cursor spotlight on all cards */
   var cards=document.querySelectorAll('.tlic,.proj-card,.cert-card,.edu-card,.sttile,.ach,.citem,.cform');
   cards.forEach(function(c){c.classList.add('spot');});
-  if(fine){
+  if(fine&&!window.__noGPU){
     cards.forEach(function(c){
       c.addEventListener('pointermove',function(e){
         var r=c.getBoundingClientRect();
@@ -1682,7 +1685,7 @@ async function sendMsg(e){
     });
   }
 
-  if(fine&&motion){
+  if(fine&&motion&&!window.__noGPU){
     /* Cursor-tracked 3D tilt on all cards */
     function tiltify(sel,max){
       document.querySelectorAll(sel).forEach(function(c){
@@ -2331,11 +2334,12 @@ async function sendMsg(e){
   document.addEventListener('pointerout',function(e){var t=e.target.closest&&e.target.closest(hoverSel);if(t){var to=e.relatedTarget;if(!(to&&to.closest&&to.closest(hoverSel)))ring.classList.remove('hover');}});
   document.documentElement.addEventListener('mouseleave',hide);
   document.documentElement.addEventListener('mouseenter',function(){if(seen)show();});
+  if(window.__noGPU){ring.style.display='none';} /* skip lagging ring on software renderer */
   (function loop(){
-    var kd=reduce?1:.4,kr=reduce?1:.18;
+    var kd=(reduce||window.__noGPU)?1:.4,kr=reduce?1:.18;
     dx+=(mx-dx)*kd;dy+=(my-dy)*kd;rx+=(mx-rx)*kr;ry+=(my-ry)*kr;
     dot.style.transform='translate('+dx.toFixed(2)+'px,'+dy.toFixed(2)+'px)';
-    ring.style.transform='translate('+rx.toFixed(2)+'px,'+ry.toFixed(2)+'px)';
+    if(!window.__noGPU)ring.style.transform='translate('+rx.toFixed(2)+'px,'+ry.toFixed(2)+'px)';
     requestAnimationFrame(loop);
   })();
 
