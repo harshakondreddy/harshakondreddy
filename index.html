@@ -438,18 +438,17 @@
   }
 
   /* ── no-gpu mode: software renderer detected, strip expensive GPU effects ── */
+  /* Only remove backdrop-filter; keep the original gradient so cards look right in both themes */
   .no-gpu .sttile,.no-gpu .tlic,.no-gpu .edu-card,.no-gpu .cert-card,
   .no-gpu .proj-card,.no-gpu .ach,.no-gpu .citem,.no-gpu .cform,.no-gpu .gh-note{
     -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
-    background:var(--bg3)!important;
   }
   .no-gpu nav::before,.no-gpu .nlinks.open{
     -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
-    background:var(--bg3)!important;
+    background:var(--nav-bg)!important;
   }
   .no-gpu .btnO,.no-gpu .hbadge,.no-gpu .avbadge,.no-gpu .tools-card{
     -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
-    background:var(--bg3)!important;
   }
   /* disable the animated ambient blobs and body::before gradient — expensive filter:blur */
   .no-gpu body::before{animation:none!important;filter:none!important;opacity:0}
