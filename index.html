@@ -1880,23 +1880,24 @@ async function sendMsg(e){
   var lenis=new Lenis({lerp:.1,wheelMultiplier:1});
   window.__lenis=lenis;
 
-  /* Expose content-visibility sections during Lenis scroll so getBoundingClientRect()
-     returns the correct position — content-visibility:auto collapses off-screen sections
-     and causes Lenis to scroll to wrong targets */
-  lenis.on('scroll',function(e){
-    if(e.isScrolling){
-      document.body.classList.add('nav-jumping');
-    }else{
-      document.body.classList.remove('nav-jumping');
-    }
-  });
-
   function raf(t){lenis.raf(t);requestAnimationFrame(raf);}
   requestAnimationFrame(raf);
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
     a.addEventListener('click',function(e){
       var h=a.getAttribute('href');
-      if(h.length>1&&document.querySelector(h)){e.preventDefault();lenis.scrollTo(h,{offset:-96,duration:1.15});}
+      var el=document.querySelector(h);
+      if(h.length>1&&el){
+        e.preventDefault();
+        /* Force content-visibility:visible on the target for one frame so Lenis
+           reads the correct getBoundingClientRect() position before scrolling.
+           Toggling it on every scroll frame (previous approach) caused layout
+           reflows during the animation, making scroll feel janky. */
+        el.style.contentVisibility='visible';
+        requestAnimationFrame(function(){
+          lenis.scrollTo(h,{offset:-96,duration:1.15});
+          setTimeout(function(){el.style.contentVisibility='';},1300);
+        });
+      }
     });
   });
 })();
@@ -2286,7 +2287,8 @@ async function sendMsg(e){
   window.__wipeGo=function(hash){
     var el=document.querySelector(hash); if(!el)return false;
     var reduce=!matchMedia('(prefers-reduced-motion: no-preference)').matches;
-    if(reduce){document.body.classList.add('nav-jumping');void document.body.offsetHeight;scrollNow(el);requestAnimationFrame(function(){document.body.classList.remove('nav-jumping');});return true;}
+    /* skip CSS wipe transition on software renderer — transitionend may not fire reliably */
+    if(reduce||window.__noGPU){document.body.classList.add('nav-jumping');void document.body.offsetHeight;scrollNow(el);requestAnimationFrame(function(){document.body.classList.remove('nav-jumping');});return true;}
     if(busy)return true;
     busy=true;
     if(window.__snd)window.__snd.whoosh();
@@ -2333,6 +2335,7 @@ async function sendMsg(e){
 <script>
 (function(){
   if(!matchMedia('(pointer:fine)').matches||!matchMedia('(min-width:1025px)').matches)return;
+  if(window.__noGPU)return; /* use native OS cursor on software renderer — RAF loop would lag */
   var dot=document.createElement('div');dot.id='cur-dot';
   var ring=document.createElement('div');ring.id='cur-ring';
   document.body.appendChild(dot);document.body.appendChild(ring);
