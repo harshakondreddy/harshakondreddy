@@ -810,6 +810,7 @@
   .boot-lines div:nth-child(2){animation-delay:.7s}
   .boot-lines div:nth-child(3){animation-delay:1.05s}
   .boot-lines div:nth-child(4){animation-delay:1.4s}
+  .boot-lines div:nth-child(5){animation-delay:1.75s}
   .boot-lines .ok{color:var(--gr)}
   .boot-bar{width:min(300px,80vw);height:3px;background:var(--bg3);border-radius:3px;overflow:hidden}
   .boot-bar i{display:block;height:100%;width:0;background:var(--grad);border-radius:3px;animation:bootBar 2.2s cubic-bezier(.5,0,.2,1) .2s forwards}
@@ -947,6 +948,64 @@
   #pgwipe .pw-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#1a0d02;font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;font-size:clamp(2rem,7vw,4.5rem);letter-spacing:-2px;opacity:0;transform:translateY(16px);transition:opacity .35s ease,transform .35s ease}
   #pgwipe.cover .pw-label{opacity:1;transform:none}
 
+  /* ════════ 4D REDESIGN LAYER ════════
+     Four dimensions, one page: X/Y (layout), Z (scroll-depth camera),
+     W (the tesseract — a real 4D hypercube projection), and time
+     (live Atlanta clock + time-of-day greeting). */
+
+  /* ── Nav brand — hypercube glyph + monogram ── */
+  .brand{display:inline-flex;align-items:center;gap:.6rem;flex-shrink:0;padding:.2rem .3rem;font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;font-size:1.02rem;letter-spacing:-.5px;color:var(--t1)}
+  .brand sup{font-size:.56rem;font-weight:700;letter-spacing:.5px;color:var(--p);margin-left:1px;transform:translateY(-1px)}
+  .bcube{position:relative;width:20px;height:20px;flex-shrink:0}
+  .bcube i{position:absolute;inset:0;border:1.6px solid var(--p);border-radius:3px}
+  .bcube i:nth-child(1){animation:bspin 14s linear infinite}
+  .bcube i:nth-child(2){inset:4px;border-color:var(--t3);animation:bspin 14s linear infinite reverse}
+  @keyframes bspin{to{transform:rotate(360deg)}}
+  .brand:hover .bcube i{border-color:var(--p)}
+  .no-gpu .bcube i,.no-gpu .bcube i:nth-child(2){animation:none}
+
+  /* ── Tesseract hero canvas (W axis) ── */
+  #tsr{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:.85}
+  [data-theme="light"] #tsr{opacity:.6}
+  .no-gpu #tsr{opacity:.4}
+  @media(max-width:1024px){#tsr{opacity:.5}[data-theme="light"] #tsr{opacity:.4}}
+
+  /* ── Z-space scroll depth — sections surface from the distance ── */
+  body.fx-depth section:not(#home) .si{
+    transform:skewY(var(--vskew,0deg)) perspective(1100px) translateZ(var(--dz,0px)) rotateX(var(--drx,0deg));
+    transform-origin:50% 18%;
+  }
+  .no-gpu .si{transform:none!important}
+
+  /* ── Depth-ghost section numerals ── */
+  :root{--ghost:rgba(255,255,255,.075)}
+  [data-theme="light"]{--ghost:rgba(12,16,24,.065)}
+  section[data-num]::before{
+    content:attr(data-num);position:absolute;top:1.2rem;right:1.4rem;z-index:0;
+    font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;line-height:1;
+    font-size:clamp(5.5rem,13vw,10.5rem);letter-spacing:-4px;
+    color:transparent;-webkit-text-stroke:1.5px var(--ghost);
+    pointer-events:none;user-select:none;
+  }
+  @media(max-width:768px){
+    section[data-num]::before{font-size:4.5rem;top:1rem;right:1rem;-webkit-text-stroke-width:1px}
+  }
+
+  /* ── Time dimension — live Atlanta clock chip ── */
+  .hclock{display:inline-flex;align-items:center;gap:.55rem;margin-top:1.6rem;padding:.4rem 1rem;border:1px solid var(--border);border-radius:50px;background:var(--card);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:var(--spec);font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.5px;color:var(--t3);animation:upIn .6s .6s ease backwards}
+  .hclock .hc-dot{width:6px;height:6px;border-radius:50%;background:var(--gr);box-shadow:0 0 8px var(--gr);animation:hcpulse 2s ease-in-out infinite}
+  .hclock b{color:var(--t2);font-weight:500}
+  .hclock .hc-tz{color:var(--p);font-weight:600}
+  @keyframes hcpulse{50%{opacity:.35}}
+  @media(max-width:1024px){.hclock{margin-left:auto;margin-right:auto}}
+  .no-gpu .hclock{background:var(--bg3)}
+
+  /* ── Reduced motion: kill the new motion layers ── */
+  @media (prefers-reduced-motion:reduce){
+    .bcube i{animation:none!important}
+    .hclock .hc-dot{animation:none!important}
+    body.fx-depth section:not(#home) .si{transform:none!important}
+  }
   </style>
 </head>
 <body>
@@ -958,6 +1017,7 @@
     <div>$ initializing portfolio<span class="ok"> …</span></div>
     <div>$ mounting experience &amp; projects<span class="ok"> ✓</span></div>
     <div>$ provisioning interaction layer<span class="ok"> ✓</span></div>
+    <div>$ calibrating fourth dimension<span class="ok"> ✓</span></div>
     <div>$ ready<span class="ok"> ✓</span></div>
   </div>
   <div class="boot-bar"><i></i></div>
@@ -977,6 +1037,10 @@
 <!-- NAV -->
 <nav id="nav">
   <div class="nw">
+    <a href="#home" class="brand" aria-label="Home — Sri Harsha Kondreddy">
+      <span class="bcube" aria-hidden="true"><i></i><i></i></span>
+      <span>SHK<sup>4D</sup></span>
+    </a>
     <ul class="nlinks" id="nlinks">
       <li><a href="#home" class="act">Home</a></li>
       <li><a href="#about">About</a></li>
@@ -1001,6 +1065,7 @@
 <!-- HERO -->
 <section id="home">
   <canvas id="glfx" aria-hidden="true"></canvas>
+  <canvas id="tsr" aria-hidden="true"></canvas>
   <div class="hw" id="hw">
     <div class="hl">
       <div class="hbadge"><span class="dot"></span> Senior DevOps Engineer · Honeywell</div>
@@ -1020,6 +1085,13 @@
         <a href="https://github.com/harshakondreddy" target="_blank" rel="noopener" class="sico" title="GitHub"><i class="fa-brands fa-github"></i></a>
         <a href="https://www.linkedin.com/in/harsha0611/" target="_blank" rel="noopener" class="sico" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
         <a href="mailto:harshareddykondreddy@gmail.com" class="sico" title="Email"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+      <div class="hclock" id="hclock" aria-label="Local time in Atlanta">
+        <span class="hc-dot" aria-hidden="true"></span>
+        <span id="hgreet">Good evening</span>
+        <b>·</b>
+        <b>ATL <span id="hctime">--:--:--</span></b>
+        <span class="hc-tz" id="hctz">ET</span>
       </div>
     </div>
     <div class="hr">
@@ -1046,7 +1118,7 @@
 </section>
 
 <!-- ABOUT -->
-<section id="about">
+<section id="about" data-num="01">
   <div class="si">
     <div class="abg">
       <div class="abt reveal-left">
@@ -1100,7 +1172,7 @@
 </section>
 
 <!-- SKILLS -->
-<section id="skills">
+<section id="skills" data-num="02">
   <div class="si">
     <div class="reveal">
       <div class="stag"><i class="fa-solid fa-layer-group"></i>&nbsp; Skills</div>
@@ -1184,7 +1256,7 @@
 </section>
 
 <!-- EXPERIENCE -->
-<section id="experience">
+<section id="experience" data-num="03">
   <div class="si">
     <div class="reveal">
       <div class="stag"><i class="fa-solid fa-briefcase"></i>&nbsp; Experience</div>
@@ -1317,7 +1389,7 @@
 </section>
 
 <!-- EDUCATION -->
-<section id="education">
+<section id="education" data-num="04">
   <div class="si">
     <div class="reveal">
       <div class="stag"><i class="fa-solid fa-graduation-cap"></i>&nbsp; Education</div>
@@ -1360,7 +1432,7 @@
 </section>
 
 <!-- CERTIFICATIONS -->
-<section id="certifications">
+<section id="certifications" data-num="05">
   <div class="si">
     <div class="reveal">
       <div class="stag"><i class="fa-solid fa-certificate"></i>&nbsp; Certifications</div>
@@ -1388,7 +1460,7 @@
 </section>
 
 <!-- PROJECTS -->
-<section id="projects">
+<section id="projects" data-num="06">
   <div class="si">
     <div class="reveal">
       <div class="stag"><i class="fa-solid fa-diagram-project"></i>&nbsp; Projects</div>
@@ -1442,7 +1514,7 @@
 </section>
 
 <!-- CONTACT -->
-<section id="contact">
+<section id="contact" data-num="07">
   <div class="si">
     <div class="reveal">
       <div class="stag"><i class="fa-solid fa-satellite-dish"></i>&nbsp; Contact</div>
@@ -2471,6 +2543,150 @@ async function sendMsg(e){
   var lastH=0;
   document.addEventListener('pointerover',function(e){if(!on)return;var t=e.target.closest&&e.target.closest('a,button,.orb,.skc,.proj-card,.skf,.expf,[role=button]');if(t&&Date.now()-lastH>70){lastH=Date.now();window.__snd.hover();}});
   document.addEventListener('click',function(e){if(!on)return;var t=e.target.closest&&e.target.closest('a,button,[role=button],.skc');if(t&&t.id!=='snd')window.__snd.click();},true);
+})();
+</script>
+
+<!-- ════════ 4D REDESIGN LAYER: tesseract hero, z-space scroll depth, time dimension ════════ -->
+<script>
+/* ── Tesseract — a real 4D hypercube, double-rotated in the XW/YZ/ZW planes and
+      perspective-projected 4D→3D→2D. Scroll velocity feeds the W-axis rotation,
+      the mouse steers the XW/YZ planes. Static single frame on reduced-motion
+      and software renderers (no RAF loop, per the no-gpu policy). ── */
+(function(){
+  var cv=document.getElementById('tsr'),hero=document.getElementById('home');
+  if(!cv||!hero)return;
+  var ctx=cv.getContext('2d');if(!ctx)return;
+  var motion=matchMedia('(prefers-reduced-motion: no-preference)').matches;
+  var fine=matchMedia('(pointer:fine)').matches;
+  var still=(!motion||!!window.__noGPU);
+  var DPR=Math.min(devicePixelRatio||1,2),W=0,H=0;
+
+  /* 16 vertices (±1)⁴ + the 32 edges that differ in exactly one coordinate */
+  var V=[],E=[],i,b;
+  for(i=0;i<16;i++)V.push([i&1?1:-1,i&2?1:-1,i&4?1:-1,i&8?1:-1]);
+  for(i=0;i<16;i++)for(b=0;b<4;b++){var j=i^(1<<b);if(j>i)E.push([i,j]);}
+
+  var a=0.35,rb=0.62,rc=0;          /* XW, YZ, ZW angles */
+  var mx=0,my=0,tmx=0,tmy=0;        /* eased mouse steer */
+
+  function isLight(){return document.documentElement.getAttribute('data-theme')==='light';}
+  function size(){
+    W=hero.offsetWidth;H=hero.offsetHeight;
+    cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    var desk=W>1024;
+    /* mobile hero stacks vertically — anchor the hypercube behind the avatar near the bottom */
+    var cx=desk?W*.69:W*.5, cy=desk?H*.47:H*.8;
+    var sc=Math.min(W,H)*(desk?.155:.13);
+    var ca=Math.cos(a+mx),sa=Math.sin(a+mx),cb=Math.cos(rb+my),sb=Math.sin(rb+my),cc=Math.cos(rc),scw=Math.sin(rc);
+    var P=[],S=[],k;
+    for(k=0;k<16;k++){
+      var x=V[k][0],y=V[k][1],z=V[k][2],w=V[k][3];
+      var x1=x*ca-w*sa, w1=x*sa+w*ca;          /* rotate XW */
+      var y1=y*cb-z*sb, z1=y*sb+z*cb;          /* rotate YZ */
+      var z2=z1*cc-w1*scw, w2=z1*scw+w1*cc;    /* rotate ZW */
+      var k4=2.6/(2.6-w2*.72);                 /* 4D → 3D perspective */
+      var X=x1*k4,Y=y1*k4,Z=z2*k4;
+      var k3=3.4/(3.4-Z*.9);                   /* 3D → 2D perspective */
+      P.push([cx+X*k3*sc,cy+Y*k3*sc]);
+      S.push(k4*k3);
+    }
+    var light=isLight(),e,t;
+    for(e=0;e<E.length;e++){
+      var p=P[E[e][0]],q=P[E[e][1]];
+      t=Math.max(0,Math.min(1,((S[E[e][0]]+S[E[e][1]])/2-.72)/.78));
+      ctx.beginPath();ctx.moveTo(p[0],p[1]);ctx.lineTo(q[0],q[1]);
+      ctx.lineWidth=.6+t*1.5;
+      ctx.strokeStyle=light?'rgba(195,74,9,'+(.10+t*.30).toFixed(3)+')'
+                           :'rgba(255,138,54,'+(.09+t*.36).toFixed(3)+')';
+      ctx.stroke();
+    }
+    for(k=0;k<16;k++){
+      t=Math.max(0,Math.min(1,(S[k]-.72)/.78));
+      ctx.beginPath();ctx.arc(P[k][0],P[k][1],1+t*1.8,0,Math.PI*2);
+      ctx.fillStyle=light?'rgba(195,74,9,'+(.16+t*.36).toFixed(3)+')'
+                         :'rgba(255,170,90,'+(.14+t*.44).toFixed(3)+')';
+      ctx.fill();
+    }
+  }
+
+  size();draw();
+  addEventListener('resize',function(){size();draw();},{passive:true});
+  /* theme flips repaint the static frame too */
+  new MutationObserver(draw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  if(still)return;   /* reduced-motion / no-gpu: keep the sculpture, skip the loop */
+
+  if(fine){
+    hero.addEventListener('pointermove',function(e){tmx=(e.clientX/innerWidth-.5)*.7;tmy=(e.clientY/innerHeight-.5)*.5;},{passive:true});
+    hero.addEventListener('pointerleave',function(){tmx=0;tmy=0;});
+  }
+  var paused=false,inView=true,raf=null,tid;
+  var coarse=matchMedia('(pointer:coarse)').matches,fr=0;
+  function loop(){
+    if(paused||!inView){raf=null;return;}
+    mx+=(tmx-mx)*.05;my+=(tmy-my)*.05;
+    var sv=Math.min(Math.abs(window.__scrollVel||0)*.0012,.05);
+    a+=.0035+sv;rb+=.0022+sv*.6;rc+=.0016;
+    if(!coarse||(fr^=1))draw();   /* 30fps on touch devices */
+    raf=requestAnimationFrame(loop);
+  }
+  function resume(){paused=false;if(!raf&&inView)raf=requestAnimationFrame(loop);}
+  raf=requestAnimationFrame(loop);
+  /* same discipline as the particle layer: pause while scrolling, offscreen, or hidden */
+  addEventListener('scroll',function(){paused=true;clearTimeout(tid);tid=setTimeout(resume,200);},{passive:true});
+  new IntersectionObserver(function(en){inView=en[0].isIntersecting;if(inView)resume();}).observe(hero);
+  document.addEventListener('visibilitychange',function(){if(document.hidden)paused=true;else resume();});
+})();
+
+/* ── Z-space scroll depth: sections surface from translateZ(-160px) as they
+      enter the viewport. Desktop fine-pointer + motion + real GPU only. ── */
+(function(){
+  if(!matchMedia('(prefers-reduced-motion: no-preference)').matches)return;
+  if(!matchMedia('(pointer:fine)').matches)return;
+  if(window.__noGPU||innerWidth<1025)return;
+  var els=[].slice.call(document.querySelectorAll('section[data-num]'));
+  if(!els.length)return;
+  document.body.classList.add('fx-depth');
+  var tick=false;
+  function upd(){
+    var s=scrollY,vh=innerHeight;
+    for(var i=0;i<els.length;i++){
+      var p=Math.max(0,Math.min(1,(s+vh-els[i].offsetTop)/(vh*.55)));
+      var ease=1-Math.pow(1-p,3);
+      els[i].style.setProperty('--dz',(-160*(1-ease)).toFixed(1)+'px');
+      els[i].style.setProperty('--drx',(3.5*(1-ease)).toFixed(2)+'deg');
+    }
+    tick=false;
+  }
+  addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(upd);}},{passive:true});
+  addEventListener('resize',upd,{passive:true});
+  addEventListener('load',upd);
+  upd();
+})();
+
+/* ── Time dimension: live Atlanta clock + time-of-day greeting ── */
+(function(){
+  var t=document.getElementById('hctime'),g=document.getElementById('hgreet'),z=document.getElementById('hctz');
+  if(!t||!g)return;
+  var fmt,hfmt;
+  try{
+    fmt=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hourCycle:'h23',hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    hfmt=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hourCycle:'h23',hour:'numeric'});
+    if(z){
+      var parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',timeZoneName:'short'}).formatToParts(new Date());
+      for(var i=0;i<parts.length;i++)if(parts[i].type==='timeZoneName')z.textContent=parts[i].value;
+    }
+  }catch(e){var hc=document.getElementById('hclock');if(hc)hc.style.display='none';return;}
+  function tickC(){
+    var now=new Date();
+    t.textContent=fmt.format(now);
+    var h=parseInt(hfmt.format(now),10);
+    g.textContent=h<5?'Working late':h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  }
+  tickC();setInterval(tickC,1000);
 })();
 </script>
 </body>
