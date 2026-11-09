@@ -2,22 +2,24 @@
 
 ### DevOps & SRE Engineer | Kubernetes, Linux & Azure
 
+[Portfolio](https://harshakondreddy.github.io/harshakondreddy/) · [LinkedIn](https://www.linkedin.com/in/harsha0611/)
+
 I build, automate, and support production infrastructure across on-premises and cloud environments. My experience spans Linux systems engineering, Kubernetes, infrastructure automation, CI/CD, observability, production releases, and incident recovery.
 
 I also build practical tools—from a published Chrome extension to macOS keyboard navigation—and explore AI-assisted automation and troubleshooting.
 
+## Selected Projects
+
+- **[SpringInfo](https://github.com/harshakondreddy/springinfo)** — A Chrome extension I created and published that helps inspect Spring services registered in Eureka, with service information, Swagger links, and table navigation tools.
+- **[HacKey](https://github.com/harshakondreddy/HacKey)** — A local-first macOS tool for keyboard-driven clicking and scrolling using Accessibility APIs.
+- **[AI Skills](https://github.com/harshakondreddy/AI-skills)** — Reusable agent skills, including an engineering workflow that structures planning, execution, and verification around observable evidence.
+
 ## Engineering Focus
 
-- **Platforms:** Kubernetes, RHEL, Kubespray, containerd, Helm, and Azure AKS.
+- **Platforms:** Kubernetes across on-premises and cloud environments, RHEL, Kubespray, containerd, Helm, and Azure AKS.
 - **Automation & Delivery:** Ansible, Terraform, GitHub Actions, Jenkins, Docker, and Bash.
 - **Reliability & Operations:** Observability, certificate lifecycle, troubleshooting, production deployments, and recovery runbooks.
 - **Collaboration:** Infrastructure requirements, customer coordination, release handovers, and rollback planning.
-
-## Selected Projects
-
-- **[SpringInfo](https://github.com/harshakondreddy/springinfo)** — A Chrome extension I created and published that adds Spring service information, Swagger links, and navigation tools to Eureka registry pages.
-- **[HacKey](https://github.com/harshakondreddy/HacKey)** — A local-first macOS keyboard navigation tool using Accessibility APIs.
-- **[AI Skills](https://github.com/harshakondreddy/AI-skills)** — Reusable agent skills, including a structured engineering workflow focused on planning, execution, and verification.
 
 ## Technologies & Tools
 
@@ -47,6 +49,8 @@ I also build practical tools—from a published Chrome extension to macOS keyboa
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/elasticsearch/elasticsearch-original.svg" alt="Elasticsearch" title="Elasticsearch" width="40" height="40" />
 </p>
 
-## Connect & Explore
+## Connect
 
-[Portfolio](https://harshakondreddy.github.io/harshakondreddy/) · [LinkedIn](https://www.linkedin.com/in/harsha0611/) · [Stack Overflow](https://stackoverflow.com/users/19482210/harsha) · [Email](mailto:harshareddykondreddy@gmail.com)
+Open to collaborating on Kubernetes, infrastructure automation, and developer tools.
+
+[Email](mailto:harshareddykondreddy@gmail.com) · [Stack Overflow](https://stackoverflow.com/users/19482210/harsha)
