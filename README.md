@@ -1,63 +1,52 @@
-Hi ![](https://user-images.githubusercontent.com/18350557/176309783-0785949b-9127-417c-8b55-ab5a4333674e.gif)my name is Harsha
-==============================================================================================================================
+# Hi, I'm Harsha 👋
 
-DevOps Engineer
----------------
+### DevOps & SRE Engineer | Kubernetes, Linux & Azure
 
-I've been working as DevOps Engineer, in Design, Build/Release Management with Continuous Integration & Continuous Deployment/Delivery as an iterative process
+I build, automate, and support production infrastructure across on-premises and cloud environments. My experience spans Linux systems engineering, Kubernetes, infrastructure automation, CI/CD, observability, production releases, and incident recovery.
 
-* 🌍  I'm from India, based in Georgia
-* 🖥️  See my portfolio at [LinkedIn](http://linkedin.com/in/harsha0611/)
-* ✉️  You can contact me at [harshareddykondreddy@gmail.com](mailto:harshareddykondreddy@gmail.com)
-* 🧠  I'm learning Python Development
-* 🤝  I'm open to collaborating on Kubernetes, Docker
+I also build practical tools—from a published Chrome extension to macOS keyboard navigation—and explore AI-assisted automation and troubleshooting.
 
+## Engineering Focus
 
-<br/>
+- **Platforms:** Kubernetes, RHEL, Kubespray, containerd, Helm, and Azure AKS.
+- **Automation & Delivery:** Ansible, Terraform, GitHub Actions, Jenkins, Docker, and Bash.
+- **Reliability & Operations:** Observability, certificate lifecycle, troubleshooting, production deployments, and recovery runbooks.
+- **Collaboration:** Infrastructure requirements, customer coordination, release handovers, and rollback planning.
 
-## DevOps Skills
-<div align="left">  
-<img style="margin: 2px" src="https://raw.githubusercontent.com/samloh84/svg-devops-logos/master/logos_aws.svg" alt="AWS" height="40" />  
-<img style="margin: 2px" src="https://profilinator.rishav.dev/skills-assets/kubernetes-icon.svg" alt="Kubernetes" height="40" />  
-<img style="margin: 2px" src="https://profilinator.rishav.dev/skills-assets/linux-original.svg" alt="Linux" height="40" />  
-<img style="margin: 2px" src="https://profilinator.rishav.dev/skills-assets/git-scm-icon.svg" alt="Git" height="40" />  
-<img style="margin: 2px" src="https://profilinator.rishav.dev/skills-assets/gnu_bash-icon.svg" alt="Bash" height="40" />  
-<img style="margin: 2px" src="https://profilinator.rishav.dev/skills-assets/rabbitmq-icon.svg" alt="RabbitMQ" height="40" />  
-<img style="margin: 2px" src="https://profilinator.rishav.dev/skills-assets/jenkins-icon.svg" alt="Jenkins" height="40" />  
-<img style="margin: 2px" src="https://profilinator.rishav.dev/skills-assets/grafana.png" alt="Grafana" height="40" />  
-<img style="margin: 2px" src="https://profilinator.rishav.dev/skills-assets/gitlab.svg" alt="GitLab" height="40" />  
-<img style="margin: 2px" src="https://profilinator.rishav.dev/skills-assets/ansible.png" alt="Ansible" height="40" />  
-<img style="margin: 2px" src="https://profilinator.rishav.dev/skills-assets/apache_kafka-icon.svg" alt="Kafka" height="40" />  
-<img style="margin: 2px" src="https://profilinator.rishav.dev/skills-assets/elasticsearch.png" alt="Elastic Search" height="40" />  
-<img style="margin: 2px" src="https://profilinator.rishav.dev/skills-assets/kibana.png" alt="Kibana" height="40" />  
-<img style="margin: 2px" src="https://profilinator.rishav.dev/skills-assets/microsoft_azure-icon.svg" alt="Azure" height="40" />  
-<img style="margin: 2px" src="https://profilinator.rishav.dev/skills-assets/docker-original-wordmark.svg" alt="Docker" height="40" />  
-<img style="margin: 2px" src="https://profilinator.rishav.dev/skills-assets/postgresql-original-wordmark.svg" alt="PostgreSQL" height="40" />  
-<img style="margin: 2px" src="https://profilinator.rishav.dev/skills-assets/python-original.svg" alt="Python" height="40" />  
-<img style="margin: 2px" src="https://profilinator.rishav.dev/skills-assets/nginx-original.svg" alt="Nginx" height="40" />  
-<img style="margin: 2px" src="https://profilinator.rishav.dev/skills-assets/java-original-wordmark.svg" alt="Java" height="40" />  
-</div>
+## Selected Projects
 
-</td></tr></table>  
+- **[SpringInfo](https://github.com/harshakondreddy/springinfo)** — A Chrome extension I created and published that adds Spring service information, Swagger links, and navigation tools to Eureka registry pages.
+- **[HacKey](https://github.com/harshakondreddy/HacKey)** — A local-first macOS keyboard navigation tool using Accessibility APIs.
+- **[AI Skills](https://github.com/harshakondreddy/AI-skills)** — Reusable agent skills, including a structured engineering workflow focused on planning, execution, and verification.
 
-<br/>  
+## Technologies & Tools
 
+<p>
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/kubernetes/kubernetes-original.svg" alt="Kubernetes" title="Kubernetes" width="40" height="40" />
+&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/linux/linux-original.svg" alt="Linux" title="Linux" width="40" height="40" />
+&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/azure/azure-original.svg" alt="Microsoft Azure" title="Microsoft Azure" width="40" height="40" />
+&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/docker/docker-original.svg" alt="Docker" title="Docker" width="40" height="40" />
+&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/ansible/ansible-original.svg" alt="Ansible" title="Ansible" width="40" height="40" />
+&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/terraform/terraform-original.svg" alt="Terraform" title="Terraform" width="40" height="40" />
+&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/githubactions/githubactions-original.svg" alt="GitHub Actions" title="GitHub Actions" width="40" height="40" />
+&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/jenkins/jenkins-original.svg" alt="Jenkins" title="Jenkins" width="40" height="40" />
+&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/bash/bash-original.svg" alt="Bash" title="Bash" width="40" height="40" />
+&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/python/python-original.svg" alt="Python" title="Python" width="40" height="40" />
+&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" title="PostgreSQL" width="40" height="40" />
+&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.17.0/icons/elasticsearch/elasticsearch-original.svg" alt="Elasticsearch" title="Elasticsearch" width="40" height="40" />
+</p>
 
-## Connect with me  
-<div align="left">
-<a href="https://github.com/harshakondreddy" target="_blank">
-<img src=https://img.shields.io/badge/github-%2324292e.svg?&style=for-the-badge&logo=github&logoColor=white alt=github style="margin-bottom: 5px;" />
-</a>
-<a href="https://www.linkedin.com/in/harsha0611/" target="_blank">
-<img src=https://img.shields.io/badge/linkedin-%231E77B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white alt=linkedin style="margin-bottom: 5px;" />
-</a>
-<a href="https://www.twitch.tv/harsha_kondreddy" target="_blank" rel="noreferrer"><img
-src="https://img.shields.io/twitch/status/harsha_kondreddy?logo=twitchsx&style=for-the-badge&color=3382ed&labelColor=ffffff&label=TWITCH+STATUS" />
-</a>  
-<a href="https://stackoverflow.com/users/19482210/harsha" target="_blank">
-<img src=https://img.shields.io/badge/stackoverflow-%23F28032.svg?&style=for-the-badge&logo=stackoverflow&logoColor=white alt=stackoverflow style="margin-bottom: 5px;" />
-</div>
+## Connect & Explore
 
-
-
-
+[Portfolio](https://harshakondreddy.github.io/harshakondreddy/) · [LinkedIn](https://www.linkedin.com/in/harsha0611/) · [Stack Overflow](https://stackoverflow.com/users/19482210/harsha) · [Email](mailto:harshareddykondreddy@gmail.com)
