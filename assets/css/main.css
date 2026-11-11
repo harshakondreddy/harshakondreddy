@@ -962,3 +962,28 @@
     .hclock .hc-dot{animation:none!important}
     body.fx-depth section:not(#home) .si{transform:none!important}
   }
+
+  /* ════ Readability & mobile fixes ════ */
+  /* Muted text tokens raised to meet WCAG AA contrast (4.5:1) */
+  [data-theme="dark"]{--t3:#a0a8bc;--t4:#8f97ab}
+  [data-theme="light"]{--t4:#525e6b}
+  /* Small orange labels need a darker orange on the light background */
+  [data-theme="light"] .stag,[data-theme="light"] #hctz,[data-theme="light"] .fsub a{color:#a83c08}
+  /* Near-black brand logos are invisible on the dark background */
+  [data-theme="dark"] .devicon-amazonwebservices-plain-wordmark.colored,
+  [data-theme="dark"] .devicon-amazonwebservices-plain.colored,
+  [data-theme="dark"] .devicon-ansible-plain.colored,
+  [data-theme="dark"] .devicon-github-original.colored,
+  [data-theme="dark"] .devicon-helm-original.colored,
+  [data-theme="dark"] .devicon-linux-plain.colored,
+  [data-theme="dark"] .devicon-apachekafka-original.colored,
+  [data-theme="dark"] .devicon-nginx-original.colored{color:var(--t2)}
+  /* Mobile menu stays solid on devices without graphics acceleration */
+  .no-gpu .nlinks.open{background:var(--mob-menu-bg)!important}
+  /* About: four stat cards as a tidy 2×2 grid */
+  .ab-right .dash{grid-template-columns:repeat(2,1fr)}
+  /* Mobile: smaller back-to-top button tucked into the corner */
+  @media(max-width:768px){
+    #btt{width:38px;height:38px;right:calc(.75rem + env(safe-area-inset-right, 0px));bottom:calc(.75rem + env(safe-area-inset-bottom, 0px));font-size:.85rem}
+  }
+

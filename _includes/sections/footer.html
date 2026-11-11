@@ -5,9 +5,9 @@
     <div class="flogo">{{ s.name | escape }}</div>
     <p class="fsub">{{ s.name | escape }} · {{ s.job_title | escape }} · {{ s.location_short | escape }}<br><a href="mailto:{{ s.email }}">{{ s.email }}</a></p>
     <div class="fsoc">
-      <a href="{{ s.github_url }}" target="_blank" rel="noopener" class="sico"><i class="fa-brands fa-github"></i></a>
-      <a href="{{ s.linkedin_url }}" target="_blank" rel="noopener" class="sico"><i class="fa-brands fa-linkedin"></i></a>
-      <a href="mailto:{{ s.email }}" class="sico"><i class="fa-solid fa-envelope"></i></a>
+      <a href="{{ s.github_url }}" target="_blank" rel="noopener" class="sico" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="{{ s.linkedin_url }}" target="_blank" rel="noopener" class="sico" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="mailto:{{ s.email }}" class="sico" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
     </div>
     <div class="fbot">© {{ s.footer.copyright_year }} {{ s.name | escape }} · {{ s.footer.tagline | escape }}</div>
   </div>

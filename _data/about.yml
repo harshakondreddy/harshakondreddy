@@ -1,5 +1,5 @@
 # ─────────────────────────────────────────────────────────────
-# ABOUT section: paragraphs, the stat counters, and the tool bars.
+# ABOUT section: paragraphs and the stat counters.
 # Bold text: wrap words in **double stars**.
 # ─────────────────────────────────────────────────────────────
 
@@ -24,13 +24,3 @@ stats:
   - { label: Years in Prod,     count: 8,    suffix: "+" }
   - { label: Engineers Led,     count: 5,    suffix: "",  note: cross-functional }
 
-# "Most Used Tools" bars (percent = bar length)
-tools:
-  - { name: Kubernetes,          percent: 95 }
-  - { name: Docker,              percent: 90 }
-  - { name: AWS · EKS,           percent: 86 }
-  - { name: GitHub Actions,      percent: 84 }
-  - { name: Terraform,           percent: 78 }
-  - { name: Azure · AKS,         percent: 76 }
-  - { name: Jenkins,             percent: 72 }
-  - { name: Prometheus · Grafana, percent: 70 }

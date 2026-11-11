@@ -9,7 +9,7 @@ To change the site, edit one of those files. You don't need to touch any HTML.
 |---|---|
 | Name, email, LinkedIn/GitHub links, browser tab title, footer, hero clock city/timezone | `_data/site.yml` |
 | Top of the page: badge, typing roles, short bio, photos, orbiting icons | `_data/hero.yml` |
-| About paragraphs, stat counters, "Most Used Tools" bars | `_data/about.yml` |
+| About paragraphs and stat counters | `_data/about.yml` |
 | Skill groups, the scrolling logo strip, which skills get a ★ and their % | `_data/skills.yml` |
 | Jobs (role, company, dates, metric chips, bullet points, tags) and the filter buttons above them | `_data/experience.yml` |
 | Degrees | `_data/education.yml` |

@@ -16,9 +16,9 @@
         <a href="#experience" class="btnP"><i class="fa-solid fa-briefcase"></i>&nbsp;View Experience</a>
       </div>
       <div class="srow">
-        <a href="{{ s.github_url }}" target="_blank" rel="noopener" class="sico" title="GitHub"><i class="fa-brands fa-github"></i></a>
-        <a href="{{ s.linkedin_url }}" target="_blank" rel="noopener" class="sico" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-        <a href="mailto:{{ s.email }}" class="sico" title="Email"><i class="fa-solid fa-envelope"></i></a>
+        <a href="{{ s.github_url }}" target="_blank" rel="noopener" class="sico" title="GitHub" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="{{ s.linkedin_url }}" target="_blank" rel="noopener" class="sico" title="LinkedIn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="mailto:{{ s.email }}" class="sico" title="Email" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
       </div>
       <div class="hclock" id="hclock" aria-label="Local time in {{ s.clock.city | escape }}">
         <span class="hc-dot" aria-hidden="true"></span>

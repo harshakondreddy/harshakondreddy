@@ -23,14 +23,6 @@
           </div>
           {%- endfor %}
         </div>
-        <div class="ghc">
-          <div class="tools-card">
-            <div class="tools-hd"><i class="fa-solid fa-screwdriver-wrench" style="font-size:.8rem"></i>&nbsp; Most Used Tools</div>
-            {%- for t in a.tools %}
-            <div class="trow"><span class="tname">{{ t.name | escape }}</span><div class="tbar"><i style="--w:{{ t.percent }}%"></i></div><span class="tpct">{{ t.percent }}%</span></div>
-            {%- endfor %}
-          </div>
-        </div>
       </div>
     </div>
   </div>
