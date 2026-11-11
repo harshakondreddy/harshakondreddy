@@ -92,7 +92,7 @@
 })();
 
 
-/* ── Time dimension: live Atlanta clock + time-of-day greeting ── */
+/* ── Time dimension: live local clock + time-of-day greeting ── */
 (function(){
   var t=document.getElementById('hctime'),g=document.getElementById('hgreet'),z=document.getElementById('hctz');
   if(!t||!g)return;

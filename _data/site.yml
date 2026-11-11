@@ -10,18 +10,18 @@ job_title: Senior DevOps Engineer   # used in the browser tab title, footer and 
 
 # Browser tab title and the text Google / LinkedIn previews show
 page_title: "Sri Harsha Kondreddy | Senior DevOps Engineer"
-meta_description: "Sri Harsha Kondreddy — Senior DevOps Engineer with 8+ years across Kubernetes, Docker, AWS, Azure, CI/CD, and cloud infrastructure. Atlanta, GA."
+meta_description: "Sri Harsha Kondreddy — Senior DevOps Engineer with 8+ years across Kubernetes, Docker, AWS, Azure, CI/CD, and cloud infrastructure."
 share_image: assets/photo-blazer.jpg   # picture shown when the link is shared
 favicon: https://avatars.githubusercontent.com/u/40243638?v=4
 
-location_short: Atlanta, GA
+# Optional. Leave empty ("") to hide the location badge on the photo and in the footer.
+location_short: ""
 
-# Live clock in the hero ("Good afternoon · ATL 12:29:33 EST")
+# Live clock in the hero ("Good afternoon · 12:29:33 EST")
 clock:
-  label: ATL                     # short city code shown before the time
-  city: Atlanta                  # used for screen readers
+  label: ""                      # optional short label before the time, e.g. a city code
+  city: ""                       # optional, read out by screen readers
   timezone: America/New_York     # IANA name, e.g. America/Chicago, Asia/Kolkata
-location_full: Atlanta, Georgia — United States
 
 email: harshareddykondreddy@gmail.com
 

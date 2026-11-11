@@ -19,11 +19,11 @@
         <a href="{{ s.linkedin_url }}" target="_blank" rel="noopener" class="sico" title="LinkedIn" aria-label="LinkedIn">{% include icon.html cls="fa-brands fa-linkedin" %}</a>
         <a href="mailto:{{ s.email }}" class="sico" title="Email" aria-label="Email">{% include icon.html cls="fa-solid fa-envelope" %}</a>
       </div>
-      <div class="hclock" id="hclock" aria-label="Local time in {{ s.clock.city | escape }}">
+      <div class="hclock" id="hclock" aria-label="Local time{% if s.clock.city != "" %} in {{ s.clock.city | escape }}{% endif %}">
         <span class="hc-dot" aria-hidden="true"></span>
         <span id="hgreet">Good evening</span>
         <b>·</b>
-        <b>{{ s.clock.label | escape }} <span id="hctime">--:--:--</span></b>
+        <b>{% if s.clock.label != "" %}{{ s.clock.label | escape }} {% endif %}<span id="hctime">--:--:--</span></b>
         <span class="hc-tz" id="hctz">ET</span>
       </div>
     </div>
@@ -35,7 +35,9 @@
           <img class="av-slide{% if forloop.first %} active{% endif %}" src="{{ photo }}" alt="{{ s.name | escape }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
           {%- endfor %}
         </div>
+        {%- if s.location_short != "" %}
         <div class="avbadge">{% include icon.html cls="fa-solid fa-location-dot" %}&nbsp;{{ s.location_short | escape }}</div>
+        {%- endif %}
         {%- for o in h.orbit_icons %}
         <div class="orb" data-tip="{{ o.tip | escape }}">{% include icon.html cls=o.icon style=o.style %}</div>
         {%- endfor %}
