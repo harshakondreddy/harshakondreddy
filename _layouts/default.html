@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+{% include head.html %}
+
+</head>
+<body>
+
+{% include page-chrome-top.html %}
+
+{{ content }}
+
+{% include page-chrome-bottom.html %}
+
+<script>
+/* Data for the scripts below, filled from _data/site.yml, hero.yml, experience.yml and projects.yml. */
+window.SITE = {
+  email: {{ site.data.site.email | jsonify }},
+  githubUrl: {{ site.data.site.github_url | jsonify }},
+  githubLabel: {{ site.data.site.github_label | jsonify }},
+  linkedinUrl: {{ site.data.site.linkedin_url | jsonify }},
+  linkedinLabel: {{ site.data.site.linkedin_label | jsonify }},
+  typedRoles: {{ site.data.hero.typed_roles | jsonify }},
+  clockTimezone: {{ site.data.site.clock.timezone | jsonify }},
+  experienceFilters: {{ site.data.experience.filter_buttons | jsonify }},
+  caseStudies: [{% for p in site.data.projects.projects %}{% if p.case_study %}{
+    metrics: [{% for m in p.case_study.metrics %}[{{ m.value | jsonify }}, {{ m.label | jsonify }}]{% unless forloop.last %}, {% endunless %}{% endfor %}],
+    challenge: {{ p.case_study.challenge | jsonify }},
+    approach: {{ p.case_study.approach | jsonify }},
+    impact: {{ p.case_study.impact | jsonify }}
+  }{% else %}null{% endif %}{% unless forloop.last %}, {% endunless %}{% endfor %}]
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/hero-glow.js"></script>
+<script src="assets/js/page-wipe.js"></script>
+<script src="assets/js/cursor.js"></script>
+<script src="assets/js/marquee.js"></script>
+<script src="assets/js/sound.js"></script>
+<script src="assets/js/tesseract.js"></script>
+</body>
+</html>

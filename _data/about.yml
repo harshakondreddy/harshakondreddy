@@ -1,0 +1,26 @@
+# ─────────────────────────────────────────────────────────────
+# ABOUT section: paragraphs and the stat counters.
+# Bold text: wrap words in **double stars**.
+# ─────────────────────────────────────────────────────────────
+
+section:
+  label: About Me
+  label_icon: fa-solid fa-user-astronaut
+  title: Platform Engineering
+  title_highlight: Meets SRE          # shown in the accent colour after the title
+  subtitle: Infrastructure as code. Pipelines as culture. Reliability as a standard.
+
+# One entry per paragraph
+paragraphs:
+  - "I'm **Sri Harsha Kondreddy** — a DevOps professional with **8+ years of experience** across the full infrastructure stack. Based in **Atlanta, Georgia**, I bring a global engineering perspective built across companies in the US and India."
+  - "I operate at the intersection of **Platform Engineering, SRE, and DevOps** — designing production-grade **Kubernetes clusters on AWS EKS and Azure AKS**, driving CI/CD automation via **GitHub Actions and Jenkins**, and enforcing infrastructure-as-code practices with **Terraform and Ansible**."
+  - "Currently at **Honeywell**, I manage 250+ hosted containers, lead a team of 5 engineers, and have executed complex projects including Kubernetes runtime migrations, multi-cluster version upgrades, and full observability stack implementations."
+
+# Animated counters. count = the number it counts up to; suffix = text after it.
+# Each stat shows a small sparkline, unless you give it a "note" instead.
+stats:
+  - { label: Hosted Containers, count: 250,  suffix: "+" }
+  - { label: Platform Uptime,   count: 99.9, suffix: "%" }
+  - { label: Years in Prod,     count: 8,    suffix: "+" }
+  - { label: Engineers Led,     count: 5,    suffix: "",  note: cross-functional }
+

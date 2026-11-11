@@ -1,0 +1,23 @@
+{%- assign c = site.data.certifications -%}
+<!-- CERTIFICATIONS -->
+<section id="certifications" data-num="05">
+  <div class="si">
+    <div class="reveal">
+      {% include section-header.html s=c.section %}
+    </div>
+    <div class="cert-grid">
+      {%- for cert in c.certifications %}
+      <div class="cert-card reveal-zoom">
+        <div class="cert-badge" style="background:{{ cert.badge_background }}">{{ cert.emoji }}</div>
+        <div>
+          <div class="cert-name">{{ cert.name | escape }}</div>
+          <div class="cert-org">{{ cert.issuer | escape }}</div>
+          {%- if cert.details %}
+          <div class="cert-id">{{ cert.details | escape }}</div>
+          {%- endif %}
+        </div>
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>

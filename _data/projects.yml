@@ -1,0 +1,85 @@
+# ─────────────────────────────────────────────────────────────
+# PROJECTS section: one card per project. Cards alternate left/right automatically.
+#
+# Fields:
+#   name, emoji, description
+#   tags   technology chips. Plain names get colours automatically in order
+#          (orange, green, cyan, amber, yellow). Or use { name: X, color: g }.
+#   case_study   optional. Adds the "View case study" button with:
+#                metrics (3 small value/label boxes), challenge, approach, impact
+#
+# To add a project: copy a block (from "- name:" down to its tags) and edit it.
+# ─────────────────────────────────────────────────────────────
+
+section:
+  label: Projects
+  label_icon: fa-solid fa-diagram-project
+  title: Featured
+  title_highlight: Projects
+  subtitle: High-impact Kubernetes and infrastructure engineering projects from production environments.
+
+projects:
+  - name: "Kubernetes Container Runtime Migration: Docker → containerd on EKS"
+    emoji: 🔄
+    description: Executed a complex EKS infrastructure migration — transitioning the Kubernetes container runtime from Docker to containerd across all EKS-based nodes at Honeywell. Maintained minimal downtime with zero production incidents. Updated all node configurations, validated workloads across every environment, and produced an end-to-end migration runbook for future reference.
+    tags: [Kubernetes, AWS EKS, containerd, Docker]
+    case_study:
+      metrics:
+        - { value: "0", label: "prod incidents" }
+        - { value: "100%", label: "nodes migrated" }
+        - { value: "EKS", label: "platform" }
+      challenge: "Honeywell’s EKS fleet still ran the deprecated Docker container runtime, which Kubernetes was phasing out — a ticking compatibility and security risk across every environment."
+      approach: "Planned and staged a node-by-node migration to containerd, updating all node configurations and validating workloads in every environment before promotion, with a full rollback runbook ready at each step."
+      impact: "Completed the runtime migration with minimal downtime and zero production incidents, and left behind an end-to-end runbook the team reuses for future node operations."
+
+  - name: Kubernetes Version Upgrade & Multi-Cluster Storage Management
+    emoji: ⬆️
+    description: Managed multiple Kubernetes version upgrades across the 1.21–1.26 range, migrating node groups to newer EC2 generations using EKS managed node groups. Worked with cluster autoscaler, etcd storage management, and persistent volume configurations throughout all upgrade phases — ensuring data integrity and cluster stability across multi-region deployments.
+    tags: [Kubernetes, AWS EKS, Helm, etcd, Autoscaler]
+    case_study:
+      metrics:
+        - { value: "1.21→1.26", label: "version span" }
+        - { value: "multi-region", label: "clusters" }
+        - { value: "0", label: "data loss" }
+      challenge: "Multiple production clusters were drifting across Kubernetes versions, blocking security patches and newer EC2 node generations."
+      approach: "Ran controlled upgrades across the 1.21–1.26 range using EKS managed node groups, coordinating cluster autoscaler, etcd storage, and persistent-volume configurations through every phase."
+      impact: "Brought clusters current with data integrity and stability preserved across multi-region deployments — unlocking newer node types and ongoing patch compliance."
+
+  - name: Log4Shell (CVE-2021-44228) Emergency Patch & Cross-Environment Remediation
+    emoji: 🛡️
+    description: Led org-wide emergency response to the critical Log4Shell zero-day vulnerability at Honeywell. Identified all affected services across DEV, SIT, PREPROD, and PROD environments, coordinated rapid patching of Log4j dependencies, and validated remediation across 250+ containers — achieving full coverage within the response SLA with zero service outages.
+    tags: [Security, Log4j, Kubernetes, CVE Remediation, Honeywell]
+    case_study:
+      metrics:
+        - { value: "250+", label: "containers scanned" }
+        - { value: "4", label: "environments" }
+        - { value: "0", label: "outages" }
+      challenge: "The Log4Shell (CVE-2021-44228) zero-day exposed potentially every Java service in the estate to remote code execution, overnight."
+      approach: "Led the org-wide response: inventoried affected services across DEV, SIT, PREPROD and PROD, coordinated rapid Log4j patching, and validated remediation across the container fleet."
+      impact: "Achieved full coverage across 250+ containers within the response SLA — with zero service outages during the emergency rollout."
+
+  - name: On-Premises Multi-Master Kubernetes Cluster Setup with Kubespray
+    emoji: ☸️
+    description: Designed and deployed a production-ready on-premises multi-master Kubernetes cluster using Kubespray at Honeywell and Staxa Technologies. Configured etcd HA, control-plane load balancing, and node bootstrap automation — providing a resilient self-managed alternative to cloud-managed Kubernetes for sensitive workloads.
+    tags: [Kubernetes, Kubespray, On-Premises, Ansible, etcd HA]
+    case_study:
+      metrics:
+        - { value: "multi-master", label: "control plane" }
+        - { value: "etcd", label: "HA" }
+        - { value: "on-prem", label: "self-managed" }
+      challenge: "Sensitive workloads needed Kubernetes without depending on a cloud-managed control plane."
+      approach: "Designed and deployed a production-ready multi-master cluster with Kubespray — configuring etcd HA, control-plane load balancing, and automated node bootstrap."
+      impact: "Delivered a resilient, self-managed Kubernetes alternative for on-premises workloads at both Honeywell and Staxa Technologies."
+
+  - name: "Org-Wide SCM & CI/CD Migration: Bitbucket + Bamboo → GitHub & GitHub Actions"
+    emoji: 🚀
+    description: Architected and executed a full enterprise migration from Bitbucket + Bamboo to GitHub and GitHub Actions at Honeywell. Migrated all repositories, re-implemented hundreds of pipelines as GitHub Actions workflows, standardized branching strategies, and delivered self-service CI/CD templates adopted across all product teams.
+    tags: [GitHub Actions, CI/CD, Bitbucket, Bamboo, Honeywell]
+    case_study:
+      metrics:
+        - { value: "100s", label: "pipelines" }
+        - { value: "org-wide", label: "adoption" }
+        - { value: "self-service", label: "templates" }
+      challenge: "Bitbucket + Bamboo fragmented source control and CI/CD, slowing delivery across product teams."
+      approach: "Architected a full migration to GitHub and GitHub Actions — moving every repository, re-implementing hundreds of pipelines as workflows, and standardizing branching strategies."
+      impact: "Shipped self-service CI/CD templates adopted across all product teams, consolidating the org onto a single modern delivery platform."

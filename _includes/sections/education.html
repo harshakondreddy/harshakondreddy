@@ -1,0 +1,30 @@
+{%- assign e = site.data.education -%}
+<!-- EDUCATION -->
+<section id="education" data-num="04">
+  <div class="si">
+    <div class="reveal">
+      {% include section-header.html s=e.section %}
+    </div>
+    <div class="edu-wrap">
+      {%- for sc in e.schools %}
+      <div class="edu-card{% if sc.theme == 'psu' %} psu{% endif %} reveal">
+        <div class="edu-banner-{{ sc.theme }}"></div>
+        <div class="edu-body">
+          <div class="edu-logo-{{ sc.theme }}">{{ sc.logo_text }}{% if sc.logo %}<img src="{{ sc.logo }}" alt="{{ sc.logo_alt | default: sc.school | escape }}" loading="lazy" onerror="this.remove()">{% endif %}</div>
+          <div>
+            <div class="edu-deg">{{ sc.degree | escape }}</div>
+            <div class="edu-school edu-school-{{ sc.theme }}">{{ sc.school | escape }}</div>
+            <div class="edu-field">{{ sc.field | escape }}</div>
+            <div class="edu-meta">
+              <span class="edu-year">{{ sc.period | escape }}</span>
+              {%- if sc.badge %}
+              <span class="edu-badge edu-badge-{{ sc.theme }}">{{ sc.badge | escape }}</span>
+              {%- endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>

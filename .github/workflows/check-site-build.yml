@@ -1,0 +1,26 @@
+# Builds the site on every push to dev and every pull request, using the same
+# builder GitHub Pages uses. If a _data file has a typo (bad YAML indentation,
+# missing quote), this check turns red before the change can reach the live site.
+name: Check site build
+
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [main, dev]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build with the GitHub Pages builder
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+      - name: Confirm the page was generated
+        run: test -s _site/index.html

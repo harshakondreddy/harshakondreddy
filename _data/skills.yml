@@ -1,0 +1,92 @@
+# ─────────────────────────────────────────────────────────────
+# SKILLS section: the scrolling logo strip and the skill groups.
+# icon = a Devicon class (devicon.dev, add " colored" for brand colours)
+#        or a Font Awesome class (fontawesome.com/icons)
+# style = optional CSS for the icon (colour / size)
+# core_percent = optional. Marks a core skill with a ★; clicking it shows this percentage.
+# ─────────────────────────────────────────────────────────────
+
+section:
+  label: Skills
+  label_icon: fa-solid fa-layer-group
+  title: My Tech
+  title_highlight: Arsenal
+  subtitle: Battle-tested technologies across cloud, containers, CI/CD, monitoring, and more.
+
+# Logos in the scrolling strip (the list is repeated automatically for the loop)
+marquee_icons:
+  - devicon-amazonwebservices-plain-wordmark colored
+  - devicon-azure-plain colored
+  - devicon-kubernetes-plain colored
+  - devicon-docker-plain colored
+  - devicon-terraform-plain colored
+  - devicon-ansible-plain colored
+  - devicon-jenkins-plain colored
+  - devicon-github-original colored
+  - devicon-gitlab-plain colored
+  - devicon-helm-original colored
+  - devicon-grafana-original colored
+  - devicon-prometheus-original colored
+  - devicon-python-plain colored
+  - devicon-linux-plain colored
+  - devicon-postgresql-plain colored
+  - devicon-apachekafka-original colored
+  - devicon-nginx-original colored
+  - devicon-elasticsearch-plain colored
+  - devicon-rabbitmq-original colored
+  - devicon-git-plain colored
+
+groups:
+  - name: Cloud & Infrastructure
+    icon: fa-solid fa-cloud
+    skills:
+      - { name: AWS,        icon: devicon-amazonwebservices-plain-wordmark colored, core_percent: 86 }
+      - { name: Azure,      icon: devicon-azure-plain colored, core_percent: 76 }
+      - { name: Amazon EKS, icon: devicon-amazonwebservices-plain colored, core_percent: 86 }
+      - { name: Azure AKS,  icon: devicon-azure-plain colored, core_percent: 76 }
+      - { name: Linux,      icon: devicon-linux-plain colored }
+      - { name: Nginx,      icon: devicon-nginx-original colored }
+
+  - name: Containers & Orchestration
+    icon: devicon-docker-plain colored
+    skills:
+      - { name: Kubernetes, icon: devicon-kubernetes-plain colored, core_percent: 95 }
+      - { name: Docker,     icon: devicon-docker-plain colored, core_percent: 90 }
+      - { name: containerd, icon: devicon-docker-plain, style: "color:var(--t4)" }
+      - { name: Helm,       icon: devicon-helm-original colored }
+      - { name: ArgoCD,     icon: fa-solid fa-arrows-rotate, style: "color:var(--cy);font-size:.85rem" }
+      - { name: KOPS,       icon: fa-solid fa-dharmachakra,  style: "color:var(--p);font-size:.85rem" }
+
+  - name: CI/CD & Automation
+    icon: fa-solid fa-gears
+    skills:
+      - { name: GitHub Actions, icon: devicon-github-original, style: "color:var(--t2)", core_percent: 84 }
+      - { name: Jenkins,        icon: devicon-jenkins-plain colored, core_percent: 72 }
+      - { name: GitLab CI,      icon: devicon-gitlab-plain colored }
+      - { name: Terraform,      icon: devicon-terraform-plain colored, core_percent: 78 }
+      - { name: Ansible,        icon: devicon-ansible-plain colored }
+      - { name: Git,            icon: devicon-git-plain colored }
+      - { name: Bash / Shell,   icon: fa-solid fa-terminal, style: "color:var(--gr);font-size:.85rem" }
+
+  - name: Monitoring & Observability
+    icon: fa-solid fa-chart-line
+    skills:
+      - { name: Prometheus,    icon: fa-solid fa-fire,      style: "color:#e75c00;font-size:.85rem", core_percent: 70 }
+      - { name: Grafana,       icon: fa-solid fa-chart-line, style: "color:#F46800;font-size:.85rem", core_percent: 70 }
+      - { name: Elasticsearch, icon: devicon-elasticsearch-plain colored }
+      - { name: Kibana,        icon: fa-solid fa-chart-bar, style: "color:var(--acc);font-size:.85rem" }
+      - { name: AppDynamics,   icon: fa-solid fa-eye,       style: "color:var(--p);font-size:.85rem" }
+
+  - name: Messaging & Databases
+    icon: fa-solid fa-database
+    skills:
+      - { name: Kafka,      icon: devicon-apachekafka-original, style: "color:var(--t2)" }
+      - { name: RabbitMQ,   icon: devicon-rabbitmq-original colored }
+      - { name: PostgreSQL, icon: devicon-postgresql-plain colored }
+
+  - name: Programming
+    icon: fa-solid fa-code
+    skills:
+      - { name: Python, icon: devicon-python-plain colored }
+      - { name: Java,   icon: devicon-java-plain colored }
+      - { name: Groovy, icon: devicon-groovy-plain colored }
