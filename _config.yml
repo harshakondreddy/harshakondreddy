@@ -1,0 +1,19 @@
+# Jekyll settings for GitHub Pages. You rarely need to change this file.
+# Content lives in _data/*.yml — see CONTENT_GUIDE.md.
+title: Sri Harsha Kondreddy
+theme: null   # use only this repo's own design, no default GitHub theme
+
+markdown: kramdown
+kramdown:
+  # Keep straight quotes and dashes exactly as typed in _data files
+  smart_quotes: ["apos", "apos", "quot", "quot"]
+  typographic_symbols: { hellip: "...", mdash: "---", ndash: "--", laquo: "<<", raquo: ">>", laquo_space: "<< ", raquo_space: " >>" }
+
+# Files that are part of the repo but not part of the website
+exclude:
+  - README.md
+  - CONTENT_GUIDE.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .github

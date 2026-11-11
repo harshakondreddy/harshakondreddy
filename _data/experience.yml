@@ -1,0 +1,110 @@
+# ─────────────────────────────────────────────────────────────
+# EXPERIENCE section: one entry per job, newest first.
+#
+# Fields:
+#   role, company, location, period   plain text
+#   emoji        fallback icon shown if there is no logo
+#   logo         optional image in assets/logos/ (leave out if none)
+#   bullets      one line per achievement. Bold: wrap words in **double stars**
+#   tags         technology chips. Either a plain name (colour picked automatically)
+#                or { name: X, color: g } where color is one of:
+#                  ""  orange (default)   g  green   c  cyan   a  amber   y  yellow
+#
+# To add a job: copy an existing block (from "- role:" down to its tags) and edit it.
+# ─────────────────────────────────────────────────────────────
+
+section:
+  label: Experience
+  label_icon: fa-solid fa-briefcase
+  title: Professional
+  title_highlight: Journey
+  subtitle: 8+ years building mission-critical infrastructure across four companies in the US and India.
+
+jobs:
+  - role: Advanced DevOps Engineer
+    company: Honeywell Intelligrated LLC
+    location: Atlanta, Georgia — Full-time
+    period: Nov 2021 – Present · 4+ yrs
+    emoji: 🏭
+    logo: assets/logos/honeywell.png
+    logo_alt: Honeywell logo
+    bullets:
+      - Designed, deployed, and maintained **production-grade Kubernetes clusters** on AWS EKS and Azure AKS, managing 250+ hosted containers with 99.9%+ uptime
+      - Architected and led **GitHub Actions release engineering automation** — coordinating delivery across all environments (DEV, SIT, PREPROD, PROD) under high-frequency release workflows
+      - Executed multiple **Kubernetes version upgrades** (1.21 → 1.26) across diverse infrastructure for security hardening, compliance, and performance improvements
+      - Implemented full observability stack using **Prometheus, Grafana, AppDynamics, and Kubernetes resource metrics** — achieving SLA-level reliability with full PII compliance
+      - Engineered container security platform; mentored a **team of 5 engineers** and coordinated with DevOps, Ops, and release managers across the enterprise
+      - Led **containerd runtime migration** on EKS nodes — zero production incidents, full rollback documentation maintained throughout
+    tags:
+      - { name: Kubernetes,     color: "" }
+      - { name: AWS EKS,        color: "" }
+      - { name: Azure AKS,      color: g }
+      - { name: GitHub Actions, color: g }
+      - { name: Terraform,      color: c }
+      - { name: Helm,           color: c }
+      - { name: Prometheus,     color: a }
+      - { name: Grafana,        color: a }
+      - { name: containerd,     color: y }
+
+  - role: DevOps Engineer
+    company: Staxa Technologies LLC
+    location: North Carolina, USA
+    period: Mar 2019 – Nov 2021 · 2 yr 8 mo
+    emoji: ⚡
+    logo: assets/logos/staxa.png
+    logo_alt: Staxa Technologies logo
+    bullets:
+      - Drove all microservice builds through **Jenkins pipelines** to the Docker registry, deploying to production environments with automated rollback capabilities
+      - Deployed **Kubernetes clusters on Azure** with master/node architecture — implemented YAML configurations for pods, deployments, autoscaling, load balancers, namespaces, and config maps
+      - Managed **Kubernetes applications using Helm** — created reproducible builds, templatized manifests, and managed parameterized deployments across environments
+      - Set up and maintained **EFK stack** (Elasticsearch, Fluentd, Kibana) using Docker for centralized logging and operational observability
+      - Developed Docker images to support development and testing teams; distributed Jenkins and JMeter images with automated backup and recovery scripts using Bash and Groovy
+      - Hands-on experience procuring and managing **Azure VM Scale Sets**; handled monitoring via Eureka, cAdvisor, Tipster, and RabbitMQ
+    tags:
+      - { name: Kubernetes, color: "" }
+      - { name: Azure,      color: "" }
+      - { name: Docker,     color: g }
+      - { name: Helm,       color: g }
+      - { name: Jenkins,    color: c }
+      - { name: Terraform,  color: c }
+      - { name: EFK Stack,  color: a }
+      - { name: Ansible,    color: a }
+      - { name: RabbitMQ,   color: y }
+
+  - role: Build & Release Engineer
+    company: Veridic Technologies LLC
+    location: Atlanta, Georgia, USA
+    period: Aug 2018 – Mar 2019 · 8 mo
+    emoji: 🔧
+    logo: assets/logos/veridic.png
+    logo_alt: Veridic Technologies logo
+    bullets:
+      - Containerized applications and all dependencies using **Docker** — wrote Docker Compose files, managed container snapshots and volumes, and handled production deployments
+      - Connected **CI system with Git version control** for continuous builds; implemented agile practices including sprint planning, standups, and end-to-end CI/CD using Gradle and Jenkins
+      - Set up Jenkins master with necessary plugins and agent nodes to support scalability; wrote shell scripts for daily Jenkins and GitHub backups; leveraged Jenkins + Groovy for resilient microservice build pipelines
+      - Created **Terraform templates** for provisioning virtual networks, subnets, VM Scale Sets, load balancers, and NAT rules; used Terraform graph to visualize execution plans
+      - Utilized Docker as the runtime environment for the **CI/CD system** — build, test, and deploy pipelines running fully within containers
+    tags:
+      - { name: Docker,          color: "" }
+      - { name: Jenkins,         color: g }
+      - { name: Terraform,       color: g }
+      - { name: Git,             color: c }
+      - { name: Gradle,          color: c }
+      - { name: Shell Scripting, color: a }
+      - { name: Groovy,          color: a }
+
+  - role: System Administrator
+    company: Zealeers Technologies Pvt Ltd
+    location: India
+    period: Feb 2016 – May 2017 · 1 yr 3 mo
+    emoji: 🖥️
+    bullets:
+      - Implemented and tuned **Linux server environments** for global client operations — reengineered system setup with automated server provisioning, performance optimization, and patch management
+      - Developed and maintained **Chef Cookbooks** under version control; automated cloud deployments using Chef, shell scripting, and AWS CloudFormation templates
+      - Established system monitoring, ensured server hardware, operating systems, software, and procedures aligned with organizational standards and security policies
+    tags:
+      - { name: Linux,              color: "" }
+      - { name: Chef,               color: g }
+      - { name: Shell Scripting,    color: g }
+      - { name: AWS CloudFormation, color: c }
+      - { name: System Admin,       color: a }

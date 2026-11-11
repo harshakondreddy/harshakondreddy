@@ -1,0 +1,19 @@
+{%- assign pr = site.data.projects -%}
+<!-- PROJECTS -->
+<section id="projects" data-num="06">
+  <div class="si">
+    <div class="reveal">
+      {% include section-header.html s=pr.section %}
+    </div>
+    <div class="proj-grid">
+      {%- for p in pr.projects %}
+      <div class="proj-card {% cycle 'reveal-left', 'reveal-right' %}">
+        <div class="proj-icon">{{ p.emoji }}</div>
+        <div class="proj-name">{{ p.name | escape }}</div>
+        <p class="proj-desc">{% include inline-markdown.html text=p.description %}</p>
+        {% include tags.html tags=p.tags style="margin-top:auto" %}
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,42 @@
+# ─────────────────────────────────────────────────────────────
+# HERO: the first screen (name, badge, short bio, photos).
+# Bold text: wrap words in **double stars**.
+# ─────────────────────────────────────────────────────────────
+
+badge: Senior DevOps Engineer · Honeywell
+first_name: Sri Harsha
+last_name: Kondreddy
+
+# Rotating "typing" line under your name, shown in this order
+typed_roles:
+  - Kubernetes Expert
+  - Cloud Architect
+  - CI/CD Specialist
+  - Platform Engineer
+  - SRE Practitioner
+  - DevOps Leader
+
+bio: >-
+  **8+ years** of DevOps and infrastructure engineering across cloud platforms,
+  container orchestration, CI/CD pipelines, and site reliability. Currently at
+  **Honeywell**, operating 250+ hosted containers on
+  **AWS EKS & Azure AKS**, driving platform reliability and team automation.
+
+# Photo slideshow (first one loads first). Files live in assets/.
+photos:
+  - assets/photo-blazer.jpg
+  - assets/photo-suit.jpg
+  - assets/photo-casual.jpg
+
+# Small icons orbiting the photo.
+# icon = a Devicon class (devicon.dev) or Font Awesome class (fontawesome.com/icons)
+# style = optional CSS, e.g. a colour for Font Awesome icons
+orbit_icons:
+  - { tip: Kubernetes,    icon: devicon-kubernetes-plain colored }
+  - { tip: Docker,        icon: devicon-docker-plain colored }
+  - { tip: Azure,         icon: devicon-azure-plain colored }
+  - { tip: Linux,         icon: devicon-linux-plain colored }
+  - { tip: Grafana,       icon: fa-solid fa-chart-line, style: "color:#F46800" }
+  - { tip: Terraform,     icon: devicon-terraform-plain colored }
+  - { tip: Elasticsearch, icon: devicon-elasticsearch-plain colored }
+  - { tip: AI,            icon: fa-solid fa-robot, style: "color:#ff7a1a" }

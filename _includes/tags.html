@@ -1,0 +1,12 @@
+{%- comment -%}
+Technology chips. Each tag is a plain name (colour picked by position: orange, green, cyan, amber, yellow)
+or { name: X, color: g }.
+{%- endcomment -%}
+{%- assign auto_colors = ",g,c,a,y" | split: "," -%}
+<div class="tags"{% if include.style %} style="{{ include.style }}"{% endif %}>
+{%- for t in include.tags -%}
+  {%- if t.name -%}{%- assign tag_name = t.name -%}{%- assign tag_color = t.color -%}
+  {%- else -%}{%- assign tag_name = t -%}{%- assign i = forloop.index0 | modulo: 5 -%}{%- assign tag_color = auto_colors[i] -%}{%- endif %}
+  <span class="tag{% if tag_color != blank %} {{ tag_color }}{% endif %}">{{ tag_name | escape }}</span>
+{%- endfor %}
+</div>

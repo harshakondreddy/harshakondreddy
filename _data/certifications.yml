@@ -1,0 +1,23 @@
+# ─────────────────────────────────────────────────────────────
+# CERTIFICATIONS section.
+# details = optional small line (ID, issue date, expiry). Leave out if none.
+# badge_background = colour behind the emoji
+# ─────────────────────────────────────────────────────────────
+
+section:
+  label: Certifications
+  label_icon: fa-solid fa-certificate
+  title: Licenses &
+  title_highlight: Certifications
+
+certifications:
+  - name: AWS Certified Developer — Associate
+    issuer: Amazon Web Services
+    details: "ID: DKBJL5W1BJ1EQK5N · Issued Jun 2018"
+    emoji: ☁️
+    badge_background: rgba(245,158,11,.12)
+
+  - name: CCNA — Routing & Switching
+    issuer: Cisco
+    emoji: 🔗
+    badge_background: rgba(255,154,77,.1)

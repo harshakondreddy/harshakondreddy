@@ -1,0 +1,39 @@
+{%- assign x = site.data.experience -%}
+<!-- EXPERIENCE -->
+<section id="experience" data-num="03">
+  <div class="si">
+    <div class="reveal">
+      {% include section-header.html s=x.section %}
+    </div>
+    <div class="tl">
+      {%- for job in x.jobs %}
+
+      <!-- {{ job.company | escape }} -->
+      <div class="tli reveal">
+        <div class="tlid"></div>
+        <div class="tlic">
+          <div class="tlih">
+            <div><div class="tlico">
+              <div class="co-logo">{{ job.emoji }}{% if job.logo %}<img src="{{ job.logo }}" alt="{{ job.logo_alt | default: job.company | escape }}" loading="lazy" onerror="this.remove()">{% endif %}</div>
+              <div>
+                <div class="tli-role">{{ job.role | escape }}</div>
+                <div class="tli-co">{{ job.company | escape }}</div>
+                <div class="tli-loc"><i class="fa-solid fa-location-dot" style="font-size:.7rem"></i>&nbsp;{{ job.location | escape }}</div>
+              </div>
+            </div></div>
+            <div class="tli-period">{{ job.period | escape }}</div>
+          </div>
+          <div class="tli-desc"><ul>
+            {%- for b in job.bullets %}
+            {%- capture bullet %}{% include inline-markdown.html text=b %}{% endcapture %}
+            <li>{{ bullet | replace: "<strong>", '<strong style="color:var(--t1)">' }}</li>
+            {%- endfor %}
+          </ul></div>
+          {% include tags.html tags=job.tags %}
+        </div>
+      </div>
+      {%- endfor %}
+
+    </div>
+  </div>
+</section>

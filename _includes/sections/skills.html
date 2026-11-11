@@ -1,0 +1,26 @@
+{%- assign k = site.data.skills -%}
+<!-- SKILLS -->
+<section id="skills" data-num="02">
+  <div class="si">
+    <div class="reveal">
+      {% include section-header.html s=k.section %}
+    </div>
+
+    <div class="mq reveal" aria-hidden="true"><div class="mq-track">{% for i in k.marquee_icons %}<i class="{{ i }}"></i>{% endfor %}{% for i in k.marquee_icons %}<i class="{{ i }}"></i>{% endfor %}</div></div>
+
+    <div class="skats">
+      {%- for g in k.groups %}
+
+      <div class="scat reveal">
+        <div class="scat-hd"><i class="{{ g.icon }}" style="font-size:.9rem"></i><span>{{ g.name | escape }}</span></div>
+        <div class="sk-chips">
+          {%- for sk in g.skills %}
+          <span class="skc"><i class="{{ sk.icon }}"{% if sk.style %} style="{{ sk.style }}"{% endif %}></i><span>{{ sk.name | escape }}</span></span>
+          {%- endfor %}
+        </div>
+      </div>
+      {%- endfor %}
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,14 @@
+# ─────────────────────────────────────────────────────────────
+# CONTACT section text. Email / LinkedIn / GitHub / location come from site.yml.
+# ─────────────────────────────────────────────────────────────
+
+section:
+  label: Contact
+  label_icon: fa-solid fa-satellite-dish
+  title: Let's
+  title_highlight: Build Together
+  subtitle: Open to DevOps opportunities, Kubernetes collaborations, and cloud architecture discussions.
+
+heading: Get In Touch
+intro: I'm actively open to new DevOps engineering opportunities and collaborating on Kubernetes, Docker, and cloud infrastructure projects. I respond promptly!
+form_heading: Send a Message

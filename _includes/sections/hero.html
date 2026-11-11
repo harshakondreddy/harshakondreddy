@@ -1,0 +1,48 @@
+{%- assign h = site.data.hero -%}
+{%- assign s = site.data.site -%}
+<!-- HERO -->
+<section id="home">
+  <canvas id="glfx" aria-hidden="true"></canvas>
+  <canvas id="tsr" aria-hidden="true"></canvas>
+  <div class="hw" id="hw">
+    <div class="hl">
+      <div class="hbadge"><span class="dot"></span> {{ h.badge | escape }}</div>
+      <h1 class="hname"><span class="w1">{{ h.first_name | escape | replace: " ", "&nbsp;" }}</span><br><span class="grd w2">{{ h.last_name | escape }}</span></h1>
+      <div class="htyped"><span class="tc" id="typed"></span></div>
+      <p class="hbio">
+        {% include inline-markdown.html text=h.bio %}
+      </p>
+      <div class="hbtns">
+        <a href="#contact" class="btnP"><i class="fa-solid fa-paper-plane"></i>&nbsp;Get In Touch</a>
+        <a href="#experience" class="btnO"><i class="fa-solid fa-briefcase"></i>&nbsp;View Experience</a>
+      </div>
+      <div class="srow">
+        <a href="{{ s.github_url }}" target="_blank" rel="noopener" class="sico" title="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="{{ s.linkedin_url }}" target="_blank" rel="noopener" class="sico" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="mailto:{{ s.email }}" class="sico" title="Email"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+      <div class="hclock" id="hclock" aria-label="Local time in Atlanta">
+        <span class="hc-dot" aria-hidden="true"></span>
+        <span id="hgreet">Good evening</span>
+        <b>·</b>
+        <b>ATL <span id="hctime">--:--:--</span></b>
+        <span class="hc-tz" id="hctz">ET</span>
+      </div>
+    </div>
+    <div class="hr">
+      <div class="avw" style="animation:float 5s ease-in-out infinite">
+        <div class="avring"></div>
+        <div class="avimg">
+          {%- for photo in h.photos %}
+          <img class="av-slide{% if forloop.first %} active{% endif %}" src="{{ photo }}" alt="{{ s.name | escape }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+          {%- endfor %}
+        </div>
+        <div class="avbadge"><i class="fa-solid fa-location-dot"></i>&nbsp;{{ s.location_short | escape }}</div>
+        {%- for o in h.orbit_icons %}
+        <div class="orb" data-tip="{{ o.tip | escape }}"><i class="{{ o.icon }}"{% if o.style %} style="{{ o.style }}"{% endif %}></i></div>
+        {%- endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="scue"><span>SCROLL</span><div class="sl"></div></div>
+</section>

@@ -1,0 +1,2 @@
+{%- comment -%}Turns **bold** text from the _data files into HTML, without wrapping it in a paragraph.{%- endcomment -%}
+{{- include.text | markdownify | remove: "<p>" | remove: "</p>" | strip -}}

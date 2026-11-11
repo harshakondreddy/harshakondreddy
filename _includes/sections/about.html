@@ -1,0 +1,37 @@
+{%- assign a = site.data.about -%}
+<!-- ABOUT -->
+<section id="about" data-num="01">
+  <div class="si">
+    <div class="abg">
+      <div class="abt reveal-left">
+        {% include section-header.html s=a.section subtitle_style="margin-bottom:1.4rem" %}
+        {%- for p in a.paragraphs %}
+        <p>{% include inline-markdown.html text=p %}</p>
+        {%- endfor %}
+      </div>
+      <div class="ab-right reveal-right">
+        <div class="dash" id="dash" aria-label="Key production stats">
+          {%- for st in a.stats %}
+          <div class="dcell">
+            <div class="dlbl">{{ st.label | escape }}</div>
+            <div class="dval" data-count="{{ st.count }}" data-suffix="{{ st.suffix }}">0</div>
+            {%- if st.note %}
+            <div class="dunit" style="font-size:.72rem;color:var(--t4);margin-top:.4rem">{{ st.note | escape }}</div>
+            {%- else %}
+            <div class="dspark" data-spark></div>
+            {%- endif %}
+          </div>
+          {%- endfor %}
+        </div>
+        <div class="ghc">
+          <div class="tools-card">
+            <div class="tools-hd"><i class="fa-solid fa-screwdriver-wrench" style="font-size:.8rem"></i>&nbsp; Most Used Tools</div>
+            {%- for t in a.tools %}
+            <div class="trow"><span class="tname">{{ t.name | escape }}</span><div class="tbar"><i style="--w:{{ t.percent }}%"></i></div><span class="tpct">{{ t.percent }}%</span></div>
+            {%- endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

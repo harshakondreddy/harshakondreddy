@@ -1,0 +1,33 @@
+# ─────────────────────────────────────────────────────────────
+# EDUCATION section.
+# theme = colour style of the card. Existing styles: psu (maroon/gold), rmd.
+#         A new school can reuse either one.
+# logo  = optional image in assets/logos/; logo_text shows if the image is missing.
+# ─────────────────────────────────────────────────────────────
+
+section:
+  label: Education
+  label_icon: fa-solid fa-graduation-cap
+  title: Academic
+  title_highlight: Background
+
+schools:
+  - degree: Master of Science — Industrial Technologies
+    school: Pittsburg State University
+    field: College of Technology & Applied Sciences · Pittsburg, Kansas, USA
+    period: Jan 2017 – May 2018
+    badge: 🦍 Go Gorillas!
+    theme: psu
+    logo_text: PSU
+    logo: assets/logos/psu.png
+    logo_alt: Pittsburg State University logo
+
+  - degree: Bachelor of Engineering — Electronics & Communications
+    school: R.M.D Engineering College
+    field: Department of Electronics & Communication Engineering · India
+    period: Sep 2012 – Apr 2016
+    badge: 🎓 Bachelor's Degree
+    theme: rmd
+    logo_text: ⚡
+    logo: assets/logos/rmd.png
+    logo_alt: R.M.D Engineering College logo

@@ -1,0 +1,33 @@
+# ─────────────────────────────────────────────────────────────
+# SITE-WIDE DETAILS: your name, contact links, page title, footer.
+# Used in many places (hero, contact section, footer, ⌘K menu).
+# Change a value here once and it updates everywhere.
+# ─────────────────────────────────────────────────────────────
+
+name: Sri Harsha Kondreddy
+initials: SHK                       # shown in the loading screen and logo
+job_title: Senior DevOps Engineer   # used in the browser tab title, footer and search previews
+
+# Browser tab title and the text Google / LinkedIn previews show
+page_title: "Sri Harsha Kondreddy | Senior DevOps Engineer"
+meta_description: "Sri Harsha Kondreddy — Senior DevOps Engineer with 8+ years across Kubernetes, Docker, AWS, Azure, CI/CD, and cloud infrastructure. Atlanta, GA."
+share_image: assets/photo-blazer.jpg   # picture shown when the link is shared
+favicon: https://avatars.githubusercontent.com/u/40243638?v=4
+
+location_short: Atlanta, GA
+location_full: Atlanta, Georgia — United States
+
+email: harshareddykondreddy@gmail.com
+
+github_url: https://github.com/harshakondreddy
+github_label: github.com/harshakondreddy
+linkedin_url: https://www.linkedin.com/in/harsha0611/
+linkedin_label: linkedin.com/in/harsha0611
+
+# Web3Forms access key for the "Send a Message" form (get one free at web3forms.com).
+# It is a public key by design. NOTE: the value below is still the placeholder, so the form can't send yet.
+contact_form_key: WEB3FORMS_KEY
+
+footer:
+  copyright_year: 2026
+  tagline: Built with passion · Deployed via GitHub Pages
