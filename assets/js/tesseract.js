@@ -91,31 +91,6 @@
   document.addEventListener('visibilitychange',function(){if(document.hidden)paused=true;else resume();});
 })();
 
-/* ── Z-space scroll depth: sections surface from translateZ(-160px) as they
-      enter the viewport. Desktop fine-pointer + motion + real GPU only. ── */
-(function(){
-  if(!matchMedia('(prefers-reduced-motion: no-preference)').matches)return;
-  if(!matchMedia('(pointer:fine)').matches)return;
-  if(window.__noGPU||innerWidth<1025)return;
-  var els=[].slice.call(document.querySelectorAll('section[data-num]'));
-  if(!els.length)return;
-  document.body.classList.add('fx-depth');
-  var tick=false;
-  function upd(){
-    var s=scrollY,vh=innerHeight;
-    for(var i=0;i<els.length;i++){
-      var p=Math.max(0,Math.min(1,(s+vh-els[i].offsetTop)/(vh*.55)));
-      var ease=1-Math.pow(1-p,3);
-      els[i].style.setProperty('--dz',(-160*(1-ease)).toFixed(1)+'px');
-      els[i].style.setProperty('--drx',(3.5*(1-ease)).toFixed(2)+'deg');
-    }
-    tick=false;
-  }
-  addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(upd);}},{passive:true});
-  addEventListener('resize',upd,{passive:true});
-  addEventListener('load',upd);
-  upd();
-})();
 
 /* ── Time dimension: live Atlanta clock + time-of-day greeting ── */
 (function(){

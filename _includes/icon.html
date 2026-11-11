@@ -1,0 +1,27 @@
+{%- comment -%}
+Renders an icon as a small SVG from the CDN instead of a heavy icon font.
+Pass the same class names you would use in the data files:
+  Devicon (devicon.dev):        devicon-kubernetes-plain colored
+  Font Awesome (fontawesome.com): fa-solid fa-cloud  /  fa-brands fa-github
+Optional: style="color:...;font-size:..."
+{%- endcomment -%}
+{%- assign ico_parts = include.cls | split: " " -%}
+{%- assign ico_url = "" -%}
+{%- assign ico_family = "solid" -%}
+{%- assign ico_fa = "" -%}
+{%- for p in ico_parts -%}
+  {%- assign p3 = p | slice: 0, 3 -%}
+  {%- if p contains "devicon-" -%}
+    {%- assign ico_n = p | remove_first: "devicon-" -%}
+    {%- assign ico_dir = ico_n | split: "-" | first -%}
+    {%- capture ico_url -%}https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/{{ ico_dir }}/{{ ico_n }}.svg{%- endcapture -%}
+  {%- elsif p == "fa-brands" -%}{%- assign ico_family = "brands" -%}
+  {%- elsif p == "fa-regular" -%}{%- assign ico_family = "regular" -%}
+  {%- elsif p == "fa-solid" -%}
+  {%- elsif p3 == "fa-" -%}{%- assign ico_fa = p | remove_first: "fa-" -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if ico_url == "" and ico_fa != "" -%}
+  {%- capture ico_url -%}https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/svgs/{{ ico_family }}/{{ ico_fa }}.svg{%- endcapture -%}
+{%- endif -%}
+<i class="ico {{ include.cls }}" style="--ico:url({{ ico_url }}){% if include.style %};{{ include.style }}{% endif %}" aria-hidden="true"></i>

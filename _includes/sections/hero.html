@@ -2,23 +2,22 @@
 {%- assign s = site.data.site -%}
 <!-- HERO -->
 <section id="home">
-  <canvas id="glfx" aria-hidden="true"></canvas>
   <canvas id="tsr" aria-hidden="true"></canvas>
   <div class="hw" id="hw">
     <div class="hl">
       <div class="hbadge"><span class="dot"></span> {{ h.badge | escape }}</div>
       <h1 class="hname"><span class="w1">{{ h.first_name | escape | replace: " ", "&nbsp;" }}</span><br><span class="grd w2">{{ h.last_name | escape }}</span></h1>
-      <div class="htyped"><span class="tc" id="typed"></span></div>
+      <div class="htyped"><span class="htp" aria-hidden="true">~$</span> <span class="tc" id="typed"></span></div>
       <p class="hbio">
         {% include inline-markdown.html text=h.bio %}
       </p>
       <div class="hbtns">
-        <a href="#experience" class="btnP"><i class="fa-solid fa-briefcase"></i>&nbsp;View Experience</a>
+        <a href="#experience" class="btnP">{% include icon.html cls="fa-solid fa-briefcase" %}&nbsp;View Experience</a>
       </div>
       <div class="srow">
-        <a href="{{ s.github_url }}" target="_blank" rel="noopener" class="sico" title="GitHub" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-        <a href="{{ s.linkedin_url }}" target="_blank" rel="noopener" class="sico" title="LinkedIn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-        <a href="mailto:{{ s.email }}" class="sico" title="Email" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        <a href="{{ s.github_url }}" target="_blank" rel="noopener" class="sico" title="GitHub" aria-label="GitHub">{% include icon.html cls="fa-brands fa-github" %}</a>
+        <a href="{{ s.linkedin_url }}" target="_blank" rel="noopener" class="sico" title="LinkedIn" aria-label="LinkedIn">{% include icon.html cls="fa-brands fa-linkedin" %}</a>
+        <a href="mailto:{{ s.email }}" class="sico" title="Email" aria-label="Email">{% include icon.html cls="fa-solid fa-envelope" %}</a>
       </div>
       <div class="hclock" id="hclock" aria-label="Local time in {{ s.clock.city | escape }}">
         <span class="hc-dot" aria-hidden="true"></span>
@@ -36,9 +35,9 @@
           <img class="av-slide{% if forloop.first %} active{% endif %}" src="{{ photo }}" alt="{{ s.name | escape }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
           {%- endfor %}
         </div>
-        <div class="avbadge"><i class="fa-solid fa-location-dot"></i>&nbsp;{{ s.location_short | escape }}</div>
+        <div class="avbadge">{% include icon.html cls="fa-solid fa-location-dot" %}&nbsp;{{ s.location_short | escape }}</div>
         {%- for o in h.orbit_icons %}
-        <div class="orb" data-tip="{{ o.tip | escape }}"><i class="{{ o.icon }}"{% if o.style %} style="{{ o.style }}"{% endif %}></i></div>
+        <div class="orb" data-tip="{{ o.tip | escape }}">{% include icon.html cls=o.icon style=o.style %}</div>
         {%- endfor %}
       </div>
     </div>

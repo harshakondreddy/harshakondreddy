@@ -6,16 +6,16 @@
       {% include section-header.html s=k.section %}
     </div>
 
-    <div class="mq reveal" aria-hidden="true"><div class="mq-track">{% for i in k.marquee_icons %}<i class="{{ i }}"></i>{% endfor %}{% for i in k.marquee_icons %}<i class="{{ i }}"></i>{% endfor %}</div></div>
+    <div class="mq reveal" aria-hidden="true"><div class="mq-track">{% for i in k.marquee_icons %}{% include icon.html cls=i %}{% endfor %}{% for i in k.marquee_icons %}{% include icon.html cls=i %}{% endfor %}</div></div>
 
     <div class="skats">
       {%- for g in k.groups %}
 
       <div class="scat reveal">
-        <div class="scat-hd"><i class="{{ g.icon }}" style="font-size:.9rem"></i><span>{{ g.name | escape }}</span></div>
+        <div class="scat-hd">{% include icon.html cls=g.icon style="font-size:.9rem" %}<span>{{ g.name | escape }}</span></div>
         <div class="sk-chips">
           {%- for sk in g.skills %}
-          <span class="skc"{% if sk.core_percent %} data-prof="{{ sk.core_percent }}"{% endif %}><i class="{{ sk.icon }}"{% if sk.style %} style="{{ sk.style }}"{% endif %}></i><span>{{ sk.name | escape }}</span></span>
+          <span class="skc"{% if sk.core_percent %} data-prof="{{ sk.core_percent }}"{% endif %}>{% include icon.html cls=sk.icon style=sk.style %}<span>{{ sk.name | escape }}</span></span>
           {%- endfor %}
         </div>
       </div>

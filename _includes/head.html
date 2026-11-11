@@ -1,3 +1,5 @@
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <script>(function(){var t=localStorage.getItem('hk-theme')||(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',t);})()</script>
   <script>
   /* GPU acceleration detection — runs synchronously so CSS class is present before first paint */
@@ -23,8 +25,6 @@
     }
   })();
   </script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>{{ site.data.site.page_title | escape }}</title>
   <meta name="description" content="{{ site.data.site.meta_description | escape }}">
   <meta property="og:title" content="{{ site.data.site.page_title | escape }}">
@@ -35,8 +35,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <meta name="theme-color" content="#16130f">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css">
+  <!-- Devicon CSS only supplies logo brand colours (icons themselves are SVGs), so it must not block the first paint -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/main.css">
   <!-- Without JavaScript, show every section instead of waiting for scroll animations -->
   <noscript><style>.reveal,.reveal-left,.reveal-right,.reveal-zoom{opacity:1!important;transform:none!important}.tbar i{width:var(--w)!important}#boot{display:none!important}</style></noscript>

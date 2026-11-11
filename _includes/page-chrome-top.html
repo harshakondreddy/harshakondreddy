@@ -7,13 +7,11 @@
   <div class="lb"></div>
 </div>
 <div id="progress"></div>
-<div id="aura" aria-hidden="true"></div>
-<canvas id="cvs"></canvas>
 
 <!-- NAV -->
 <nav id="nav">
   <div class="nw">
-    <a href="#home" class="brand" aria-label="Home — {{ site.data.site.name | escape }}">
+    <a href="#home" class="brand" aria-label="{{ site.data.site.initials }}4D — Home, {{ site.data.site.name | escape }}">
       <span class="bcube" aria-hidden="true"><i></i><i></i></span>
       <span>{{ site.data.site.initials }}<sup>4D</sup></span>
     </a>
@@ -26,8 +24,8 @@
       <li><a href="#projects">Projects</a></li>
     </ul>
     <div class="nav-r">
-      <button class="cmdk-hint" id="cmdkHint" aria-label="Open command palette" title="Quick navigation"><i class="fa-solid fa-magnifying-glass" style="font-size:.7rem"></i><kbd>⌘K</kbd></button>
-      <button class="thm-btn snd-btn" id="snd" aria-label="Toggle sound" title="Sound on / off"><i class="fa-solid fa-volume-xmark"></i></button>
+      <button class="cmdk-hint" id="cmdkHint" aria-label="Open command palette" title="Quick navigation">{% include icon.html cls="fa-solid fa-magnifying-glass" style="font-size:.7rem" %}<kbd>⌘K</kbd></button>
+      <button class="thm-btn snd-btn" id="snd" aria-label="Toggle sound" title="Sound on / off">{% include icon.html cls="fa-solid fa-volume-xmark" %}</button>
       <button class="thm-btn" id="thm" aria-label="Toggle dark / light mode" title="Dark / light mode">
         <svg class="ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.6"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.2 5.2l1.7 1.7M17.1 17.1l1.7 1.7M5.2 18.8l1.7-1.7M17.1 6.9l1.7-1.7" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
         <svg class="ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.8A8.4 8.4 0 0110.2 3.4a8.4 8.4 0 1010.4 10.4z"/></svg>

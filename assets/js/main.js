@@ -1,19 +1,41 @@
 /* Reads personal details from window.SITE, which _layouts/default.html fills from _data/site.yml and _data/hero.yml. */
 var SITE=window.SITE||{};
+/* Icon as a small SVG mask (same rules as _includes/icon.html), e.g. ico('fa-solid fa-house') */
+function ico(cls){
+  var u='',fam='solid',fa='';
+  cls.split(' ').forEach(function(p){
+    if(p.indexOf('devicon-')===0){var n=p.slice(8);u='https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/'+n.split('-')[0]+'/'+n+'.svg';}
+    else if(p==='fa-brands')fam='brands';else if(p==='fa-regular')fam='regular';
+    else if(p!=='fa-solid'&&p.indexOf('fa-')===0)fa=p.slice(3);
+  });
+  if(!u&&fa)u='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/svgs/'+fam+'/'+fa+'.svg';
+  return '<i class="ico '+cls+'" style="--ico:url('+u+')" aria-hidden="true"></i>';
+}
+window.ico=ico;
 /* ── Theme toggle (persists; defaults to device setting) ── */
 (function(){
   var root=document.documentElement,btn=document.getElementById('thm');
   btn.addEventListener('click',function(){
     var t=root.getAttribute('data-theme')==='dark'?'light':'dark';
-    root.setAttribute('data-theme',t);localStorage.setItem('hk-theme',t);
+    function apply(){root.setAttribute('data-theme',t);try{localStorage.setItem('hk-theme',t);}catch(e){}}
+    /* Circular reveal from the toggle button (View Transitions API); instant switch where unsupported */
+    if(document.startViewTransition&&matchMedia('(prefers-reduced-motion: no-preference)').matches){
+      var r=btn.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;
+      root.style.setProperty('--vtx',x+'px');root.style.setProperty('--vty',y+'px');
+      root.style.setProperty('--vtr',Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y))+'px');
+      document.startViewTransition(apply);
+    }else apply();
   });
   var mq=window.matchMedia('(prefers-color-scheme:light)');
   function ap(){if(!localStorage.getItem('hk-theme'))root.setAttribute('data-theme',mq.matches?'light':'dark');}
   if(mq.addEventListener)mq.addEventListener('change',ap);else if(mq.addListener)mq.addListener(ap);
 })();
 
-/* ── Scroll reveal (Obsidian zoom feel) ── */
+/* ── Scroll reveal: pure CSS (scroll-driven animations) where supported, IntersectionObserver otherwise ── */
+var SDA=!!(window.CSS&&CSS.supports&&CSS.supports('animation-timeline: view()'));
+if(SDA)document.documentElement.classList.add('sda');
 (function(){
+  if(SDA)return;
   var revEls=Array.from(document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-zoom'));
   function showVisible(){
     revEls=revEls.filter(function(el){
@@ -34,23 +56,6 @@ var SITE=window.SITE||{};
 })();
 
 
-/* ── Particles (paused during scroll) ── */
-(function(){
-  var c=document.getElementById('cvs'),x=c.getContext('2d'),pts=[],paused=false,tid,raf;
-  c.style.willChange='transform';
-  function sz(){c.width=innerWidth;c.height=innerHeight;}
-  function isLight(){return document.documentElement.getAttribute('data-theme')==='light';}
-  function P(){this.reset();}
-  P.prototype.reset=function(){this.x=Math.random()*c.width;this.y=Math.random()*c.height;this.vx=(Math.random()-.5)*.18;this.vy=(Math.random()-.5)*.18;this.rad=Math.random()*1.1+.3;this.cl=['224,90,15','255,122,26','150,132,112'][Math.floor(Math.random()*3)];};
-  P.prototype.tick=function(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>c.width)this.vx*=-1;if(this.y<0||this.y>c.height)this.vy*=-1;};
-  P.prototype.draw=function(){x.beginPath();x.arc(this.x,this.y,this.rad,0,Math.PI*2);x.fillStyle='rgba('+this.cl+','+(isLight()?.18:.14)+')';x.fill();};
-  function build(){var cap=window.__noGPU?6:Math.min(22,Math.floor(innerWidth/44));pts=Array.from({length:cap},function(){return new P();});}
-  function loop(){if(paused){raf=null;return;}x.clearRect(0,0,c.width,c.height);pts.forEach(function(p){p.tick();p.draw();});raf=requestAnimationFrame(loop);}
-  function resume(){paused=false;if(!raf)raf=requestAnimationFrame(loop);}
-  sz();build();raf=requestAnimationFrame(loop);
-  window.addEventListener('scroll',function(){paused=true;clearTimeout(tid);tid=setTimeout(resume,220);},{passive:true});
-  window.addEventListener('resize',function(){sz();build();});
-})();
 
 /* ── Typed.js ── */
 if(typeof Typed!=='undefined')new Typed('#typed',{strings:SITE.typedRoles,typeSpeed:55,backSpeed:28,backDelay:2200,loop:true,smartBackspace:true});
@@ -66,7 +71,7 @@ var ticking=false,lastNavY=0,navHidden=false,scrollAccum=0;
 function processScroll(){
   var s=window.scrollY;
   var h=Math.max(document.body.scrollHeight-innerHeight,1);
-  bar.style.width=(Math.min(Math.max(s,0),h)/h*100)+'%';
+  if(!SDA)bar.style.width=(Math.min(Math.max(s,0),h)/h*100)+'%';
   nav.classList.toggle('on',s>50);
   /* Auto-hide: hide on any downward movement; reveal after 80px of uninterrupted upward travel.
      Any positive dy resets scrollAccum, so rubber-band and address-bar events can't accidentally reveal. */
@@ -101,6 +106,28 @@ function processScroll(){
 window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(processScroll);}},{passive:true});
 window.addEventListener('load',function(){cacheSecs();processScroll();});
 setTimeout(function(){cacheSecs();processScroll();},400);
+
+/* ── Quick in-page jumps: ~0.45 s ease instead of the browser's slower long-distance smooth scroll ── */
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,anim=0;
+  function jump(hash){
+    var el=document.querySelector(hash); if(!el)return false;
+    var start=scrollY,end=Math.max(0,Math.min(el.getBoundingClientRect().top+start-96,document.documentElement.scrollHeight-innerHeight));
+    cancelAnimationFrame(anim);
+    if(reduce||Math.abs(end-start)<2){window.scrollTo(0,end);return true;}
+    var d=Math.min(520,280+Math.abs(end-start)*.04),t0=performance.now();
+    document.documentElement.style.scrollBehavior='auto';
+    (function step(t){var p=Math.min((t-t0)/d,1),e=1-Math.pow(1-p,3);window.scrollTo(0,start+(end-start)*e);
+      if(p<1)anim=requestAnimationFrame(step);else document.documentElement.style.scrollBehavior='';})(t0);
+    return true;
+  }
+  window.__jump=jump;
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href^="#"]'); if(!a)return;
+    var h=a.getAttribute('href'); if(!h||h.length<2||!document.querySelector(h))return;
+    e.preventDefault(); if(jump(h)&&history.replaceState)history.replaceState(null,'',h);
+  });
+})();
 
 /* ── Burger ── */
 var bur=document.getElementById('bur'),nl=document.getElementById('nlinks');
@@ -172,28 +199,9 @@ nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function
     }
   }
 
-  /* Cursor aura + scroll-velocity physics (4D layer) */
-  if(motion){
-    var aura=document.getElementById('aura');
-    var ax=innerWidth/2,ay=innerHeight/2,amx=ax,amy=ay,aSeen=false;
-    if(fine&&aura){
-      document.addEventListener('pointermove',function(e){amx=e.clientX;amy=e.clientY;if(!aSeen){aSeen=true;aura.style.opacity=1;}},{passive:true});
-    }
-    var vSkew=0,vTarget=0,vLast=scrollY;
-    window.addEventListener('scroll',function(){
-      var v=scrollY-vLast;vLast=scrollY;
-      vTarget=Math.max(-.6,Math.min(.6,v*.018));
-      window.__scrollVel=v;
-    },{passive:true});
-    (function mLoop(){
-      if(aSeen){ax+=(amx-ax)*.1;ay+=(amy-ay)*.1;aura.style.transform='translate('+ax.toFixed(1)+'px,'+ay.toFixed(1)+'px)';}
-      if(!isTouch&&!window.__noGPU){
-        vTarget*=.88;vSkew+=(vTarget-vSkew)*.12;
-        document.documentElement.style.setProperty('--vskew',(Math.abs(vSkew)<.006?0:vSkew.toFixed(3))+'deg');
-      }
-      requestAnimationFrame(mLoop);
-    })();
-  }
+  /* Scroll velocity (read by the 4D cube and orbit icons; no animation loop here) */
+  var vLast=scrollY;
+  window.addEventListener('scroll',function(){window.__scrollVel=scrollY-vLast;vLast=scrollY;},{passive:true});
 
   /* Animated stat counters */
   var cObs=new IntersectionObserver(function(es){
@@ -217,8 +225,7 @@ nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function
   /* Back to top */
   var btt=document.getElementById('btt');
   btt.addEventListener('click',function(){
-    if(window.__lenis)window.__lenis.scrollTo(0,{duration:1.2});
-    else window.scrollTo({top:0,behavior:'smooth'});
+    window.scrollTo({top:0,behavior:'smooth'});
   });
 })();
 
@@ -311,56 +318,17 @@ nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function
     ring.style.width=(R*2)+'px';
     ring.style.height=(R*2*tilt)+'px';
     ring.style.transform='translate(-50%,-50%) rotate('+rotZ.toFixed(1)+'deg)';
-    requestAnimationFrame(frame);
+    orbRaf=orbOn?requestAnimationFrame(frame):0;
   }
-  requestAnimationFrame(frame);
-})();
-
-/* ── Lenis smooth inertia scrolling (desktop/trackpad only) ── */
-(function(){
-  /* Always reset scroll-behavior so CSS smooth and Lenis don't fight each other */
-  document.documentElement.style.scrollBehavior='auto';
-
-  if(typeof Lenis==='undefined')return;
-  if(!matchMedia('(prefers-reduced-motion: no-preference)').matches)return;
-  if(matchMedia('(pointer:coarse)').matches)return; /* native momentum scroll on touch devices */
-  if(window.__noGPU)return; /* software renderer: use native scroll to avoid extra RAF cost */
-
-  var lenis=new Lenis({lerp:.1,wheelMultiplier:1});
-  window.__lenis=lenis;
-
-  function raf(t){lenis.raf(t);requestAnimationFrame(raf);}
-  requestAnimationFrame(raf);
-  document.querySelectorAll('a[href^="#"]').forEach(function(a){
-    a.addEventListener('click',function(e){
-      var h=a.getAttribute('href');
-      var el=document.querySelector(h);
-      if(h.length>1&&el){
-        e.preventDefault();
-        /* Force content-visibility:visible on the target for one frame so Lenis
-           reads the correct getBoundingClientRect() position before scrolling.
-           Toggling it on every scroll frame (previous approach) caused layout
-           reflows during the animation, making scroll feel janky. */
-        el.style.contentVisibility='visible';
-        requestAnimationFrame(function(){
-          lenis.scrollTo(h,{offset:-96,duration:1.15});
-          setTimeout(function(){el.style.contentVisibility='';},1300);
-        });
-      }
-    });
-  });
+  var orbOn=true,orbRaf=requestAnimationFrame(frame);
+  new IntersectionObserver(function(en){orbOn=en[0].isIntersecting;if(orbOn&&!orbRaf)orbRaf=requestAnimationFrame(frame);}).observe(avw);
+  document.addEventListener('visibilitychange',function(){orbOn=!document.hidden;if(orbOn&&!orbRaf)orbRaf=requestAnimationFrame(frame);});
 })();
 
 /* ════════════════ NEW INTERACTION LAYER ════════════════ */
 (function(){
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var lenis=window.__lenis;
-  function goTo(hash){
-    var el=document.querySelector(hash); if(!el)return;
-    if(window.__wipeGo){window.__wipeGo(hash);return;}
-    if(lenis)lenis.scrollTo(hash,{offset:-96,duration:1.1});
-    else{var y=el.getBoundingClientRect().top+scrollY-96;window.scrollTo({top:y,behavior:reduce?'auto':'smooth'});}
-  }
+  function goTo(hash){ if(window.__jump)window.__jump(hash); }
 
   /* ── Boot intro dismiss (fail-safe: also auto-hides via CSS) ── */
   (function(){
@@ -412,7 +380,7 @@ nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function
         var fa=c.icon.indexOf('fa-brands')===0?c.icon:'fa-solid '+c.icon;
         var d=document.createElement('div');
         d.className='cmdk-item'+(i===sel?' sel':'');
-        d.innerHTML='<span class="ci-ic"><i class="'+fa+'"></i></span><span><div>'+c.label+'</div><div class="ci-sub">'+c.sub+'</div></span>';
+        d.innerHTML='<span class="ci-ic">'+ico(fa)+'</span><span><div>'+c.label+'</div><div class="ci-sub">'+c.sub+'</div></span>';
         d.addEventListener('click',function(){fire(c);});
         d.addEventListener('mousemove',function(){if(sel!==i){sel=i;mark();}});
         list.appendChild(d);
@@ -424,8 +392,8 @@ nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function
       view=q?cmds.filter(function(c){return (c.label+' '+c.sub+' '+c.kw).toLowerCase().indexOf(q)>-1;}):cmds.slice();
       sel=0;render();
     }
-    function open(){modal.classList.add('open');document.body.classList.add('modal-open');if(lenis)lenis.stop();input.value='';view=cmds.slice();sel=0;render();setTimeout(function(){input.focus();},40);}
-    function close(){modal.classList.remove('open');document.body.classList.remove('modal-open');if(lenis)lenis.start();}
+    function open(){modal.classList.add('open');document.body.classList.add('modal-open');input.value='';view=cmds.slice();sel=0;render();setTimeout(function(){input.focus();},40);}
+    function close(){modal.classList.remove('open');document.body.classList.remove('modal-open');}
     function fire(c){close();setTimeout(function(){c.run();},120);}
     if(hint)hint.addEventListener('click',open);
     input.addEventListener('input',filter);
@@ -513,7 +481,7 @@ nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function
         var body=document.createElement('div');body.className='exp-body';
         desc.parentNode.insertBefore(body,desc);body.appendChild(desc);
         var btn=document.createElement('button');btn.className='exp-toggle';btn.type='button';
-        btn.innerHTML='View details <i class="fa-solid fa-chevron-down"></i>';
+        btn.innerHTML='View details '+ico('fa-solid fa-chevron-down');
         (tags||body).parentNode.insertBefore(btn,(tags||body).nextSibling);
         function setH(){ body.style.maxHeight=tli.classList.contains('exp-open')?body.scrollHeight+'px':''; }
         setH();
@@ -583,15 +551,15 @@ nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function
       detail.id='projd'+i;
       detail.innerHTML=
         '<div class="pm-metrics">'+(d.metrics||[]).map(function(m){return '<div class="pm-metric"><b>'+m[0]+'</b><span>'+m[1]+'</span></div>';}).join('')+'</div>'+
-        '<div class="pm-sec"><h4><i class="fa-solid fa-triangle-exclamation"></i> The Challenge</h4><p>'+d.challenge+'</p></div>'+
-        '<div class="pm-sec"><h4><i class="fa-solid fa-screwdriver-wrench"></i> Approach</h4><p>'+d.approach+'</p></div>'+
-        '<div class="pm-sec" style="margin-bottom:0"><h4><i class="fa-solid fa-chart-line"></i> Impact</h4><p>'+d.impact+'</p></div>';
+        '<div class="pm-sec"><h3>'+ico('fa-solid fa-triangle-exclamation')+' The Challenge</h3><p>'+d.challenge+'</p></div>'+
+        '<div class="pm-sec"><h3>'+ico('fa-solid fa-screwdriver-wrench')+' Approach</h3><p>'+d.approach+'</p></div>'+
+        '<div class="pm-sec" style="margin-bottom:0"><h3>'+ico('fa-solid fa-chart-line')+' Impact</h3><p>'+d.impact+'</p></div>';
       var tags=card.querySelector('.tags');
       if(tags)card.insertBefore(detail,tags); else card.appendChild(detail);
       var btn=document.createElement('button');
       btn.className='proj-toggle';btn.type='button';
       btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-controls',detail.id);
-      btn.innerHTML='View case study <i class="fa-solid fa-chevron-down"></i>';
+      btn.innerHTML='View case study '+ico('fa-solid fa-chevron-down');
       card.appendChild(btn);
       function setH(){ detail.style.maxHeight=card.classList.contains('open')?detail.scrollHeight+'px':'0px'; }
       btn.addEventListener('click',function(){

@@ -1,5 +1,5 @@
-{%- comment -%}Back-to-top button, side section rail, ⌘K command palette and page-transition overlay (layout only).{%- endcomment -%}
-<button id="btt" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+{%- comment -%}Back-to-top button, side section rail, ⌘K command palette (layout only).{%- endcomment -%}
+<button id="btt" aria-label="Back to top">{% include icon.html cls="fa-solid fa-arrow-up" %}</button>
 
 <!-- SIDE SECTION RAIL -->
 <div id="srail" role="navigation" aria-label="Section navigation">
@@ -16,7 +16,7 @@
 <div id="cmdk" role="dialog" aria-modal="true" aria-label="Command palette">
   <div class="cmdk-box">
     <div class="cmdk-in">
-      <i class="fa-solid fa-magnifying-glass"></i>
+      {% include icon.html cls="fa-solid fa-magnifying-glass" %}
       <input id="cmdkInput" type="text" placeholder="Jump to a section or run a command…" autocomplete="off" spellcheck="false" aria-label="Search commands">
     </div>
     <div class="cmdk-list" id="cmdkList"></div>
@@ -24,5 +24,4 @@
 </div>
 
 
-<div id="pgwipe" aria-hidden="true"><div class="pw-fill"></div><div class="pw-grain"></div><div class="pw-label"></div></div>
 
