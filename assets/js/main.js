@@ -476,6 +476,7 @@ async function sendMsg(e){
         else{if(timer){clearInterval(timer);timer=null;}}
       });
     },{threshold:.3});
+    dash.querySelectorAll('[data-count]').forEach(function(e){e.textContent='0';});   /* HTML holds the real value for no-JS readers */
     io.observe(dash);
   })();
 

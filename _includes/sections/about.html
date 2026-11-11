@@ -14,7 +14,7 @@
           {%- for st in a.stats %}
           <div class="dcell">
             <div class="dlbl">{{ st.label | escape }}</div>
-            <div class="dval" data-count="{{ st.count }}" data-suffix="{{ st.suffix }}">0</div>
+            <div class="dval" data-count="{{ st.count }}" data-suffix="{{ st.suffix }}">{{ st.count }}{{ st.suffix }}</div>
             {%- if st.note %}
             <div class="dunit" style="font-size:.72rem;color:var(--t4);margin-top:.4rem">{{ st.note | escape }}</div>
             {%- else %}
