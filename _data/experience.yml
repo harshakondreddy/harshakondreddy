@@ -5,6 +5,7 @@
 #   role, company, location, period   plain text
 #   emoji        fallback icon shown if there is no logo
 #   logo         optional image in assets/logos/ (leave out if none)
+#   highlights   optional small metric chips above the bullets: { value: "250+", label: containers }
 #   bullets      one line per achievement. Bold: wrap words in **double stars**
 #   tags         technology chips. Either a plain name (colour picked automatically)
 #                or { name: X, color: g } where color is one of:
@@ -20,6 +21,10 @@ section:
   title_highlight: Journey
   subtitle: 8+ years building mission-critical infrastructure across four companies in the US and India.
 
+# Filter buttons shown above the timeline ("All" is added automatically).
+# A button only appears if at least one job has a matching tag.
+filter_buttons: [Kubernetes, Docker, AWS, Azure, Terraform, Jenkins, GitHub Actions, Helm]
+
 jobs:
   - role: Advanced DevOps Engineer
     company: Honeywell Intelligrated LLC
@@ -28,6 +33,11 @@ jobs:
     emoji: 🏭
     logo: assets/logos/honeywell.png
     logo_alt: Honeywell logo
+    highlights:
+      - { value: "250+",      label: containers }
+      - { value: "99.9%",     label: uptime }
+      - { value: "1.21→1.26", label: K8s }
+      - { value: "5",         label: engineers }
     bullets:
       - Designed, deployed, and maintained **production-grade Kubernetes clusters** on AWS EKS and Azure AKS, managing 250+ hosted containers with 99.9%+ uptime
       - Architected and led **GitHub Actions release engineering automation** — coordinating delivery across all environments (DEV, SIT, PREPROD, PROD) under high-frequency release workflows
@@ -53,6 +63,10 @@ jobs:
     emoji: ⚡
     logo: assets/logos/staxa.png
     logo_alt: Staxa Technologies logo
+    highlights:
+      - { value: Azure,   label: AKS }
+      - { value: Jenkins, label: CI/CD }
+      - { value: EFK,     label: logging }
     bullets:
       - Drove all microservice builds through **Jenkins pipelines** to the Docker registry, deploying to production environments with automated rollback capabilities
       - Deployed **Kubernetes clusters on Azure** with master/node architecture — implemented YAML configurations for pods, deployments, autoscaling, load balancers, namespaces, and config maps
@@ -78,6 +92,10 @@ jobs:
     emoji: 🔧
     logo: assets/logos/veridic.png
     logo_alt: Veridic Technologies logo
+    highlights:
+      - { value: Docker,    label: CI/CD }
+      - { value: Terraform, label: IaC }
+      - { value: Jenkins,   label: builds }
     bullets:
       - Containerized applications and all dependencies using **Docker** — wrote Docker Compose files, managed container snapshots and volumes, and handled production deployments
       - Connected **CI system with Git version control** for continuous builds; implemented agile practices including sprint planning, standups, and end-to-end CI/CD using Gradle and Jenkins
@@ -98,6 +116,10 @@ jobs:
     location: India
     period: Feb 2016 – May 2017 · 1 yr 3 mo
     emoji: 🖥️
+    highlights:
+      - { value: Linux, label: fleet }
+      - { value: Chef,  label: automation }
+      - { value: AWS,   label: CloudFormation }
     bullets:
       - Implemented and tuned **Linux server environments** for global client operations — reengineered system setup with automated server provisioning, performance optimization, and patch management
       - Developed and maintained **Chef Cookbooks** under version control; automated cloud deployments using Chef, shell scripting, and AWS CloudFormation templates

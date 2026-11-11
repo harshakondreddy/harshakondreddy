@@ -15,7 +15,7 @@
         <div class="scat-hd"><i class="{{ g.icon }}" style="font-size:.9rem"></i><span>{{ g.name | escape }}</span></div>
         <div class="sk-chips">
           {%- for sk in g.skills %}
-          <span class="skc"><i class="{{ sk.icon }}"{% if sk.style %} style="{{ sk.style }}"{% endif %}></i><span>{{ sk.name | escape }}</span></span>
+          <span class="skc"{% if sk.core_percent %} data-prof="{{ sk.core_percent }}"{% endif %}><i class="{{ sk.icon }}"{% if sk.style %} style="{{ sk.style }}"{% endif %}></i><span>{{ sk.name | escape }}</span></span>
           {%- endfor %}
         </div>
       </div>

@@ -496,7 +496,9 @@ async function sendMsg(e){
     });
     var skats=section.querySelector('.skats');
     if(skats)skats.parentNode.insertBefore(wrap,skats);
-    var prof={'kubernetes':95,'docker':90,'aws':86,'amazon eks':86,'github actions':84,'terraform':78,'azure':76,'azure aks':76,'jenkins':72,'prometheus':70,'grafana':70};
+    /* core skills and their % come from "core_percent" in _data/skills.yml (rendered as data-prof) */
+    var prof={};
+    section.querySelectorAll('.skc[data-prof]').forEach(function(c){var s=c.querySelector('span');if(s)prof[s.textContent.trim().toLowerCase()]=c.getAttribute('data-prof');});
     section.querySelectorAll('.skc').forEach(function(chip){
       var span=chip.querySelector('span'),name=span?span.textContent.trim().toLowerCase():'';
       if(prof[name]!=null){
@@ -516,24 +518,12 @@ async function sendMsg(e){
     var section=document.getElementById('experience'); if(!section)return;
     var roles=[].slice.call(section.querySelectorAll('.tli'));
     if(!roles.length)return;
-    var metricMap=[
-      {m:'honeywell',chips:[['250+','containers'],['99.9%','uptime'],['1.21→1.26','K8s'],['5','engineers']]},
-      {m:'staxa',chips:[['Azure','AKS'],['Jenkins','CI/CD'],['EFK','logging']]},
-      {m:'veridic',chips:[['Docker','CI/CD'],['Terraform','IaC'],['Jenkins','builds']]},
-      {m:'zealeers',chips:[['Linux','fleet'],['Chef','automation'],['AWS','CloudFormation']]}
-    ];
     roles.forEach(function(tli,idx){
       var card=tli.querySelector('.tlic'); if(!card)return;
       var co=(tli.querySelector('.tli-co')||{textContent:''}).textContent.toLowerCase();
       var desc=card.querySelector('.tli-desc');
       var tags=card.querySelector('.tags');
-      /* metric chips */
-      var entry=metricMap.filter(function(e){return co.indexOf(e.m)>-1;})[0];
-      if(entry&&desc){
-        var mr=document.createElement('div');mr.className='exp-metrics';
-        mr.innerHTML=entry.chips.map(function(c){return '<span><b>'+c[0]+'</b> '+c[1]+'</span>';}).join('');
-        desc.parentNode.insertBefore(mr,desc);
-      }
+      /* metric chips are rendered from the "highlights" of each job in _data/experience.yml */
       /* wrap bullets for collapse */
       if(desc){
         var body=document.createElement('div');body.className='exp-body';
@@ -580,7 +570,7 @@ async function sendMsg(e){
     }
 
     /* tech filter */
-    var techs=['Kubernetes','Docker','AWS','Azure','Terraform','Jenkins','GitHub Actions','Helm'];
+    var techs=SITE.experienceFilters||[];   /* from filter_buttons in _data/experience.yml */
     var roleTech=roles.map(function(tli){return [].slice.call(tli.querySelectorAll('.tag')).map(function(t){return t.textContent.toLowerCase();}).join(' ');});
     var present=techs.filter(function(t){var k=t.toLowerCase();return roleTech.some(function(rt){return rt.indexOf(k)>-1;});});
     var bar=document.createElement('div');bar.className='exp-filters';

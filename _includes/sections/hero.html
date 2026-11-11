@@ -21,11 +21,11 @@
         <a href="{{ s.linkedin_url }}" target="_blank" rel="noopener" class="sico" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
         <a href="mailto:{{ s.email }}" class="sico" title="Email"><i class="fa-solid fa-envelope"></i></a>
       </div>
-      <div class="hclock" id="hclock" aria-label="Local time in Atlanta">
+      <div class="hclock" id="hclock" aria-label="Local time in {{ s.clock.city | escape }}">
         <span class="hc-dot" aria-hidden="true"></span>
         <span id="hgreet">Good evening</span>
         <b>·</b>
-        <b>ATL <span id="hctime">--:--:--</span></b>
+        <b>{{ s.clock.label | escape }} <span id="hctime">--:--:--</span></b>
         <span class="hc-tz" id="hctz">ET</span>
       </div>
     </div>

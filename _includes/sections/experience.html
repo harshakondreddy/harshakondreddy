@@ -23,6 +23,9 @@
             </div></div>
             <div class="tli-period">{{ job.period | escape }}</div>
           </div>
+          {%- if job.highlights %}
+          <div class="exp-metrics">{% for h in job.highlights %}<span><b>{{ h.value | escape }}</b> {{ h.label | escape }}</span>{% endfor %}</div>
+          {%- endif %}
           <div class="tli-desc"><ul>
             {%- for b in job.bullets %}
             {%- capture bullet %}{% include inline-markdown.html text=b %}{% endcapture %}

@@ -7,11 +7,11 @@ To change the site, edit one of those files. You don't need to touch any HTML.
 
 | I want to change… | Edit this file |
 |---|---|
-| Name, email, LinkedIn/GitHub links, browser tab title, footer, contact-form key | `_data/site.yml` |
+| Name, email, LinkedIn/GitHub links, browser tab title, footer, contact-form key, hero clock city/timezone | `_data/site.yml` |
 | Top of the page: badge, typing roles, short bio, photos, orbiting icons | `_data/hero.yml` |
 | About paragraphs, stat counters, "Most Used Tools" bars | `_data/about.yml` |
-| Skill groups and the scrolling logo strip | `_data/skills.yml` |
-| Jobs (role, company, dates, bullet points, tags) | `_data/experience.yml` |
+| Skill groups, the scrolling logo strip, which skills get a ★ and their % | `_data/skills.yml` |
+| Jobs (role, company, dates, metric chips, bullet points, tags) and the filter buttons above them | `_data/experience.yml` |
 | Degrees | `_data/education.yml` |
 | Certifications | `_data/certifications.yml` |
 | Project cards and their "View case study" details | `_data/projects.yml` |
@@ -26,6 +26,8 @@ Each file starts with comments explaining its fields.
 **Add a job:** same idea in `_data/experience.yml`, copying from `- role:` down to its last tag. Newest job goes first.
 
 **Add a bullet point:** add a new line starting with `- ` under `bullets:`, lined up with the others.
+
+**Add a logo or photo:** upload the image on GitHub into `assets/logos/` (logos) or `assets/` (photos) with **Add file → Upload files** on the `dev` branch. Then reference it in the data file, e.g. `logo: assets/logos/newcompany.png`. Square PNG/JPG files around 200–600 px work best.
 
 **Make text bold:** wrap it in double stars: `**Kubernetes upgrades**`.
 

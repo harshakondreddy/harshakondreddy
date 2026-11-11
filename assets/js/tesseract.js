@@ -123,10 +123,10 @@
   if(!t||!g)return;
   var fmt,hfmt;
   try{
-    fmt=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hourCycle:'h23',hour:'2-digit',minute:'2-digit',second:'2-digit'});
-    hfmt=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hourCycle:'h23',hour:'numeric'});
+    fmt=new Intl.DateTimeFormat('en-US',{timeZone:(window.SITE&&SITE.clockTimezone)||'America/New_York',hourCycle:'h23',hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    hfmt=new Intl.DateTimeFormat('en-US',{timeZone:(window.SITE&&SITE.clockTimezone)||'America/New_York',hourCycle:'h23',hour:'numeric'});
     if(z){
-      var parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',timeZoneName:'short'}).formatToParts(new Date());
+      var parts=new Intl.DateTimeFormat('en-US',{timeZone:(window.SITE&&SITE.clockTimezone)||'America/New_York',timeZoneName:'short'}).formatToParts(new Date());
       for(var i=0;i<parts.length;i++)if(parts[i].type==='timeZoneName')z.textContent=parts[i].value;
     }
   }catch(e){var hc=document.getElementById('hclock');if(hc)hc.style.display='none';return;}

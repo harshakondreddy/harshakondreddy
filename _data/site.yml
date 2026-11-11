@@ -15,6 +15,12 @@ share_image: assets/photo-blazer.jpg   # picture shown when the link is shared
 favicon: https://avatars.githubusercontent.com/u/40243638?v=4
 
 location_short: Atlanta, GA
+
+# Live clock in the hero ("Good afternoon · ATL 12:29:33 EST")
+clock:
+  label: ATL                     # short city code shown before the time
+  city: Atlanta                  # used for screen readers
+  timezone: America/New_York     # IANA name, e.g. America/Chicago, Asia/Kolkata
 location_full: Atlanta, Georgia — United States
 
 email: harshareddykondreddy@gmail.com
