@@ -3,6 +3,7 @@
 #
 # Fields:
 #   role, company, location, period   plain text
+#   company_note optional small text after the company, e.g. a former name
 #   emoji        fallback icon shown if there is no logo
 #   logo         optional image in assets/logos/ (leave out if none)
 #   highlights   optional small metric chips above the bullets: { value: "250+", label: containers }
@@ -27,12 +28,13 @@ filter_buttons: [Kubernetes, Docker, AWS, Azure, Terraform, Jenkins, GitHub Acti
 
 jobs:
   - role: Advanced DevOps Engineer
-    company: Honeywell Intelligrated LLC
+    company: Intelligrated
+    company_note: formerly Honeywell Intelligrated
     location: Atlanta, Georgia — Full-time
     period: Nov 2021 – Present · 5 yrs
     emoji: 🏭
-    logo: assets/logos/honeywell.png
-    logo_alt: Honeywell logo
+    logo: assets/logos/intelligrated.png
+    logo_alt: Intelligrated logo
     highlights:
       - { value: "250+",      label: containers }
       - { value: "99.9%",     label: uptime }

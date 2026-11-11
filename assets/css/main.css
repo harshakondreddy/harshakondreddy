@@ -1014,3 +1014,5 @@
 
   /* Terminal prompt before the rotating role */
   .htyped .htp{color:var(--gr);font-weight:600}
+  /* Former company name shown after the current one */
+  .tli-co-note{color:var(--t3);font-weight:400;font-size:.85em}

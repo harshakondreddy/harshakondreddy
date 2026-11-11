@@ -17,7 +17,7 @@
               <div class="co-logo">{{ job.emoji }}{% if job.logo %}<img src="{{ job.logo }}" alt="{{ job.logo_alt | default: job.company | escape }}" loading="lazy" onerror="this.remove()">{% endif %}</div>
               <div>
                 <div class="tli-role">{{ job.role | escape }}</div>
-                <div class="tli-co">{{ job.company | escape }}</div>
+                <div class="tli-co">{{ job.company | escape }}{% if job.company_note %}<span class="tli-co-note"> · {{ job.company_note | escape }}</span>{% endif %}</div>
                 <div class="tli-loc">{% include icon.html cls="fa-solid fa-location-dot" style="font-size:.7rem" %}&nbsp;{{ job.location | escape }}</div>
               </div>
             </div></div>

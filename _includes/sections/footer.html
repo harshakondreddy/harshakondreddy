@@ -3,7 +3,7 @@
 <footer>
   <div class="fi">
     <div class="flogo">{{ s.name | escape }}</div>
-    <p class="fsub">{{ s.name | escape }} · {{ s.job_title | escape }} · {{ s.location_short | escape }}<br><a href="mailto:{{ s.email }}">{{ s.email }}</a></p>
+    <p class="fsub">{{ s.name | escape }} · {{ s.job_title | escape }}{% if s.location_short != "" %} · {{ s.location_short | escape }}{% endif %}<br><a href="mailto:{{ s.email }}">{{ s.email }}</a></p>
     <div class="fsoc">
       <a href="{{ s.github_url }}" target="_blank" rel="noopener" class="sico" aria-label="GitHub">{% include icon.html cls="fa-brands fa-github" %}</a>
       <a href="{{ s.linkedin_url }}" target="_blank" rel="noopener" class="sico" aria-label="LinkedIn">{% include icon.html cls="fa-brands fa-linkedin" %}</a>
