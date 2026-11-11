@@ -3,7 +3,7 @@
 # Bold text: wrap words in **double stars**.
 # ─────────────────────────────────────────────────────────────
 
-badge: Senior DevOps Engineer · Honeywell
+badge: Senior DevOps Engineer · Intelligrated
 first_name: Sri Harsha
 last_name: Kondreddy
 
@@ -19,7 +19,7 @@ typed_roles:
 bio: >-
   **8+ years** of DevOps and infrastructure engineering across cloud platforms,
   container orchestration, CI/CD pipelines, and site reliability. Currently at
-  **Honeywell**, operating 250+ hosted containers on
+  **Intelligrated**, operating 250+ hosted containers on
   **AWS EKS & Azure AKS**, driving platform reliability and team automation.
 
 # Photo slideshow (first one loads first). Files live in assets/.
