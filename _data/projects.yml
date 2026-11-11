@@ -16,70 +16,122 @@ section:
   label_icon: fa-solid fa-diagram-project
   title: Featured
   title_highlight: Projects
-  subtitle: High-impact Kubernetes and infrastructure engineering projects from production environments.
+  subtitle: Kubernetes, release engineering, and automation work from production and customer environments.
 
 projects:
-  - name: "Kubernetes Container Runtime Migration: Docker → containerd on EKS"
-    emoji: 🔄
-    description: Executed a complex EKS infrastructure migration — transitioning the Kubernetes container runtime from Docker to containerd across all EKS-based nodes at Intelligrated. Maintained minimal downtime with zero production incidents. Updated all node configurations, validated workloads across every environment, and produced an end-to-end migration runbook for future reference.
-    tags: [Kubernetes, AWS EKS, containerd, Docker]
+  - name: "Air-Gapped Kubernetes on RHEL 9: Offline Delivery & 1.35 Upgrade"
+    emoji: 🛰️
+    description: Deployed, upgraded, and operated an air-gapped HA Kubernetes cluster on **RHEL 9.7** — 3 control planes and 5 workers behind an HAProxy API load balancer, containerd 2.2, Calico, NFS storage, and firewalld allow-lists — rolled out from a team-built offline installer, QA first and then production. Authored the **1.32 → 1.35** release patch.
+    tags: [Kubernetes, RHEL, Air-Gapped, HAProxy, containerd]
     case_study:
       metrics:
-        - { value: "0", label: "prod incidents" }
-        - { value: "100%", label: "nodes migrated" }
-        - { value: "EKS", label: "platform" }
-      challenge: "Intelligrated’s EKS fleet still ran the deprecated Docker container runtime, which Kubernetes was phasing out — a ticking compatibility and security risk across every environment."
-      approach: "Planned and staged a node-by-node migration to containerd, updating all node configurations and validating workloads in every environment before promotion, with a full rollback runbook ready at each step."
-      impact: "Completed the runtime migration with minimal downtime and zero production incidents, and left behind an end-to-end runbook the team reuses for future node operations."
+        - { value: "1.32→1.35", label: "upgrade patch" }
+        - { value: "3 + 5", label: "control planes + workers" }
+        - { value: "~650 MB", label: "offline bundle" }
+      challenge: "The customer environment had no internet access, a restricted registry, and strict firewall rules, yet the cluster had to stay current and supportable."
+      approach: "Built complete offline bundles (dependency-resolved RPMs, container images, Python wheels) moved by checksummed transfer into a local RPM repository; configured containerd proxy drop-ins and pull secrets; authored the 1.32 → 1.35 patch (kubeadm v1beta3 → v1beta4, pinned containerd, etcd, CoreDNS and pause versions) and ran offline CoreDNS and Calico operator upgrades with rollback."
+      impact: "A repeatable, internet-free delivery path that moves the platform from QA to production with the same artifacts and a tested rollback."
 
-  - name: Kubernetes Version Upgrade & Multi-Cluster Storage Management
-    emoji: ⬆️
-    description: Managed multiple Kubernetes version upgrades across the 1.21–1.26 range, migrating node groups to newer EC2 generations using EKS managed node groups. Worked with cluster autoscaler, etcd storage management, and persistent volume configurations throughout all upgrade phases — ensuring data integrity and cluster stability across multi-region deployments.
-    tags: [Kubernetes, AWS EKS, Helm, etcd, Autoscaler]
+  - name: "Kubernetes Container Runtime Migration: Docker → containerd on RHEL"
+    emoji: 🔄
+    description: Executed the migration of the Kubernetes container runtime from Docker to **containerd on RHEL-based nodes** — a distinct and technically complex process on RHEL compared with other Linux distributions — validating workloads in each environment with a rollback runbook ready.
+    tags: [Kubernetes, RHEL, containerd, Docker]
     case_study:
       metrics:
-        - { value: "1.21→1.26", label: "version span" }
-        - { value: "multi-region", label: "clusters" }
-        - { value: "0", label: "data loss" }
-      challenge: "Multiple production clusters were drifting across Kubernetes versions, blocking security patches and newer EC2 node generations."
-      approach: "Ran controlled upgrades across the 1.21–1.26 range using EKS managed node groups, coordinating cluster autoscaler, etcd storage, and persistent-volume configurations through every phase."
-      impact: "Brought clusters current with data integrity and stability preserved across multi-region deployments — unlocking newer node types and ongoing patch compliance."
+        - { value: "RHEL", label: "node OS" }
+        - { value: "containerd", label: "new runtime" }
+        - { value: "runbook", label: "with rollback" }
+      challenge: "Kubernetes removed dockershim, so the Docker runtime on RHEL nodes had to move to containerd without breaking running workloads."
+      approach: "Planned a node-by-node migration to containerd, updated node and runtime configuration, and validated workloads in every environment before promotion, with a rollback runbook at each step."
+      impact: "Clusters stayed on a supported runtime and could keep taking Kubernetes upgrades, with a documented procedure the team can reuse."
+
+  - name: Kubernetes Version Upgrades & Multi-Cluster Storage Management
+    emoji: ⬆️
+    description: Managed multiple Kubernetes version upgrades across the **v1.21–v1.35** range, each driven by different operational requirements such as security patches, feature enablement, and end-of-life — including Kubespray 1.31 builds on RHEL 8.10 and 9.7 and storage moves for stateful services.
+    tags: [Kubernetes, Kubespray, kubeadm, NFS, Helm]
+    case_study:
+      metrics:
+        - { value: "1.21→1.35", label: "version span" }
+        - { value: "~12", label: "Helm charts re-parameterized" }
+        - { value: "RHEL 8 / 9", label: "node OS" }
+      challenge: "Clusters drifted across Kubernetes versions while stateful services depended on storage classes that failed to attach volumes."
+      approach: "Ran upgrades with Kubespray dry runs (--check --diff), targeted reruns and clean rebuilds; planned teardown-and-rebuild upgrades with database and config backups first; moved stateful charts (Elasticsearch, Kafka, RabbitMQ, Hazelcast, Prometheus) to an NFS provisioner by parameterizing storage values."
+      impact: "Clusters brought onto supported versions with data protected by backups first, and storage that attaches reliably for stateful workloads."
 
   - name: Log4Shell (CVE-2021-44228) Emergency Patch & Cross-Environment Remediation
     emoji: 🛡️
-    description: Led org-wide emergency response to the critical Log4Shell zero-day vulnerability at Intelligrated. Identified all affected services across DEV, SIT, PREPROD, and PROD environments, coordinated rapid patching of Log4j dependencies, and validated remediation across 250+ containers — achieving full coverage within the response SLA with zero service outages.
-    tags: [Security, Log4j, Kubernetes, CVE Remediation, Intelligrated]
+    description: As Release Engineer, responded to the critical **Log4Shell** vulnerability by executing an emergency library patch and driving remediation delivery across all environments — development, test, preproduction, and production.
+    tags: [Security, Log4j, Kubernetes, Release Engineering]
     case_study:
       metrics:
-        - { value: "250+", label: "containers scanned" }
         - { value: "4", label: "environments" }
-        - { value: "0", label: "outages" }
-      challenge: "The Log4Shell (CVE-2021-44228) zero-day exposed potentially every Java service in the estate to remote code execution, overnight."
-      approach: "Led the org-wide response: inventoried affected services across DEV, SIT, PREPROD and PROD, coordinated rapid Log4j patching, and validated remediation across the container fleet."
-      impact: "Achieved full coverage across 250+ containers within the response SLA — with zero service outages during the emergency rollout."
+        - { value: "CVE", label: "2021-44228" }
+        - { value: "emergency", label: "release" }
+      challenge: "A critical zero-day exposed Java services to remote code execution and had to be patched quickly without destabilizing production."
+      approach: "Coordinated the emergency library patch through development, test, preproduction, and production, owning release delivery and validation at each stage."
+      impact: "Remediation delivered across all environments through the normal release path rather than ad-hoc fixes."
 
-  - name: On-Premises Multi-Master Kubernetes Cluster Setup with Kubespray
+  - name: On-Premises Multi-Master Kubernetes Clusters with Kubespray
     emoji: ☸️
-    description: Designed and deployed a production-ready on-premises multi-master Kubernetes cluster using Kubespray at Intelligrated and Staxa Technologies. Configured etcd HA, control-plane load balancing, and node bootstrap automation — providing a resilient self-managed alternative to cloud-managed Kubernetes for sensitive workloads.
-    tags: [Kubernetes, Kubespray, On-Premises, Ansible, etcd HA]
+    description: Planned and deployed on-premises **multi-master Kubernetes** clusters using open-source Kubespray, customized with our own shell scripts — configuring highly available control planes, networking, and storage, then testing and adapting the setup to each environment.
+    tags: [Kubernetes, Kubespray, Ansible, On-Premises, etcd HA]
     case_study:
       metrics:
         - { value: "multi-master", label: "control plane" }
-        - { value: "etcd", label: "HA" }
-        - { value: "on-prem", label: "self-managed" }
-      challenge: "Sensitive workloads needed Kubernetes without depending on a cloud-managed control plane."
-      approach: "Designed and deployed a production-ready multi-master cluster with Kubespray — configuring etcd HA, control-plane load balancing, and automated node bootstrap."
-      impact: "Delivered a resilient, self-managed Kubernetes alternative for on-premises workloads at both Intelligrated and Staxa Technologies."
+        - { value: "Kubespray", label: "open source" }
+        - { value: "QA + pre-prod", label: "environments" }
+      challenge: "Workloads needed self-managed Kubernetes on customer infrastructure instead of a cloud-managed control plane."
+      approach: "Evaluated and adopted open-source Kubespray, customized it with shell scripts for the environment, and built HA clusters (multiple control planes, HAProxy, NFS) on RHEL for QA and Azure pre-production."
+      impact: "A repeatable way to stand up and rebuild on-premises clusters, tested before reaching customer environments."
 
   - name: "Org-Wide SCM & CI/CD Migration: Bitbucket + Bamboo → GitHub & GitHub Actions"
     emoji: 🚀
-    description: Architected and executed a full enterprise migration from Bitbucket + Bamboo to GitHub and GitHub Actions at Intelligrated. Migrated all repositories, re-implemented hundreds of pipelines as GitHub Actions workflows, standardized branching strategies, and delivered self-service CI/CD templates adopted across all product teams.
-    tags: [GitHub Actions, CI/CD, Bitbucket, Bamboo, Intelligrated]
+    description: Co-led an org-wide source control and CI/CD migration, moving **100–150 repositories** from Bitbucket to GitHub and reworking CI/CD pipeline configurations from Bamboo to GitHub Actions — covering planning, implementation, cutover, validation, and handover.
+    tags: [GitHub Actions, CI/CD, Bitbucket, Bamboo, Migration]
     case_study:
       metrics:
-        - { value: "100s", label: "pipelines" }
-        - { value: "org-wide", label: "adoption" }
-        - { value: "self-service", label: "templates" }
-      challenge: "Bitbucket + Bamboo fragmented source control and CI/CD, slowing delivery across product teams."
-      approach: "Architected a full migration to GitHub and GitHub Actions — moving every repository, re-implementing hundreds of pipelines as workflows, and standardizing branching strategies."
-      impact: "Shipped self-service CI/CD templates adopted across all product teams, consolidating the org onto a single modern delivery platform."
+        - { value: "100–150", label: "repositories" }
+        - { value: "co-led", label: "migration" }
+        - { value: "210", label: "PRs authored" }
+      challenge: "Source control and CI/CD were split across Bitbucket and Bamboo, slowing delivery across product teams."
+      approach: "Co-led planning and cutover, converted pipelines to GitHub Actions, maintained self-hosted runner configuration, and rolled out static analysis across repositories."
+      impact: "Teams consolidated onto GitHub and GitHub Actions; release manifests and Helm values now move through reviewed pull requests (210 authored across 77 repositories)."
+
+  - name: Multi-Site Hardening & Patching Plan
+    emoji: 🧩
+    description: Planned and staged a **7-change hardening and patching package** for about 22 production sites — each with downtime, risk, test status, and customer decision documented — and tested it in 4 staging environments before rollout.
+    tags: [RHEL, Kubernetes, Ansible, Change Management]
+    case_study:
+      metrics:
+        - { value: "~22", label: "sites planned" }
+        - { value: "7", label: "changes" }
+        - { value: "4", label: "staging envs tested" }
+      challenge: "Many customer sites needed the same security hardening and patches, each with its own downtime window and approval."
+      approach: "Bundled the changes (for example kubectl via Ansible, kubelet read-only port disabled, unused services removed, Kafka anti-affinity) with risk, rollback, and test status per change, and validated them in staging first."
+      impact: "A decision-ready, tested plan customers can approve site by site, with rollback documented for every change."
+
+  - name: PostgreSQL 15 Platform & Certificate Runbooks
+    emoji: 🗄️
+    description: Ported the product's database provisioning to **PostgreSQL 15** on RHEL 9 and Ubuntu 24.04 and restored 22 microservice databases one at a time with verification; wrote certificate runbooks for Kubernetes control-plane renewals, HAProxy PEM files, and Kafka client certificates.
+    tags: [PostgreSQL, RHEL, Certificates, HAProxy, Kafka]
+    case_study:
+      metrics:
+        - { value: "PG 12→15", label: "provisioning" }
+        - { value: "22", label: "databases restored" }
+        - { value: "3", label: "cert runbooks" }
+      challenge: "Database provisioning targeted an older PostgreSQL and OS, and certificate renewals were risky manual steps."
+      approach: "Rebuilt provisioning (LVM/XFS layout, scram-sha-256, subnet-restricted access, repmgr, pg_cron, WAL archiving, tuned settings) and reboot-tested it across a 7-server stage; wrote expiry checks, dated backups and rollback steps for each certificate type."
+      impact: "Current, verified database builds and certificate renewals an on-call engineer can run safely."
+
+  - name: AI-Assisted Operations with Human Validation
+    emoji: 🤖
+    description: Built **Ask Your Logs**, a proof-of-concept FastAPI service that reads Elasticsearch logs, redacts secrets before any prompt leaves the cluster, and asks a swappable LLM (Gemini, OpenAI, Azure OpenAI, or local Ollama) for a plain-English summary — alongside AI-assisted audits that are always checked against live systems.
+    tags: [AI, FastAPI, Elasticsearch, Ollama, GitHub Copilot]
+    case_study:
+      metrics:
+        - { value: "4", label: "LLM back ends" }
+        - { value: "PoC", label: "not production" }
+        - { value: "human", label: "approval kept" }
+      challenge: "Logs are hard to read under pressure, and AI output can be confidently wrong in production contexts."
+      approach: "Bounded Elasticsearch queries, redaction of secrets and personal data, a fixed answer format, and a hardened container; for AI-drafted audits and runbooks, read-only-first commands, QA before production, and verification against real terminal output."
+      impact: "Faster first-pass analysis with execution, approvals, and production decisions kept with engineers."
