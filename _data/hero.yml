@@ -3,24 +3,23 @@
 # Bold text: wrap words in **double stars**.
 # ─────────────────────────────────────────────────────────────
 
-badge: Senior DevOps Engineer · Intelligrated
+badge: Advance Software Engineer · Intelligrated
 first_name: Sri Harsha
 last_name: Kondreddy
 
 # Rotating "typing" line under your name, shown in this order
 typed_roles:
-  - Kubernetes Expert
-  - Cloud Architect
-  - CI/CD Specialist
-  - Platform Engineer
-  - SRE Practitioner
-  - DevOps Leader
+  - DevOps & SRE Engineer
+  - Kubernetes on RHEL & AKS
+  - Air-Gapped Platforms
+  - Release Engineering
+  - AI-Assisted Automation
 
 bio: >-
-  **8+ years** of DevOps and infrastructure engineering across cloud platforms,
-  container orchestration, CI/CD pipelines, and site reliability. Currently at
-  **Intelligrated**, operating 250+ hosted containers on
-  **AWS EKS & Azure AKS**, driving platform reliability and team automation.
+  **8+ years** building, automating, and supporting production infrastructure —
+  Kubernetes on bare metal, Azure and Oracle VMs, **AKS and EKS**, RHEL, CI/CD,
+  and release engineering. Currently at **Intelligrated**, running air-gapped
+  clusters and production releases, with **AI-assisted automation** I validate before relying on it.
 
 # Photo slideshow (first one loads first). Files live in assets/.
 photos:

@@ -6,11 +6,11 @@
 
 name: Sri Harsha Kondreddy
 initials: SHK                       # shown in the loading screen and logo
-job_title: Senior DevOps Engineer   # used in the browser tab title, footer and search previews
+job_title: Advance Software Engineer   # your official title; shown in the footer
 
 # Browser tab title and the text Google / LinkedIn previews show
-page_title: "Sri Harsha Kondreddy | Senior DevOps Engineer"
-meta_description: "Sri Harsha Kondreddy — Senior DevOps Engineer with 8+ years across Kubernetes, Docker, AWS, Azure, CI/CD, and cloud infrastructure."
+page_title: "Sri Harsha Kondreddy | DevOps & SRE Engineer"
+meta_description: "Sri Harsha Kondreddy — DevOps & SRE engineer with 8+ years across Kubernetes (on-prem, AKS, EKS), RHEL, Azure, CI/CD, release engineering, and AI-assisted automation."
 share_image: assets/photo-blazer.jpg   # picture shown when the link is shared
 favicon: https://avatars.githubusercontent.com/u/40243638?v=4
 
@@ -23,7 +23,7 @@ clock:
   city: ""                       # optional, read out by screen readers
   timezone: America/New_York     # IANA name, e.g. America/Chicago, Asia/Kolkata
 
-email: harshareddykondreddy@gmail.com
+email: mailtoharsha0611@gmail.com
 
 github_url: https://github.com/harshakondreddy
 github_label: github.com/harshakondreddy
