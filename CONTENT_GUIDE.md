@@ -7,7 +7,7 @@ To change the site, edit one of those files. You don't need to touch any HTML.
 
 | I want to change… | Edit this file |
 |---|---|
-| Name, email, LinkedIn/GitHub links, browser tab title, footer, contact-form key, hero clock city/timezone | `_data/site.yml` |
+| Name, email, LinkedIn/GitHub links, browser tab title, footer, hero clock city/timezone | `_data/site.yml` |
 | Top of the page: badge, typing roles, short bio, photos, orbiting icons | `_data/hero.yml` |
 | About paragraphs, stat counters, "Most Used Tools" bars | `_data/about.yml` |
 | Skill groups, the scrolling logo strip, which skills get a ★ and their % | `_data/skills.yml` |
@@ -15,7 +15,6 @@ To change the site, edit one of those files. You don't need to touch any HTML.
 | Degrees | `_data/education.yml` |
 | Certifications | `_data/certifications.yml` |
 | Project cards and their "View case study" details | `_data/projects.yml` |
-| Contact section text | `_data/contact.yml` |
 
 Each file starts with comments explaining its fields.
 
@@ -71,7 +70,7 @@ _includes/
   head.html, page-chrome-*.html, tags.html, section-header.html, inline-markdown.html
 _layouts/default.html   ← page skeleton; passes data to the scripts
 assets/css/main.css     ← all styling
-assets/js/*.js          ← animations, theme toggle, ⌘K menu, contact form, case studies
+assets/js/*.js          ← animations, theme toggle, ⌘K menu, case studies
 assets/                 ← photos and logos
 index.html        ← lists the sections in page order
 _config.yml       ← site build settings

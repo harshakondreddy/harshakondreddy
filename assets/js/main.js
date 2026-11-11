@@ -115,22 +115,6 @@ nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function
   setInterval(function(){slides[cur].classList.remove('active');cur=(cur+1)%slides.length;slides[cur].classList.add('active');},4500);
 })();
 
-/* ── Contact form — Web3Forms ── */
-var WEB3FORMS_KEY=SITE.contactFormKey;
-async function sendMsg(e){
-  e.preventDefault();
-  var btn=document.querySelector('.csub'),txt=document.getElementById('btxt'),msg=document.getElementById('fmsg');
-  msg.className='form-msg';btn.disabled=true;txt.textContent='Sending…';
-  var data={access_key:WEB3FORMS_KEY,name:document.getElementById('fn').value,email:document.getElementById('fe').value,subject:(document.getElementById('fs').value||'Portfolio Contact')+' — harshakondreddy.github.io',message:document.getElementById('fm').value};
-  try{
-    var res=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)});
-    var json=await res.json();
-    if(json.success){msg.textContent='Message sent! I\'ll get back to you soon.';msg.className='form-msg ok';e.target.reset();}
-    else throw new Error(json.message);
-  }catch(err){msg.textContent='Couldn\'t send — please email '+SITE.email+' directly.';msg.className='form-msg err';}
-  txt.textContent='Send Message';btn.disabled=false;
-}
-
 /* ── Premium interactions: spotlight, tilt, magnetic, parallax, counters ── */
 (function(){
   var fine=matchMedia('(pointer:fine)').matches;
@@ -415,7 +399,6 @@ async function sendMsg(e){
       {label:'Education',sub:'Academic background',icon:'fa-graduation-cap',kw:'education degree school',run:function(){goTo('#education');}},
       {label:'Certifications',sub:'Licenses & certs',icon:'fa-certificate',kw:'certifications aws cisco',run:function(){goTo('#certifications');}},
       {label:'Projects',sub:'Featured work',icon:'fa-diagram-project',kw:'projects case study',run:function(){goTo('#projects');}},
-      {label:'Contact',sub:'Get in touch',icon:'fa-satellite-dish',kw:'contact email message',run:function(){goTo('#contact');}},
       {label:'Toggle theme',sub:'Dark / light mode',icon:'fa-circle-half-stroke',kw:'theme dark light mode',run:function(){var b=document.getElementById('thm');if(b)b.click();}},
       {label:'Copy email',sub:SITE.email,icon:'fa-envelope',kw:'email copy contact',run:function(){if(navigator.clipboard)navigator.clipboard.writeText(SITE.email);}},
       {label:'Open GitHub',sub:SITE.githubLabel,icon:'fa-brands fa-github',kw:'github profile',run:function(){window.open(SITE.githubUrl,'_blank','noopener');}},
