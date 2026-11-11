@@ -42,7 +42,7 @@ groups:
     skills:
       - { name: AWS,        icon: devicon-amazonwebservices-plain-wordmark colored, core_percent: 86 }
       - { name: Azure,      icon: devicon-azure-plain colored, core_percent: 76 }
-      - { name: Amazon EKS, icon: devicon-amazonwebservices-plain colored, core_percent: 86 }
+      - { name: Amazon EKS, icon: devicon-amazonwebservices-plain-wordmark colored, core_percent: 86 }
       - { name: Azure AKS,  icon: devicon-azure-plain colored, core_percent: 76 }
       - { name: Linux,      icon: devicon-linux-plain colored }
       - { name: Nginx,      icon: devicon-nginx-original colored }

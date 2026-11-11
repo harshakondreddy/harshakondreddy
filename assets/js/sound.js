@@ -2,7 +2,7 @@
   var btn=document.getElementById('snd'); if(!btn)return;
   var on=localStorage.getItem('hk-sound')!=='off';   /* default ON */
   var ac=null;
-  function icon(){btn.innerHTML='<i class="fa-solid '+(on?'fa-volume-high':'fa-volume-xmark')+'"></i>';}
+  function icon(){btn.innerHTML=window.ico('fa-solid '+(on?'fa-volume-high':'fa-volume-xmark'));}
   icon();
   function ensure(){try{if(!ac)ac=new (window.AudioContext||window.webkitAudioContext)();}catch(e){return null;}if(ac.state==='suspended')ac.resume();return ac;}
   function blip(freq,dur,vol,type){if(!on)return;var c=ensure();if(!c)return;

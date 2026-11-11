@@ -28,6 +28,8 @@ Each file starts with comments explaining its fields.
 
 **Add a logo or photo:** upload the image on GitHub into `assets/logos/` (logos) or `assets/` (photos) with **Add file → Upload files** on the `dev` branch. Then reference it in the data file, e.g. `logo: assets/logos/newcompany.png`. Square PNG/JPG files around 200–600 px work best.
 
+**Icons:** use any free icon name from [devicon.dev](https://devicon.dev) (e.g. `devicon-kubernetes-plain colored`) or [Font Awesome](https://fontawesome.com/search?ic=free) (e.g. `fa-solid fa-cloud`, `fa-brands fa-github`). They load as small SVG files. On devicon.dev, check that the variant you pick (plain / original / wordmark) shows an **SVG** version; if an icon appears blank, try another variant.
+
 **Make text bold:** wrap it in double stars: `**Kubernetes upgrades**`.
 
 ## Rules that prevent most mistakes

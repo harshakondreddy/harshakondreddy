@@ -10,12 +10,16 @@
   function measure(){trackHalf=Math.round(track.scrollWidth/2);return trackHalf>0;}
   if(!measure())window.addEventListener('load',measure,{once:true});
   function wrap(v){if(!trackHalf)return v;v=v%trackHalf;if(v>0)v-=trackHalf;return v;}
-  (function loop(){
+  var mqOn=true,mqRaf=0;
+  new IntersectionObserver(function(en){mqOn=en[0].isIntersecting;if(mqOn&&!mqRaf)loop();}).observe(mq);
+  function loop(){
+    mqRaf=0;if(!mqOn)return;
     if(!dragging){vel=Math.abs(vel)>0.06?vel*0.94:(paused?0:-AUTO);offset+=vel;}
     if(trackHalf)offset=wrap(offset);
     track.style.transform='translateX('+offset.toFixed(1)+'px)';
-    requestAnimationFrame(loop);
-  })();
+    mqRaf=requestAnimationFrame(loop);
+  }
+  loop();
 
   /* Unified pointer-event drag — same approach as the orbital icons (mouse + touch via pan-y).
      Direction is decided from the START of the gesture; vertical panning is left to the browser. */

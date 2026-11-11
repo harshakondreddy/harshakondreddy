@@ -18,7 +18,7 @@
               <div>
                 <div class="tli-role">{{ job.role | escape }}</div>
                 <div class="tli-co">{{ job.company | escape }}</div>
-                <div class="tli-loc"><i class="fa-solid fa-location-dot" style="font-size:.7rem"></i>&nbsp;{{ job.location | escape }}</div>
+                <div class="tli-loc">{% include icon.html cls="fa-solid fa-location-dot" style="font-size:.7rem" %}&nbsp;{{ job.location | escape }}</div>
               </div>
             </div></div>
             <div class="tli-period">{{ job.period | escape }}</div>

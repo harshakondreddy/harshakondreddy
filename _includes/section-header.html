@@ -1,5 +1,5 @@
 {%- comment -%}Section label, title and subtitle. Pass the "section" block of a _data file as include.s.{%- endcomment -%}
-<div class="stag"><i class="{{ include.s.label_icon }}"></i>&nbsp; {{ include.s.label | escape }}</div>
+<div class="stag">{% include icon.html cls=include.s.label_icon %}&nbsp; {{ include.s.label | escape }}</div>
 <h2 class="stitle">{{ include.s.title | escape }} <span>{{ include.s.title_highlight | escape }}</span></h2>
 <div class="sep"></div>
 {%- if include.s.subtitle %}
