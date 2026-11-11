@@ -2,8 +2,8 @@
   /* ── Reveal animations (fast, no blur) ── */
   .reveal,.reveal-left,.reveal-right,.reveal-zoom {
     opacity:0;
-    transition:opacity .42s cubic-bezier(.23,1,.32,1),
-               transform .42s cubic-bezier(.23,1,.32,1);
+    transition:opacity .3s cubic-bezier(.23,1,.32,1),
+               transform .3s cubic-bezier(.23,1,.32,1);
   }
   .reveal        { transform:perspective(900px) rotateX(7deg) translateY(26px); }
   .reveal-left   { transform:perspective(900px) rotateY(6deg) translateX(-26px); }
@@ -173,8 +173,6 @@
 
   /* ── SHARED SECTIONS ── */
   section{position:relative;z-index:1;padding:clamp(4rem,8vw,5.5rem) 2rem;overflow-x:clip}
-  section:not(#home){content-visibility:auto;contain-intrinsic-size:auto 600px}
-  body.nav-jumping section{content-visibility:visible !important}
   #about,#experience,#certifications,#github{background:transparent}
   .si{max-width:1280px;margin:0 auto;transform:skewY(var(--vskew,0deg))}
   .stag{display:inline-flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--p);margin-bottom:.6rem}
@@ -997,23 +995,9 @@
   /* Background glow: same colours, no animated blur filter (that was the most expensive paint on the page) */
   #liquid-bg .lb{filter:none!important}
 
-  /* Scroll-driven reveals: animated by the browser's compositor, no JavaScript per frame */
-  @supports (animation-timeline: view()){
-    .sda .reveal,.sda .reveal-left,.sda .reveal-right,.sda .reveal-zoom{
-      opacity:1;transform:none;transition:none;
-      animation:var(--rv,rvUp) linear backwards;animation-timeline:view();animation-range:entry 0% entry 45%}
-    .sda .reveal-left{--rv:rvLeft}.sda .reveal-right{--rv:rvRight}.sda .reveal-zoom{--rv:rvZoom}
-    @keyframes rvUp   {from{opacity:0;transform:perspective(900px) rotateX(7deg) translateY(26px)}}
-    @keyframes rvLeft {from{opacity:0;transform:perspective(900px) rotateY(6deg) translateX(-26px)}}
-    @keyframes rvRight{from{opacity:0;transform:perspective(900px) rotateY(-6deg) translateX(26px)}}
-    @keyframes rvZoom {from{opacity:0;transform:perspective(900px) rotateX(9deg) scale(.94) translateY(14px)}}
-  }
   @supports (animation-timeline: scroll()){
     .sda #progress{width:100%!important;transform-origin:0 50%;animation:progressBar linear both;animation-timeline:scroll(root)}
     @keyframes progressBar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-  }
-  @media (prefers-reduced-motion: reduce){
-    .sda .reveal,.sda .reveal-left,.sda .reveal-right,.sda .reveal-zoom{animation:none}
   }
 
   /* Theme switch: circular reveal from the toggle button (View Transitions API) */

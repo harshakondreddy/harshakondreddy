@@ -31,23 +31,23 @@ window.ico=ico;
   if(mq.addEventListener)mq.addEventListener('change',ap);else if(mq.addListener)mq.addListener(ap);
 })();
 
-/* ── Scroll reveal: pure CSS (scroll-driven animations) where supported, IntersectionObserver otherwise ── */
-var SDA=!!(window.CSS&&CSS.supports&&CSS.supports('animation-timeline: view()'));
+/* ── Scroll reveal: each block animates in once, triggered just before it reaches the screen,
+      so scrolling back up or down never shows faded or blank areas ── */
+var SDA=!!(window.CSS&&CSS.supports&&CSS.supports('animation-timeline: scroll()'));   /* progress bar only */
 if(SDA)document.documentElement.classList.add('sda');
 (function(){
-  if(SDA)return;
   var revEls=Array.from(document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-zoom'));
   function showVisible(){
     revEls=revEls.filter(function(el){
       if(el.classList.contains('shown'))return false;
       var r=el.getBoundingClientRect();
-      if(r.top<innerHeight*0.97&&r.bottom>0){el.classList.add('shown');return false;}
+      if(r.top<innerHeight*1.4){el.classList.add('shown');return false;}   /* in view, just below, or already scrolled past */
       return true;
     });
   }
   var obs=new IntersectionObserver(function(entries){
     entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('shown');obs.unobserve(e.target);}});
-  },{threshold:0.05,rootMargin:'0px 0px -20px 0px'});
+  },{threshold:0,rootMargin:'0px 0px 40% 0px'});
   revEls.forEach(function(el){obs.observe(el);});
   /* Fallback: also check on scroll end and after programmatic jumps */
   var rv_t;
