@@ -35,7 +35,7 @@ orbit_icons:
   - { tip: Docker,        icon: devicon-docker-plain colored }
   - { tip: Azure,         icon: devicon-azure-plain colored }
   - { tip: Linux,         icon: devicon-linux-plain colored }
-  - { tip: Grafana,       icon: fa-solid fa-chart-line, style: "color:#F46800" }
+  - { tip: Grafana,       icon: devicon-grafana-original, style: "color:#F46800" }
   - { tip: Terraform,     icon: devicon-terraform-plain colored }
   - { tip: Elasticsearch, icon: devicon-elasticsearch-plain colored }
   - { tip: AI,            icon: fa-solid fa-robot, style: "color:#ff7a1a" }

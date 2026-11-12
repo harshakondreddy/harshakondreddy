@@ -24,7 +24,6 @@ marquee_icons:
   - devicon-ansible-plain colored
   - devicon-jenkins-plain colored
   - devicon-github-original colored
-  - devicon-gitlab-plain colored
   - devicon-helm-original colored
   - devicon-grafana-original colored
   - devicon-prometheus-original colored
@@ -39,17 +38,15 @@ marquee_icons:
 
 groups:
   - name: Containers & Orchestration
-    icon: devicon-docker-plain colored
+    icon: fa-solid fa-cubes
     skills:
       - { name: Kubernetes, icon: devicon-kubernetes-plain colored, core_percent: 95 }
-      - { name: Kubespray,  icon: devicon-kubernetes-plain colored }
+      - { name: Kubespray,  icon: fa-solid fa-cubes-stacked, style: "color:var(--cy);font-size:.85rem" }
       - { name: Docker,     icon: devicon-docker-plain colored, core_percent: 90 }
-      - { name: containerd, icon: devicon-docker-plain, style: "color:var(--t4)" }
+      - { name: containerd, icon: fa-solid fa-box, style: "color:var(--t2);font-size:.85rem" }
       - { name: Podman,     icon: devicon-podman-plain colored }
       - { name: Helm,       icon: devicon-helm-original colored }
       - { name: HAProxy,    icon: fa-solid fa-server, style: "color:var(--cy);font-size:.85rem" }
-      - { name: ArgoCD,     icon: fa-solid fa-arrows-rotate, style: "color:var(--cy);font-size:.85rem" }
-      - { name: KOPS,       icon: fa-solid fa-dharmachakra,  style: "color:var(--p);font-size:.85rem" }
 
   - name: Cloud & Infrastructure
     icon: fa-solid fa-cloud
@@ -76,21 +73,20 @@ groups:
   - name: CI/CD & Automation
     icon: fa-solid fa-gears
     skills:
-      - { name: GitHub Actions, icon: devicon-github-original, style: "color:var(--t2)", core_percent: 84 }
+      - { name: GitHub Actions, icon: devicon-githubactions-plain colored, core_percent: 84 }
       - { name: Jenkins,        icon: devicon-jenkins-plain colored, core_percent: 72 }
-      - { name: GitLab CI,      icon: devicon-gitlab-plain colored }
       - { name: Terraform,      icon: devicon-terraform-plain colored, core_percent: 78 }
       - { name: Ansible,        icon: devicon-ansible-plain colored }
       - { name: Git,            icon: devicon-git-plain colored }
-      - { name: Bash / Shell,   icon: fa-solid fa-terminal, style: "color:var(--gr);font-size:.85rem" }
+      - { name: Bash / Shell,   icon: devicon-bash-plain, style: "color:var(--t2)" }
 
   - name: Monitoring & Observability
     icon: fa-solid fa-chart-line
     skills:
-      - { name: Prometheus,    icon: fa-solid fa-fire,      style: "color:#e75c00;font-size:.85rem", core_percent: 70 }
-      - { name: Grafana,       icon: fa-solid fa-chart-line, style: "color:#F46800;font-size:.85rem", core_percent: 70 }
+      - { name: Prometheus,    icon: devicon-prometheus-original colored, core_percent: 70 }
+      - { name: Grafana,       icon: devicon-grafana-original, style: "color:#F46800", core_percent: 70 }
       - { name: Elasticsearch, icon: devicon-elasticsearch-plain colored }
-      - { name: Kibana,        icon: fa-solid fa-chart-bar, style: "color:var(--acc);font-size:.85rem" }
+      - { name: Kibana,        icon: devicon-kibana-original, style: "color:#F04E98" }
       - { name: AppDynamics,   icon: fa-solid fa-eye,       style: "color:var(--p);font-size:.85rem" }
 
   - name: Messaging & Databases
