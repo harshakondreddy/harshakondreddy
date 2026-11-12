@@ -21,8 +21,3 @@ certifications:
     issuer: Cisco
     emoji: 🔗
     badge_background: rgba(255,154,77,.1)
-
-  - name: Chef Fluency
-    issuer: Progress Chef
-    emoji: 🧑‍🍳
-    badge_background: rgba(47,191,131,.12)

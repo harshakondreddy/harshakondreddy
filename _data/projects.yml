@@ -5,6 +5,7 @@
 #   name, emoji, description
 #   tags   technology chips. Plain names get colours automatically in order
 #          (orange, green, cyan, amber, yellow). Or use { name: X, color: g }.
+#   link         optional { label, url } — shows a small link under the description
 #   case_study   optional. Adds the "View case study" button with:
 #                metrics (3 small value/label boxes), challenge, approach, impact
 #
@@ -45,18 +46,18 @@ projects:
       approach: "Planned a node-by-node migration to containerd, updated node and runtime configuration, and validated workloads in every environment before promotion, with a rollback runbook at each step."
       impact: "Clusters stayed on a supported runtime and could keep taking Kubernetes upgrades, with a documented procedure the team can reuse."
 
-  - name: Kubernetes Version Upgrades & Multi-Cluster Storage Management
+  - name: "Multi-Version Kubernetes Deployments (v1.21–v1.35)"
     emoji: ⬆️
-    description: Managed multiple Kubernetes version upgrades across the **v1.21–v1.35** range, each driven by different operational requirements such as security patches, feature enablement, and end-of-life — including Kubespray 1.31 builds on RHEL 8.10 and 9.7 and storage moves for stateful services.
-    tags: [Kubernetes, Kubespray, kubeadm, NFS, Helm]
+    description: Deployed Kubernetes clusters across versions **v1.21 to v1.35**, matching the version to each customer's requirements — security patches, supported features, and end-of-life timelines — including Kubespray 1.31 builds on RHEL 8.10 and 9.7.
+    tags: [Kubernetes, Kubespray, kubeadm, RHEL, Helm]
     case_study:
       metrics:
-        - { value: "1.21→1.35", label: "version span" }
-        - { value: "~12", label: "Helm charts re-parameterized" }
+        - { value: "1.21→1.35", label: "versions deployed" }
+        - { value: "Kubespray", label: "build tooling" }
         - { value: "RHEL 8 / 9", label: "node OS" }
-      challenge: "Clusters drifted across Kubernetes versions while stateful services depended on storage classes that failed to attach volumes."
-      approach: "Ran upgrades with Kubespray dry runs (--check --diff), targeted reruns and clean rebuilds; planned teardown-and-rebuild upgrades with database and config backups first; moved stateful charts (Elasticsearch, Kafka, RabbitMQ, Hazelcast, Prometheus) to an NFS provisioner by parameterizing storage values."
-      impact: "Clusters brought onto supported versions with data protected by backups first, and storage that attaches reliably for stateful workloads."
+      challenge: "Each customer needed a different Kubernetes version based on their own security, support, and compatibility requirements."
+      approach: "Matched the version to each customer's requirements — for example recommending 1.34 over a requested 1.32 because of its end-of-life date — and built clusters with Kubespray, using dry runs (--check --diff) and targeted reruns, with database and configuration backups taken before any rebuild."
+      impact: "Customers got clusters on the Kubernetes version they needed, built and validated the same way every time."
 
   - name: Log4Shell (CVE-2021-44228) Emergency Patch & Cross-Environment Remediation
     emoji: 🛡️
@@ -71,18 +72,18 @@ projects:
       approach: "Coordinated the emergency library patch through development, test, preproduction, and production, owning release delivery and validation at each stage."
       impact: "Remediation delivered across all environments through the normal release path rather than ad-hoc fixes."
 
-  - name: On-Premises Multi-Master Kubernetes Clusters with Kubespray
+  - name: "From Docker to Multi-Master Kubernetes with Kubespray"
     emoji: ☸️
-    description: Planned and deployed on-premises **multi-master Kubernetes** clusters using open-source Kubespray, customized with our own shell scripts — configuring highly available control planes, networking, and storage, then testing and adapting the setup to each environment.
-    tags: [Kubernetes, Kubespray, Ansible, On-Premises, etcd HA]
+    description: At Intelligrated (2021–2023), moved services from standalone **Docker** hosts with no HA or DR to **Kubernetes with Helm charts** — chosen over Docker Swarm — then scaled from a single control-plane node to a **multi-master** cluster with open-source Kubespray on on-premises and VMware servers.
+    tags: [Kubernetes, Kubespray, Helm, Docker, VMware]
     case_study:
       metrics:
-        - { value: "multi-master", label: "control plane" }
-        - { value: "Kubespray", label: "open source" }
-        - { value: "QA + pre-prod", label: "environments" }
-      challenge: "Workloads needed self-managed Kubernetes on customer infrastructure instead of a cloud-managed control plane."
-      approach: "Evaluated and adopted open-source Kubespray, customized it with shell scripts for the environment, and built HA clusters (multiple control planes, HAProxy, NFS) on RHEL for QA and Azure pre-production."
-      impact: "A repeatable way to stand up and rebuild on-premises clusters, tested before reaching customer environments."
+        - { value: "1 → 5", label: "control-plane nodes" }
+        - { value: "2021–2023", label: "timeline" }
+        - { value: "on-prem + VMware", label: "infrastructure" }
+      challenge: "Services ran on standalone Docker hosts with no high availability or disaster recovery, and a single Kubernetes master later proved to be a single point of failure: power outages or patching meant downtime."
+      approach: "Chose Kubernetes with Helm charts over Docker Swarm, then moved from one control-plane node to a multi-master cluster using open-source Kubespray, customized with our own scripts for the HAProxy install, versions and install paths, NFS storage, certificates, and application-specific dependencies."
+      impact: "Better high availability and disaster recovery overall: the platform keeps running through a master outage or planned patching, and handles more traffic and workload."
 
   - name: "Org-Wide SCM & CI/CD Migration: Bitbucket + Bamboo → GitHub & GitHub Actions"
     emoji: 🚀
@@ -92,46 +93,36 @@ projects:
       metrics:
         - { value: "100–150", label: "repositories" }
         - { value: "co-led", label: "migration" }
-        - { value: "210", label: "PRs authored" }
-      challenge: "Source control and CI/CD were split across Bitbucket and Bamboo, slowing delivery across product teams."
+        - { value: "Bamboo → GHA", label: "pipelines rebuilt" }
+      challenge: "The organization decided to move off Bitbucket and Bamboo to GitHub and GitHub Actions for security, licensing, and official tooling approval reasons — without disrupting ongoing releases."
       approach: "Co-led planning and cutover, converted pipelines to GitHub Actions, maintained self-hosted runner configuration, and rolled out static analysis across repositories."
-      impact: "Teams consolidated onto GitHub and GitHub Actions; release manifests and Helm values now move through reviewed pull requests (210 authored across 77 repositories)."
-
-  - name: Multi-Site Hardening & Patching Plan
-    emoji: 🧩
-    description: Planned and staged a **7-change hardening and patching package** for about 22 production sites — each with downtime, risk, test status, and customer decision documented — and tested it in 4 staging environments before rollout.
-    tags: [RHEL, Kubernetes, Ansible, Change Management]
-    case_study:
-      metrics:
-        - { value: "~22", label: "sites planned" }
-        - { value: "7", label: "changes" }
-        - { value: "4", label: "staging envs tested" }
-      challenge: "Many customer sites needed the same security hardening and patches, each with its own downtime window and approval."
-      approach: "Bundled the changes (for example kubectl via Ansible, kubelet read-only port disabled, unused services removed, Kafka anti-affinity) with risk, rollback, and test status per change, and validated them in staging first."
-      impact: "A decision-ready, tested plan customers can approve site by site, with rollback documented for every change."
-
-  - name: PostgreSQL 15 Platform & Certificate Runbooks
-    emoji: 🗄️
-    description: Ported the product's database provisioning to **PostgreSQL 15** on RHEL 9 and Ubuntu 24.04 and restored 22 microservice databases one at a time with verification; wrote certificate runbooks for Kubernetes control-plane renewals, HAProxy PEM files, and Kafka client certificates.
-    tags: [PostgreSQL, RHEL, Certificates, HAProxy, Kafka]
-    case_study:
-      metrics:
-        - { value: "PG 12→15", label: "provisioning" }
-        - { value: "22", label: "databases restored" }
-        - { value: "3", label: "cert runbooks" }
-      challenge: "Database provisioning targeted an older PostgreSQL and OS, and certificate renewals were risky manual steps."
-      approach: "Rebuilt provisioning (LVM/XFS layout, scram-sha-256, subnet-restricted access, repmgr, pg_cron, WAL archiving, tuned settings) and reboot-tested it across a 7-server stage; wrote expiry checks, dated backups and rollback steps for each certificate type."
-      impact: "Current, verified database builds and certificate renewals an on-call engineer can run safely."
+      impact: "Teams consolidated onto the approved GitHub and GitHub Actions platform, with releases moving through reviewed pull requests."
 
   - name: AI-Assisted Operations with Human Validation
     emoji: 🤖
-    description: Built **Ask Your Logs**, a proof-of-concept FastAPI service that reads Elasticsearch logs, redacts secrets before any prompt leaves the cluster, and asks a swappable LLM (Gemini, OpenAI, Azure OpenAI, or local Ollama) for a plain-English summary — alongside AI-assisted audits that are always checked against live systems.
-    tags: [AI, FastAPI, Elasticsearch, Ollama, GitHub Copilot]
+    description: Use AI in day-to-day operations to troubleshoot **VM slowness** and **cache issues** and to find the relevant entries in large logs, always validating the output against live systems before acting. Built **Ask Your Logs**, a proof-of-concept FastAPI service that reads Elasticsearch logs, redacts secrets, and asks a local or cloud LLM for a plain-English summary.
+    tags: [AI, GitHub Copilot, FastAPI, Elasticsearch, Ollama]
     case_study:
       metrics:
-        - { value: "4", label: "LLM back ends" }
-        - { value: "PoC", label: "not production" }
-        - { value: "human", label: "approval kept" }
-      challenge: "Logs are hard to read under pressure, and AI output can be confidently wrong in production contexts."
-      approach: "Bounded Elasticsearch queries, redaction of secrets and personal data, a fixed answer format, and a hardened container; for AI-drafted audits and runbooks, read-only-first commands, QA before production, and verification against real terminal output."
-      impact: "Faster first-pass analysis with execution, approvals, and production decisions kept with engineers."
+        - { value: "Copilot", label: "daily assistant" }
+        - { value: "PoC", label: "Ask Your Logs" }
+        - { value: "human", label: "final decision" }
+      challenge: "Finding the cause of VM slowness, cache issues, or a failing service meant digging through large logs by hand, often under time pressure."
+      approach: "Used GitHub Copilot and Microsoft 365 Copilot to narrow down likely causes and find the relevant log entries, then checked every suggestion against the live system before acting. Built Ask Your Logs, a proof of concept that summarizes Elasticsearch logs with an LLM after removing secrets."
+      impact: "Faster first-pass troubleshooting, with every command and production decision still made by an engineer."
+
+  - name: "SpringInfo: Chrome Extension for the Eureka Service Registry"
+    emoji: 🍃
+    description: Built and published a Chrome extension that reads the Spring **Eureka** service registry, so the SE team can quickly validate service versions and status during releases.
+    tags: [Chrome Extension, JavaScript, Spring Boot, Eureka]
+    link:
+      label: Chrome Web Store
+      url: https://chromewebstore.google.com/detail/springinfo/iecndflkildoooajkgdllmdjplpjabdf
+    case_study:
+      metrics:
+        - { value: "Chrome", label: "Web Store" }
+        - { value: "Eureka", label: "service registry" }
+        - { value: "SE team", label: "release checks" }
+      challenge: "During releases, the SE team had to check services one by one in the Eureka registry page to confirm everything was up and correct."
+      approach: "Built a Chrome extension that reads the Eureka registry and shows service details and Swagger links in one place, with easier navigation through the service list."
+      impact: "Quicker and easier release validation for the SE team."
