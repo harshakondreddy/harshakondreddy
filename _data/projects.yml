@@ -46,18 +46,18 @@ projects:
       approach: "Planned a node-by-node migration to containerd, updated node and runtime configuration, and validated workloads in every environment before promotion, with a rollback runbook at each step."
       impact: "Clusters stayed on a supported runtime and could keep taking Kubernetes upgrades, with a documented procedure the team can reuse."
 
-  - name: Kubernetes Version Upgrades & Multi-Cluster Storage Management
+  - name: "Multi-Version Kubernetes Deployments (v1.21–v1.35)"
     emoji: ⬆️
-    description: Managed multiple Kubernetes version upgrades across the **v1.21–v1.35** range, each driven by different operational requirements such as security patches, feature enablement, and end-of-life — including Kubespray 1.31 builds on RHEL 8.10 and 9.7 and storage moves for stateful services.
-    tags: [Kubernetes, Kubespray, kubeadm, NFS, Helm]
+    description: Deployed Kubernetes clusters across versions **v1.21 to v1.35**, matching the version to each customer's requirements — security patches, supported features, and end-of-life timelines — including Kubespray 1.31 builds on RHEL 8.10 and 9.7.
+    tags: [Kubernetes, Kubespray, kubeadm, RHEL, Helm]
     case_study:
       metrics:
-        - { value: "1.21→1.35", label: "version span" }
-        - { value: "~12", label: "Helm charts re-parameterized" }
+        - { value: "1.21→1.35", label: "versions deployed" }
+        - { value: "Kubespray", label: "build tooling" }
         - { value: "RHEL 8 / 9", label: "node OS" }
-      challenge: "Clusters drifted across Kubernetes versions while stateful services depended on storage classes that failed to attach volumes."
-      approach: "Ran upgrades with Kubespray dry runs (--check --diff), targeted reruns and clean rebuilds; planned teardown-and-rebuild upgrades with database and config backups first; moved stateful charts (Elasticsearch, Kafka, RabbitMQ, Hazelcast, Prometheus) to an NFS provisioner by parameterizing storage values."
-      impact: "Clusters brought onto supported versions with data protected by backups first, and storage that attaches reliably for stateful workloads."
+      challenge: "Each customer needed a different Kubernetes version based on their own security, support, and compatibility requirements."
+      approach: "Matched the version to each customer's requirements — for example recommending 1.34 over a requested 1.32 because of its end-of-life date — and built clusters with Kubespray, using dry runs (--check --diff) and targeted reruns, with database and configuration backups taken before any rebuild."
+      impact: "Customers got clusters on the Kubernetes version they needed, built and validated the same way every time."
 
   - name: Log4Shell (CVE-2021-44228) Emergency Patch & Cross-Environment Remediation
     emoji: 🛡️
