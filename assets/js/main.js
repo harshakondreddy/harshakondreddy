@@ -568,6 +568,7 @@ nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function
       btn.addEventListener('click',function(){
         var o=!card.classList.contains('open');
         card.classList.toggle('open',o);
+        var grid=card.parentNode; if(grid)grid.classList.toggle('has-open',!!grid.querySelector('.proj-card.open'));   /* lets other cards keep their own height */
         btn.setAttribute('aria-expanded',o?'true':'false');
         btn.firstChild.textContent=(o?'Hide case study':'View case study')+' ';
         setH();
