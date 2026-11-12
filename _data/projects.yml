@@ -5,6 +5,7 @@
 #   name, emoji, description
 #   tags   technology chips. Plain names get colours automatically in order
 #          (orange, green, cyan, amber, yellow). Or use { name: X, color: g }.
+#   link         optional { label, url } — shows a small link under the description
 #   case_study   optional. Adds the "View case study" button with:
 #                metrics (3 small value/label boxes), challenge, approach, impact
 #
@@ -71,18 +72,10 @@ projects:
       approach: "Coordinated the emergency library patch through development, test, preproduction, and production, owning release delivery and validation at each stage."
       impact: "Remediation delivered across all environments through the normal release path rather than ad-hoc fixes."
 
-  - name: On-Premises Multi-Master Kubernetes Clusters with Kubespray
+  - name: "From Docker to Multi-Master Kubernetes with Kubespray"
     emoji: ☸️
-    description: Planned and deployed on-premises **multi-master Kubernetes** clusters using open-source Kubespray, customized with our own shell scripts — configuring highly available control planes, networking, and storage, then testing and adapting the setup to each environment.
-    tags: [Kubernetes, Kubespray, Ansible, On-Premises, etcd HA]
-    case_study:
-      metrics:
-        - { value: "multi-master", label: "control plane" }
-        - { value: "Kubespray", label: "open source" }
-        - { value: "QA + pre-prod", label: "environments" }
-      challenge: "Workloads needed self-managed Kubernetes on customer infrastructure instead of a cloud-managed control plane."
-      approach: "Evaluated and adopted open-source Kubespray, customized it with shell scripts for the environment, and built HA clusters (multiple control planes, HAProxy, NFS) on RHEL for QA and Azure pre-production."
-      impact: "A repeatable way to stand up and rebuild on-premises clusters, tested before reaching customer environments."
+    description: At Intelligrated, moved services from standalone **Docker** hosts to **Kubernetes** — first a single control-plane cluster, then upgraded to a highly available **multi-master** setup using open-source Kubespray, customized with our own shell scripts for networking, storage, and each environment.
+    tags: [Kubernetes, Kubespray, Docker, Ansible, On-Premises]
 
   - name: "Org-Wide SCM & CI/CD Migration: Bitbucket + Bamboo → GitHub & GitHub Actions"
     emoji: 🚀
@@ -99,13 +92,13 @@ projects:
 
   - name: AI-Assisted Operations with Human Validation
     emoji: 🤖
-    description: Built **Ask Your Logs**, a proof-of-concept FastAPI service that reads Elasticsearch logs, redacts secrets before any prompt leaves the cluster, and asks a swappable LLM (Gemini, OpenAI, Azure OpenAI, or local Ollama) for a plain-English summary — alongside AI-assisted audits that are always checked against live systems.
-    tags: [AI, FastAPI, Elasticsearch, Ollama, GitHub Copilot]
-    case_study:
-      metrics:
-        - { value: "4", label: "LLM back ends" }
-        - { value: "PoC", label: "not production" }
-        - { value: "human", label: "approval kept" }
-      challenge: "Logs are hard to read under pressure, and AI output can be confidently wrong in production contexts."
-      approach: "Bounded Elasticsearch queries, redaction of secrets and personal data, a fixed answer format, and a hardened container; for AI-drafted audits and runbooks, read-only-first commands, QA before production, and verification against real terminal output."
-      impact: "Faster first-pass analysis with execution, approvals, and production decisions kept with engineers."
+    description: Use AI in day-to-day operations to troubleshoot **VM slowness** and **cache issues** and to find the relevant entries in large logs, always validating the output against live systems before acting. Built **Ask Your Logs**, a proof-of-concept FastAPI service that reads Elasticsearch logs, redacts secrets, and asks a local or cloud LLM for a plain-English summary.
+    tags: [AI, GitHub Copilot, FastAPI, Elasticsearch, Ollama]
+
+  - name: "SpringInfo: Chrome Extension for the Eureka Service Registry"
+    emoji: 🍃
+    description: Built and published a Chrome extension that reads the Spring **Eureka** service registry, so the SE team can quickly validate service versions and status during releases.
+    tags: [Chrome Extension, JavaScript, Spring Boot, Eureka]
+    link:
+      label: Chrome Web Store
+      url: https://chromewebstore.google.com/detail/springinfo/iecndflkildoooajkgdllmdjplpjabdf

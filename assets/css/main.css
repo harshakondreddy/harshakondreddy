@@ -1016,3 +1016,7 @@
   .htyped .htp{color:var(--gr);font-weight:600}
   /* Former company name shown after the current one */
   .tli-co-note{color:var(--t3);font-weight:400;font-size:.85em}
+  /* Optional external link on a project card */
+  .proj-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;font-weight:600;color:var(--p);margin:-.2rem 0 1rem;text-decoration:none}
+  .proj-link:hover{text-decoration:underline}
+  .proj-link .ico{font-size:.7rem}
