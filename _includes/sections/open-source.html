@@ -1,0 +1,26 @@
+{%- assign os = site.data.open_source -%}
+<!-- OPEN SOURCE -->
+<section id="opensource" data-num="07">
+  <div class="si">
+    <div class="reveal">
+      {% include section-header.html s=os.section %}
+    </div>
+    <div class="proj-grid oss-grid">
+      {%- for r in os.repos %}
+      <div class="proj-card oss-card reveal">
+        <div class="proj-icon">{{ r.emoji }}</div>
+        <div class="proj-name">{{ r.name | escape }}{% if r.status %} <span class="oss-status">{{ r.status | escape }}</span>{% endif %}</div>
+        <p class="proj-desc">{% include inline-markdown.html text=r.description %}</p>
+        {%- if r.links %}
+        <div class="proj-links">
+          {%- for l in r.links %}
+          <a class="proj-link" href="{{ l.url }}" target="_blank" rel="noopener">{% include icon.html cls="fa-brands fa-github" %} {{ l.label | escape }} {% include icon.html cls="fa-solid fa-arrow-up-right-from-square" %}</a>
+          {%- endfor %}
+        </div>
+        {%- endif %}
+        {% include tags.html tags=r.tags style="margin-top:auto" %}
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>

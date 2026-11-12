@@ -5,9 +5,10 @@
 #   name, emoji, description
 #   tags   technology chips. Plain names get colours automatically in order
 #          (orange, green, cyan, amber, yellow). Or use { name: X, color: g }.
-#   link         optional { label, url } — shows a small link under the description
+#   links        optional list of { label, url } — small links under the description (e.g. GitHub, store page)
 #   case_study   optional. Adds the "View case study" button with:
-#                metrics (3 small value/label boxes), challenge, approach, impact
+#                metrics (3 small value/label boxes), challenge, approach, impact,
+#                and optional flow (a list of steps drawn as a simple left-to-right diagram)
 #
 # To add a project: copy a block (from "- name:" down to its tags) and edit it.
 # ─────────────────────────────────────────────────────────────
@@ -102,6 +103,8 @@ projects:
     emoji: 🤖
     description: Use AI in day-to-day operations to troubleshoot **VM slowness** and **cache issues** and to find the relevant entries in large logs, always validating the output against live systems before acting. Built **Ask Your Logs**, a proof-of-concept FastAPI service that reads Elasticsearch logs, redacts secrets, and asks a local or cloud LLM for a plain-English summary.
     tags: [AI, GitHub Copilot, FastAPI, Elasticsearch, Ollama]
+    links:
+      - { label: Ask Your Logs on GitHub, url: "https://github.com/harshakondreddy/Ask-your-logs" }
     case_study:
       metrics:
         - { value: "Copilot", label: "daily assistant" }
@@ -115,9 +118,9 @@ projects:
     emoji: 🍃
     description: Built and published a Chrome extension that reads the Spring **Eureka** service registry, so the SE team can quickly validate service versions and status during releases.
     tags: [Chrome Extension, JavaScript, Spring Boot, Eureka]
-    link:
-      label: Chrome Web Store
-      url: https://chromewebstore.google.com/detail/springinfo/iecndflkildoooajkgdllmdjplpjabdf
+    links:
+      - { label: GitHub, url: "https://github.com/harshakondreddy/springinfo" }
+      - { label: Chrome Web Store, url: "https://chromewebstore.google.com/detail/springinfo/iecndflkildoooajkgdllmdjplpjabdf" }
     case_study:
       metrics:
         - { value: "Chrome", label: "Web Store" }

@@ -1,0 +1,37 @@
+# ─────────────────────────────────────────────────────────────
+# OPEN SOURCE section: personal projects with public code.
+#   name, emoji, description (bold with **double stars**), status (optional small label)
+#   tags   technology chips (plain names get colours automatically)
+#   links  list of { label, url }
+# ─────────────────────────────────────────────────────────────
+
+section:
+  label: Open Source
+  label_icon: fa-brands fa-github
+  title: Public
+  title_highlight: Code
+  subtitle: Personal tools and experiments with source code on GitHub.
+
+repos:
+  - name: HacKey
+    emoji: ⌨️
+    status: In development
+    description: A local-first **macOS** tool for keyboard-driven clicking and scrolling. It reads the frontmost window's Accessibility tree and puts short keyboard labels over clickable elements, inspired by Vimium and Homerow.
+    tags: [Swift, macOS, Accessibility]
+    links:
+      - { label: GitHub, url: "https://github.com/harshakondreddy/HacKey" }
+
+  - name: AI Skills
+    emoji: 🧠
+    description: Reusable **AI agent skills** — Loop Engineering, which structures technical work as plan → act → observe → verify → reflect → report, and a practical Trip Planner.
+    tags: [AI Agents, Prompt Engineering, Automation]
+    links:
+      - { label: GitHub, url: "https://github.com/harshakondreddy/AI-skills" }
+
+  - name: Ask Your Logs
+    emoji: 🔎
+    status: Proof of concept
+    description: A **FastAPI** service that reads Elasticsearch logs, redacts secrets, and asks a local or cloud LLM (Ollama, Gemini, OpenAI, Azure OpenAI) for a plain-English summary — with Kubernetes manifests, API-key auth, and tests.
+    tags: [Python, FastAPI, Elasticsearch, Kubernetes]
+    links:
+      - { label: GitHub, url: "https://github.com/harshakondreddy/Ask-your-logs" }

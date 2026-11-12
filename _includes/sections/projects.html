@@ -11,8 +11,15 @@
         <div class="proj-icon">{{ p.emoji }}</div>
         <div class="proj-name">{{ p.name | escape }}</div>
         <p class="proj-desc">{% include inline-markdown.html text=p.description %}</p>
-        {%- if p.link %}
-        <a class="proj-link" href="{{ p.link.url }}" target="_blank" rel="noopener">{{ p.link.label | escape }} {% include icon.html cls="fa-solid fa-arrow-up-right-from-square" %}</a>
+        {%- if p.links or p.link %}
+        <div class="proj-links">
+          {%- for l in p.links %}
+          <a class="proj-link" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label | escape }} {% include icon.html cls="fa-solid fa-arrow-up-right-from-square" %}</a>
+          {%- endfor %}
+          {%- if p.link %}
+          <a class="proj-link" href="{{ p.link.url }}" target="_blank" rel="noopener">{{ p.link.label | escape }} {% include icon.html cls="fa-solid fa-arrow-up-right-from-square" %}</a>
+          {%- endif %}
+        </div>
         {%- endif %}
         {% include tags.html tags=p.tags style="margin-top:auto" %}
       </div>
