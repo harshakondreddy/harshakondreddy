@@ -35,11 +35,6 @@ jobs:
     emoji: 🏭
     logo: assets/logos/intelligrated.png
     logo_alt: Intelligrated logo
-    highlights:
-      - { value: "100+",      label: containers per env }
-      - { value: "98%",       label: uptime }
-      - { value: "1.21→1.35", label: K8s }
-      - { value: "5",         label: "engineers (acting lead)" }
     bullets:
       - Co-designed, deployed, and supported **Kubernetes platforms** across on-premises bare metal, Azure and Oracle VMs, AKS, and EKS.
       - Built and upgraded **RHEL-based Kubernetes clusters** using Kubespray, kubeadm, containerd, HAProxy, and NFS, including etcd and container-runtime compatibility.
