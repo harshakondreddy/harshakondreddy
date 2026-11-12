@@ -1028,3 +1028,5 @@
   .pm-flow{display:flex;flex-direction:column;gap:.3rem;margin:0 0 1.1rem}
   .pm-step{padding:.55rem .8rem;border-radius:10px;border:1px solid var(--border);background:rgba(255,122,26,.07);color:var(--t1);font-size:.8rem;font-weight:600;line-height:1.35}
   .pm-arrow{display:flex;justify-content:center;color:var(--p);font-size:.8rem;transform:rotate(90deg);height:1rem;align-items:center}
+  /* While a case study is open, other cards keep their natural height instead of stretching to the open one */
+  .proj-grid.has-open{align-items:start}
