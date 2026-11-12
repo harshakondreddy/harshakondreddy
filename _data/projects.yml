@@ -102,6 +102,14 @@ projects:
     emoji: 🤖
     description: Use AI in day-to-day operations to troubleshoot **VM slowness** and **cache issues** and to find the relevant entries in large logs, always validating the output against live systems before acting. Built **Ask Your Logs**, a proof-of-concept FastAPI service that reads Elasticsearch logs, redacts secrets, and asks a local or cloud LLM for a plain-English summary.
     tags: [AI, GitHub Copilot, FastAPI, Elasticsearch, Ollama]
+    case_study:
+      metrics:
+        - { value: "Copilot", label: "daily assistant" }
+        - { value: "PoC", label: "Ask Your Logs" }
+        - { value: "human", label: "final decision" }
+      challenge: "Finding the cause of VM slowness, cache issues, or a failing service meant digging through large logs by hand, often under time pressure."
+      approach: "Used GitHub Copilot and Microsoft 365 Copilot to narrow down likely causes and find the relevant log entries, then checked every suggestion against the live system before acting. Built Ask Your Logs, a proof of concept that summarizes Elasticsearch logs with an LLM after removing secrets."
+      impact: "Faster first-pass troubleshooting, with every command and production decision still made by an engineer."
 
   - name: "SpringInfo: Chrome Extension for the Eureka Service Registry"
     emoji: 🍃
@@ -110,3 +118,11 @@ projects:
     link:
       label: Chrome Web Store
       url: https://chromewebstore.google.com/detail/springinfo/iecndflkildoooajkgdllmdjplpjabdf
+    case_study:
+      metrics:
+        - { value: "Chrome", label: "Web Store" }
+        - { value: "Eureka", label: "service registry" }
+        - { value: "SE team", label: "release checks" }
+      challenge: "During releases, the SE team had to check services one by one in the Eureka registry page to confirm everything was up and correct."
+      approach: "Built a Chrome extension that reads the Eureka registry and shows service details and Swagger links in one place, with easier navigation through the service list."
+      impact: "Quicker and easier release validation for the SE team."
