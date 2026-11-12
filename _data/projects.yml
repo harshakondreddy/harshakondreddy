@@ -97,32 +97,6 @@ projects:
       approach: "Co-led planning and cutover, converted pipelines to GitHub Actions, maintained self-hosted runner configuration, and rolled out static analysis across repositories."
       impact: "Teams consolidated onto GitHub and GitHub Actions; release manifests and Helm values now move through reviewed pull requests (210 authored across 77 repositories)."
 
-  - name: Multi-Site Hardening & Patching Plan
-    emoji: 🧩
-    description: Planned and staged a **7-change hardening and patching package** for about 22 production sites — each with downtime, risk, test status, and customer decision documented — and tested it in 4 staging environments before rollout.
-    tags: [RHEL, Kubernetes, Ansible, Change Management]
-    case_study:
-      metrics:
-        - { value: "~22", label: "sites planned" }
-        - { value: "7", label: "changes" }
-        - { value: "4", label: "staging envs tested" }
-      challenge: "Many customer sites needed the same security hardening and patches, each with its own downtime window and approval."
-      approach: "Bundled the changes (for example kubectl via Ansible, kubelet read-only port disabled, unused services removed, Kafka anti-affinity) with risk, rollback, and test status per change, and validated them in staging first."
-      impact: "A decision-ready, tested plan customers can approve site by site, with rollback documented for every change."
-
-  - name: PostgreSQL 15 Platform & Certificate Runbooks
-    emoji: 🗄️
-    description: Ported the product's database provisioning to **PostgreSQL 15** on RHEL 9 and Ubuntu 24.04 and restored 22 microservice databases one at a time with verification; wrote certificate runbooks for Kubernetes control-plane renewals, HAProxy PEM files, and Kafka client certificates.
-    tags: [PostgreSQL, RHEL, Certificates, HAProxy, Kafka]
-    case_study:
-      metrics:
-        - { value: "PG 12→15", label: "provisioning" }
-        - { value: "22", label: "databases restored" }
-        - { value: "3", label: "cert runbooks" }
-      challenge: "Database provisioning targeted an older PostgreSQL and OS, and certificate renewals were risky manual steps."
-      approach: "Rebuilt provisioning (LVM/XFS layout, scram-sha-256, subnet-restricted access, repmgr, pg_cron, WAL archiving, tuned settings) and reboot-tested it across a 7-server stage; wrote expiry checks, dated backups and rollback steps for each certificate type."
-      impact: "Current, verified database builds and certificate renewals an on-call engineer can run safely."
-
   - name: AI-Assisted Operations with Human Validation
     emoji: 🤖
     description: Built **Ask Your Logs**, a proof-of-concept FastAPI service that reads Elasticsearch logs, redacts secrets before any prompt leaves the cluster, and asks a swappable LLM (Gemini, OpenAI, Azure OpenAI, or local Ollama) for a plain-English summary — alongside AI-assisted audits that are always checked against live systems.
