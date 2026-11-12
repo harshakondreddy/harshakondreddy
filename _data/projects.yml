@@ -30,11 +30,6 @@ projects:
         - { value: "1.32→1.35", label: "upgrade patch" }
         - { value: "3 + 5", label: "control planes + workers" }
         - { value: "~650 MB", label: "offline bundle" }
-      flow:
-        - "Connected build host: RPMs, images, wheels"
-        - "Checksummed ~650 MB bundle"
-        - "Local RPM repo + registry on site"
-        - "Air-gapped cluster: install & 1.35 upgrade"
       challenge: "The customer environment had no internet access, a restricted registry, and strict firewall rules, yet the cluster had to stay current and supportable."
       approach: "Built complete offline bundles (dependency-resolved RPMs, container images, Python wheels) moved by checksummed transfer into a local RPM repository; configured containerd proxy drop-ins and pull secrets; authored the 1.32 → 1.35 patch (kubeadm v1beta3 → v1beta4, pinned containerd, etcd, CoreDNS and pause versions) and ran offline CoreDNS and Calico operator upgrades with rollback."
       impact: "A repeatable, internet-free delivery path that moves the platform from QA to production with the same artifacts and a tested rollback."
