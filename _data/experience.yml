@@ -72,10 +72,6 @@ jobs:
     emoji: ⚡
     logo: assets/logos/staxa.png
     logo_alt: Staxa Technologies logo
-    highlights:
-      - { value: Azure,   label: Kubernetes }
-      - { value: Jenkins, label: CI/CD }
-      - { value: EFK,     label: logging }
     bullets:
       - Built and maintained **Jenkins CI/CD pipelines** for microservice builds, Docker image publishing to registries, and production deployments.
       - Containerized applications with **Docker** and Docker Compose, managing images, snapshots, and volumes across environments.
@@ -101,10 +97,6 @@ jobs:
     emoji: 🔧
     logo: assets/logos/veridic.png
     logo_alt: Veridic Solutions logo
-    highlights:
-      - { value: Docker,    label: CI }
-      - { value: Terraform, label: IaC }
-      - { value: Azure,     label: networking }
     bullets:
       - Built and maintained Linux-based **Docker clusters** integrated with Git for continuous integration.
       - Containerized applications with Docker Compose, managed container snapshots and volumes, and deployed to target environments.
@@ -123,10 +115,6 @@ jobs:
     location: Hyderabad, India
     period: Feb 2016 – May 2017 · 1 yr 4 mo
     emoji: 🖥️
-    highlights:
-      - { value: Linux, label: servers }
-      - { value: Chef,  label: automation }
-      - { value: AWS,   label: CloudFormation }
     bullets:
       - Administered and tuned **Linux servers** supporting global operations, troubleshooting issues and applying upgrades and patches.
       - Automated server provisioning and configuration using **Chef cookbooks**, shell scripts, and AWS CloudFormation templates.
