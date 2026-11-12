@@ -83,7 +83,7 @@ projects:
         - { value: "on-prem + VMware", label: "infrastructure" }
       challenge: "Services ran on standalone Docker hosts with no high availability or disaster recovery, and a single Kubernetes master later proved to be a single point of failure: power outages or patching meant downtime."
       approach: "Chose Kubernetes with Helm charts over Docker Swarm, then moved from one control-plane node to a multi-master cluster using open-source Kubespray, customized with our own scripts for the HAProxy install, versions and install paths, NFS storage, certificates, and application-specific dependencies."
-      impact: "Better high availability and disaster recovery overall: the platform keeps running through a master outage or planned patching."
+      impact: "Better high availability and disaster recovery overall: the platform keeps running through a master outage or planned patching, and handles more traffic and workload."
 
   - name: "Org-Wide SCM & CI/CD Migration: Bitbucket + Bamboo → GitHub & GitHub Actions"
     emoji: 🚀
