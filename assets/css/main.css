@@ -1020,3 +1020,11 @@
   .proj-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;font-weight:600;color:var(--p);margin:-.2rem 0 1rem;text-decoration:none}
   .proj-link:hover{text-decoration:underline}
   .proj-link .ico{font-size:.7rem}
+  /* Project / open-source links */
+  .proj-links{display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;margin:-.2rem 0 1rem}
+  .proj-links .proj-link{margin:0}
+  .oss-status{display:inline-block;margin-left:.4rem;padding:.08rem .5rem;border-radius:50px;font-size:.66rem;font-weight:600;vertical-align:middle;color:var(--t3);border:1px solid var(--border)}
+  /* Case-study flow diagram */
+  .pm-flow{display:flex;flex-direction:column;gap:.3rem;margin:0 0 1.1rem}
+  .pm-step{padding:.55rem .8rem;border-radius:10px;border:1px solid var(--border);background:rgba(255,122,26,.07);color:var(--t1);font-size:.8rem;font-weight:600;line-height:1.35}
+  .pm-arrow{display:flex;justify-content:center;color:var(--p);font-size:.8rem;transform:rotate(90deg);height:1rem;align-items:center}

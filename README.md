@@ -13,6 +13,7 @@ I also build practical tools—from a published Chrome extension to macOS keyboa
 - **[SpringInfo](https://github.com/harshakondreddy/springinfo)** — A Chrome extension I created and published that helps inspect Spring services registered in Eureka, with service information, Swagger links, and table navigation tools.
 - **[HacKey](https://github.com/harshakondreddy/HacKey)** — A local-first macOS tool for keyboard-driven clicking and scrolling using Accessibility APIs.
 - **[AI Skills](https://github.com/harshakondreddy/AI-skills)** — Reusable agent skills, including an engineering workflow that structures planning, execution, and verification around observable evidence.
+- **[Ask Your Logs](https://github.com/harshakondreddy/Ask-your-logs)** — Proof-of-concept FastAPI service that reads Elasticsearch logs, redacts secrets, and asks a local or cloud LLM for a plain-English summary.
 
 ## Engineering Focus
 

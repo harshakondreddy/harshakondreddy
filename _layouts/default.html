@@ -25,6 +25,7 @@ window.SITE = {
   experienceFilters: {{ site.data.experience.filter_buttons | jsonify }},
   caseStudies: [{% for p in site.data.projects.projects %}{% if p.case_study %}{
     metrics: [{% for m in p.case_study.metrics %}[{{ m.value | jsonify }}, {{ m.label | jsonify }}]{% unless forloop.last %}, {% endunless %}{% endfor %}],
+    flow: {% if p.case_study.flow %}{{ p.case_study.flow | jsonify }}{% else %}[]{% endif %},
     challenge: {{ p.case_study.challenge | jsonify }},
     approach: {{ p.case_study.approach | jsonify }},
     impact: {{ p.case_study.impact | jsonify }}

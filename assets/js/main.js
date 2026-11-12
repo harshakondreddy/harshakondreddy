@@ -367,6 +367,7 @@ nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function
       {label:'Education',sub:'Academic background',icon:'fa-graduation-cap',kw:'education degree school',run:function(){goTo('#education');}},
       {label:'Certifications',sub:'Licenses & certs',icon:'fa-certificate',kw:'certifications aws cisco',run:function(){goTo('#certifications');}},
       {label:'Projects',sub:'Featured work',icon:'fa-diagram-project',kw:'projects case study',run:function(){goTo('#projects');}},
+      {label:'Open Source',sub:'Public code on GitHub',icon:'fa-brands fa-github',kw:'open source github code repos',run:function(){goTo('#opensource');}},
       {label:'Toggle theme',sub:'Dark / light mode',icon:'fa-circle-half-stroke',kw:'theme dark light mode',run:function(){var b=document.getElementById('thm');if(b)b.click();}},
       {label:'Copy email',sub:SITE.email,icon:'fa-envelope',kw:'email copy contact',run:function(){if(navigator.clipboard)navigator.clipboard.writeText(SITE.email);}},
       {label:'Open GitHub',sub:SITE.githubLabel,icon:'fa-brands fa-github',kw:'github profile',run:function(){window.open(SITE.githubUrl,'_blank','noopener');}},
@@ -549,7 +550,9 @@ nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function
       var detail=document.createElement('div');
       detail.className='proj-detail';
       detail.id='projd'+i;
-      detail.innerHTML=
+      var esc=function(t){var e=document.createElement('span');e.textContent=t;return e.innerHTML;};
+      var flow=(d.flow&&d.flow.length)?'<div class="pm-flow" role="list" aria-label="How it worked">'+d.flow.map(function(f){return '<div class="pm-step" role="listitem">'+esc(f)+'</div>';}).join('<div class="pm-arrow" aria-hidden="true">'+ico('fa-solid fa-arrow-right')+'</div>')+'</div>':'';
+      detail.innerHTML=flow+
         '<div class="pm-metrics">'+(d.metrics||[]).map(function(m){return '<div class="pm-metric"><b>'+m[0]+'</b><span>'+m[1]+'</span></div>';}).join('')+'</div>'+
         '<div class="pm-sec"><h3>'+ico('fa-solid fa-triangle-exclamation')+' The Challenge</h3><p>'+d.challenge+'</p></div>'+
         '<div class="pm-sec"><h3>'+ico('fa-solid fa-screwdriver-wrench')+' Approach</h3><p>'+d.approach+'</p></div>'+

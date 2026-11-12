@@ -5,9 +5,10 @@
 #   name, emoji, description
 #   tags   technology chips. Plain names get colours automatically in order
 #          (orange, green, cyan, amber, yellow). Or use { name: X, color: g }.
-#   link         optional { label, url } — shows a small link under the description
+#   links        optional list of { label, url } — small links under the description (e.g. GitHub, store page)
 #   case_study   optional. Adds the "View case study" button with:
-#                metrics (3 small value/label boxes), challenge, approach, impact
+#                metrics (3 small value/label boxes), challenge, approach, impact,
+#                and optional flow (a list of steps drawn as a simple left-to-right diagram)
 #
 # To add a project: copy a block (from "- name:" down to its tags) and edit it.
 # ─────────────────────────────────────────────────────────────
@@ -29,6 +30,11 @@ projects:
         - { value: "1.32→1.35", label: "upgrade patch" }
         - { value: "3 + 5", label: "control planes + workers" }
         - { value: "~650 MB", label: "offline bundle" }
+      flow:
+        - "Connected build host: RPMs, images, wheels"
+        - "Checksummed ~650 MB bundle"
+        - "Local RPM repo + registry on site"
+        - "Air-gapped cluster: install & 1.35 upgrade"
       challenge: "The customer environment had no internet access, a restricted registry, and strict firewall rules, yet the cluster had to stay current and supportable."
       approach: "Built complete offline bundles (dependency-resolved RPMs, container images, Python wheels) moved by checksummed transfer into a local RPM repository; configured containerd proxy drop-ins and pull secrets; authored the 1.32 → 1.35 patch (kubeadm v1beta3 → v1beta4, pinned containerd, etcd, CoreDNS and pause versions) and ran offline CoreDNS and Calico operator upgrades with rollback."
       impact: "A repeatable, internet-free delivery path that moves the platform from QA to production with the same artifacts and a tested rollback."
@@ -81,6 +87,10 @@ projects:
         - { value: "1 → 5", label: "control-plane nodes" }
         - { value: "2021–2023", label: "timeline" }
         - { value: "on-prem + VMware", label: "infrastructure" }
+      flow:
+        - "Docker hosts · no HA / DR"
+        - "Kubernetes + Helm · 1 master"
+        - "Kubespray multi-master · 5 masters + HAProxy"
       challenge: "Services ran on standalone Docker hosts with no high availability or disaster recovery, and a single Kubernetes master later proved to be a single point of failure: power outages or patching meant downtime."
       approach: "Chose Kubernetes with Helm charts over Docker Swarm, then moved from one control-plane node to a multi-master cluster using open-source Kubespray, customized with our own scripts for the HAProxy install, versions and install paths, NFS storage, certificates, and application-specific dependencies."
       impact: "Better high availability and disaster recovery overall: the platform keeps running through a master outage or planned patching, and handles more traffic and workload."
@@ -102,6 +112,8 @@ projects:
     emoji: 🤖
     description: Use AI in day-to-day operations to troubleshoot **VM slowness** and **cache issues** and to find the relevant entries in large logs, always validating the output against live systems before acting. Built **Ask Your Logs**, a proof-of-concept FastAPI service that reads Elasticsearch logs, redacts secrets, and asks a local or cloud LLM for a plain-English summary.
     tags: [AI, GitHub Copilot, FastAPI, Elasticsearch, Ollama]
+    links:
+      - { label: Ask Your Logs on GitHub, url: "https://github.com/harshakondreddy/Ask-your-logs" }
     case_study:
       metrics:
         - { value: "Copilot", label: "daily assistant" }
@@ -115,9 +127,9 @@ projects:
     emoji: 🍃
     description: Built and published a Chrome extension that reads the Spring **Eureka** service registry, so the SE team can quickly validate service versions and status during releases.
     tags: [Chrome Extension, JavaScript, Spring Boot, Eureka]
-    link:
-      label: Chrome Web Store
-      url: https://chromewebstore.google.com/detail/springinfo/iecndflkildoooajkgdllmdjplpjabdf
+    links:
+      - { label: GitHub, url: "https://github.com/harshakondreddy/springinfo" }
+      - { label: Chrome Web Store, url: "https://chromewebstore.google.com/detail/springinfo/iecndflkildoooajkgdllmdjplpjabdf" }
     case_study:
       metrics:
         - { value: "Chrome", label: "Web Store" }
