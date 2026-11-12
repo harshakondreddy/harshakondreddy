@@ -85,10 +85,10 @@ projects:
       metrics:
         - { value: "100–150", label: "repositories" }
         - { value: "co-led", label: "migration" }
-        - { value: "210", label: "PRs authored" }
-      challenge: "Source control and CI/CD were split across Bitbucket and Bamboo, slowing delivery across product teams."
+        - { value: "Bamboo → GHA", label: "pipelines rebuilt" }
+      challenge: "The organization decided to move off Bitbucket and Bamboo to GitHub and GitHub Actions for security, licensing, and official tooling approval reasons — without disrupting ongoing releases."
       approach: "Co-led planning and cutover, converted pipelines to GitHub Actions, maintained self-hosted runner configuration, and rolled out static analysis across repositories."
-      impact: "Teams consolidated onto GitHub and GitHub Actions; release manifests and Helm values now move through reviewed pull requests (210 authored across 77 repositories)."
+      impact: "Teams consolidated onto the approved GitHub and GitHub Actions platform, with releases moving through reviewed pull requests."
 
   - name: AI-Assisted Operations with Human Validation
     emoji: 🤖
