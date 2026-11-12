@@ -74,8 +74,16 @@ projects:
 
   - name: "From Docker to Multi-Master Kubernetes with Kubespray"
     emoji: ☸️
-    description: At Intelligrated, moved services from standalone **Docker** hosts to **Kubernetes** — first a single control-plane cluster, then upgraded to a highly available **multi-master** setup using open-source Kubespray, customized with our own shell scripts for networking, storage, and each environment.
-    tags: [Kubernetes, Kubespray, Docker, Ansible, On-Premises]
+    description: At Intelligrated (2021–2023), moved services from standalone **Docker** hosts with no HA or DR to **Kubernetes with Helm charts** — chosen over Docker Swarm — then scaled from a single control-plane node to a **multi-master** cluster with open-source Kubespray on on-premises and VMware servers.
+    tags: [Kubernetes, Kubespray, Helm, Docker, VMware]
+    case_study:
+      metrics:
+        - { value: "1 → 5", label: "control-plane nodes" }
+        - { value: "2021–2023", label: "timeline" }
+        - { value: "on-prem + VMware", label: "infrastructure" }
+      challenge: "Services ran on standalone Docker hosts with no high availability or disaster recovery, and a single Kubernetes master later proved to be a single point of failure: power outages or patching meant downtime."
+      approach: "Chose Kubernetes with Helm charts over Docker Swarm, then moved from one control-plane node to a multi-master cluster using open-source Kubespray, customized with our own scripts for the HAProxy install, versions and install paths, NFS storage, certificates, and application-specific dependencies."
+      impact: "Better high availability and disaster recovery overall: the platform keeps running through a master outage or planned patching."
 
   - name: "Org-Wide SCM & CI/CD Migration: Bitbucket + Bamboo → GitHub & GitHub Actions"
     emoji: 🚀
