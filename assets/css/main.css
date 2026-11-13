@@ -879,7 +879,6 @@
     .cmdk-box{max-height:74vh}
   }
   .snd-btn i{font-size:.85rem}
-  .snd-btn{display:none !important}
 
   /* ── Custom cursor (fine-pointer desktop; native cursor restored if JS doesn't init) ── */
   body.has-custom-cursor,body.has-custom-cursor *{cursor:none !important}

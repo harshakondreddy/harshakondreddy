@@ -12,12 +12,12 @@ function ico(cls){
   return '<i class="ico '+cls+'" style="--ico:url('+u+')" aria-hidden="true"></i>';
 }
 window.ico=ico;
-/* ── Theme toggle (persists; defaults to device setting) ── */
+/* ── Theme toggle: follows the device/browser setting; a manual switch lasts only for this tab session ── */
 (function(){
   var root=document.documentElement,btn=document.getElementById('thm');
   btn.addEventListener('click',function(){
     var t=root.getAttribute('data-theme')==='dark'?'light':'dark';
-    function apply(){root.setAttribute('data-theme',t);try{localStorage.setItem('hk-theme',t);}catch(e){}}
+    function apply(){root.setAttribute('data-theme',t);try{sessionStorage.setItem('hk-theme',t);}catch(e){}}
     /* Circular reveal from the toggle button (View Transitions API); instant switch where unsupported */
     if(document.startViewTransition&&matchMedia('(prefers-reduced-motion: no-preference)').matches){
       var r=btn.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;
@@ -26,8 +26,9 @@ window.ico=ico;
       document.startViewTransition(apply);
     }else apply();
   });
-  var mq=window.matchMedia('(prefers-color-scheme:light)');
-  function ap(){if(!localStorage.getItem('hk-theme'))root.setAttribute('data-theme',mq.matches?'light':'dark');}
+  var mq=window.matchMedia('(prefers-color-scheme: light)');
+  /* Device theme changed: follow it and drop any manual switch */
+  function ap(){try{sessionStorage.removeItem('hk-theme');}catch(e){}root.setAttribute('data-theme',mq.matches?'light':'dark');}
   if(mq.addEventListener)mq.addEventListener('change',ap);else if(mq.addListener)mq.addListener(ap);
 })();
 
