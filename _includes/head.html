@@ -1,6 +1,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <script>(function(){var t=localStorage.getItem('hk-theme')||(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',t);})()</script>
+  <script>(function(){var t=null;try{localStorage.removeItem('hk-theme');t=sessionStorage.getItem('hk-theme');}catch(e){}t=t||(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',t);})()</script>
   <script>
   /* GPU acceleration detection — runs synchronously so CSS class is present before first paint */
   (function(){
@@ -33,7 +33,8 @@
   <link rel="icon" href="{{ site.data.site.favicon }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <meta name="theme-color" content="#16130f">
+  <meta name="theme-color" content="#16130f" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#e8eaf0" media="(prefers-color-scheme: light)">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <!-- Devicon CSS only supplies logo brand colours (icons themselves are SVGs), so it must not block the first paint -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css" media="print" onload="this.media='all'">
