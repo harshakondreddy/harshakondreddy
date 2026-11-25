@@ -54,4 +54,4 @@ I also build practical tools—from a published Chrome extension to macOS keyboa
 
 Open to collaborating on Kubernetes, infrastructure automation, and developer tools.
 
-[Email](mailto:mailtoharsha0611@gmail.com) · [Stack Overflow](https://stackoverflow.com/users/19482210/harsha)
+[Email](mailto:reachharsha0611@gmail.com) · [Stack Overflow](https://stackoverflow.com/users/19482210/harsha)

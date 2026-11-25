@@ -23,7 +23,7 @@ clock:
   city: ""                       # optional, read out by screen readers
   timezone: America/New_York     # IANA name, e.g. America/Chicago, Asia/Kolkata
 
-email: mailtoharsha0611@gmail.com
+email: reachharsha0611@gmail.com
 
 github_url: https://github.com/harshakondreddy
 github_label: github.com/harshakondreddy
